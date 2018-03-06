@@ -35,8 +35,26 @@ def writeToolboxJSON(fcnlist, toolboxname, dest='./JSONout'):
     Write input toolbox function list to dest/toolboxname.JSON
     """
     filepath = Path(dest) / f'{toolboxname}.JSON'
-    with filepath.open('w') as fID:
+    with filepath.open(mode='w') as fID:
         json.dump(fcnlist, fID)
+
+def concatenatefcns(JSONpath='./JSONout', fname='combined'):
+    """
+    Generate concatenated function set from directory of JSON files and write to 'fname.JSON'
+
+    Assumes JSON file is a list of function name strings 
+    """
+    JSONpath = Path(JSONpath)
+    outfilepath = JSONpath / f'{fname}.JSON'
+
+    fcnset = set()
+    for fcnJSON in JSONpath.glob('*.JSON'):
+        with fcnJSON.open(mode='r') as fID:
+            fcnset.update(json.load(fID))
+    
+    print(len(fcnset))
+    with outfilepath.open(mode='w') as fID:
+        json.dump(sorted(fcnset), fID)
 
 
 
@@ -49,3 +67,5 @@ if __name__ == "__main__":
             writeToolboxJSON(fcnlist, toolbox)
         except (requests.exceptions.Timeout, requests.exceptions.ConnectionError):
             print(f"Unable to access online docs for '{toolbox}': '{URL}'")
+    else:
+        concatenatefcns()
