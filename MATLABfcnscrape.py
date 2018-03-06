@@ -21,7 +21,7 @@ def scrapedocpage(URL):
 
     Returns a list of function name strings
     """
-    r = requests.get(URL)
+    r = requests.get(URL, timeout=1)
     soup = BeautifulSoup(r.content, 'html.parser')
 
     tags = soup.find_all(attrs={'class': 'function'})
@@ -44,6 +44,8 @@ if __name__ == "__main__":
     URLJSON = './fcnURL.JSON'
     toolboxdict = loadURLdict(URLJSON)
     for toolbox, URL in toolboxdict.items():
-        fcnlist = scrapedocpage(URL)
-        writeToolboxJSON(fcnlist, toolbox)
-    
+        try:
+            fcnlist = scrapedocpage(URL)
+            writeToolboxJSON(fcnlist, toolbox)
+        except (requests.exceptions.Timeout, requests.exceptions.ConnectionError):
+            print(f"Unable to access online docs for '{toolbox}': '{URL}'")
