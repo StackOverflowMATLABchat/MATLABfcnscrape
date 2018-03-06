@@ -1,7 +1,17 @@
 import json
+from pathlib import Path
 
 import requests
 from bs4 import BeautifulSoup
+
+def loadURLdict(sourceJSON):
+    """
+    Load URL dictionary from input JSON file
+
+    Expected dict format is key: toolbox name, value: alphabetical function list URL
+    """
+    with open(sourceJSON, mode='r') as fID:
+        return json.load(fID)
 
 def scrapedocpage(URL):
     """
@@ -19,3 +29,21 @@ def scrapedocpage(URL):
     fcns = [tag.string for tag in tags if ('.' not in tag.string and '%' not in tag.string)]
 
     return fcns
+
+def writeToolboxJSON(fcnlist, toolboxname, dest='./JSONout'):
+    """
+    Write input toolbox function list to dest/toolboxname.JSON
+    """
+    filepath = Path(dest) / f'{toolboxname}.JSON'
+    with filepath.open('w') as fID:
+        json.dump(fcnlist, fID)
+
+
+
+if __name__ == "__main__":
+    URLJSON = './fcnURL.JSON'
+    toolboxdict = loadURLdict(URLJSON)
+    for toolbox, URL in toolboxdict.items():
+        fcnlist = scrapedocpage(URL)
+        writeToolboxJSON(fcnlist, toolbox)
+    
