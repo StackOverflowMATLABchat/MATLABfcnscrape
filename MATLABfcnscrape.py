@@ -1,8 +1,21 @@
 import json
+import time
+import logging
 from pathlib import Path
 
 import requests
 from bs4 import BeautifulSoup
+
+# Force UTC Timestamps
+# From the logging cookbook: https://docs.python.org/3/howto/logging-cookbook.html
+class UTCFormatter(logging.Formatter):
+    converter = time.gmtime
+
+logformat = '%(asctime)s %(levelname)s:%(module)s:%(message)s'
+dateformat = '%Y-%m-%d %H:%M:%S'
+logging.basicConfig(filename='./log/scrape.log', filemode='a', level=logging.INFO, 
+                    format=logformat, datefmt=dateformat
+                    )
 
 def loadURLdict(sourceJSON):
     """
@@ -38,8 +51,10 @@ def writeToolboxJSON(fcnlist, toolboxname, JSONpath='./JSONout'):
     """
     Write input toolbox function list to dest/toolboxname.JSON
     """
-    filepath = Path(JSONpath) / f'{toolboxname}.JSON'
-    filepath.mkdir(parents=True, exist_ok=True)  # Create destination folder if it doesn't already exist
+    JSONpath = Path(JSONpath)
+    JSONpath.mkdir(parents=True, exist_ok=True)  # Create destination folder if it doesn't already exist
+    
+    filepath = JSONpath / f'{toolboxname}.JSON'
     with filepath.open(mode='w') as fID:
         json.dump(fcnlist, fID)
 
@@ -57,6 +72,7 @@ def concatenatefcns(JSONpath='./JSONout', fname='combined'):
         with fcnJSON.open(mode='r') as fID:
             fcnset.update(json.load(fID))
     
+    logging.info(f"Concatenated {len(fcnset)} unique functions")
     with outfilepath.open(mode='w') as fID:
         json.dump(sorted(fcnset), fID)
 
@@ -65,11 +81,14 @@ if __name__ == "__main__":
     URLJSON = './fcnURL.JSON'
     outpath = './JSONout/R2018a'
     toolboxdict = loadURLdict(URLJSON)
+    logging.info(f"Scraping {len(toolboxdict)} toolboxes")
+    logging.info(f"Writing results to: {outpath}")
     for toolbox, URL in toolboxdict.items():
         try:
             fcnlist = scrapedocpage(URL)
             writeToolboxJSON(fcnlist, toolbox, outpath)
         except (requests.exceptions.Timeout, requests.exceptions.ConnectionError):
-            print(f"Unable to access online docs for '{toolbox}': '{URL}'")
+            # TODO: Add a retry pipeline
+            logging.info(f"Unable to access online docs for '{toolbox}': '{URL}'")
     else:
         concatenatefcns(outpath)
