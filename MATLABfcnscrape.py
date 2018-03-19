@@ -28,13 +28,18 @@ def scrapedocpage(URL):
     # Exclude object methods (foo.bar) and comments (leading %, used in MATLAB Compiler)
     fcns = [tag.string for tag in tags if ('.' not in tag.string and '%' not in tag.string)]
 
+    # TODO: Filtering on OPC (e.g. foo (opcda))
+    # TODO: Filtering on base MATLAB (e.g. ColorSpec, LineSpec), probably have to do a blacklist
+    # TODO: Filter on Computer Vision (e.g. take out C++ syntax, ocvCvRectToBoundingBox_{DataType}), probably have to do a blacklist
+
     return fcns
 
-def writeToolboxJSON(fcnlist, toolboxname, dest='./JSONout'):
+def writeToolboxJSON(fcnlist, toolboxname, JSONpath='./JSONout'):
     """
     Write input toolbox function list to dest/toolboxname.JSON
     """
-    filepath = Path(dest) / f'{toolboxname}.JSON'
+    filepath = Path(JSONpath) / f'{toolboxname}.JSON'
+    filepath.mkdir(parents=True, exist_ok=True)  # Create destination folder if it doesn't already exist
     with filepath.open(mode='w') as fID:
         json.dump(fcnlist, fID)
 
@@ -52,20 +57,19 @@ def concatenatefcns(JSONpath='./JSONout', fname='combined'):
         with fcnJSON.open(mode='r') as fID:
             fcnset.update(json.load(fID))
     
-    print(len(fcnset))
     with outfilepath.open(mode='w') as fID:
         json.dump(sorted(fcnset), fID)
 
 
-
 if __name__ == "__main__":
     URLJSON = './fcnURL.JSON'
+    outpath = './JSONout/R2018a'
     toolboxdict = loadURLdict(URLJSON)
     for toolbox, URL in toolboxdict.items():
         try:
             fcnlist = scrapedocpage(URL)
-            writeToolboxJSON(fcnlist, toolbox)
+            writeToolboxJSON(fcnlist, toolbox, outpath)
         except (requests.exceptions.Timeout, requests.exceptions.ConnectionError):
             print(f"Unable to access online docs for '{toolbox}': '{URL}'")
     else:
-        concatenatefcns()
+        concatenatefcns(outpath)
