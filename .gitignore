@@ -1,0 +1,5 @@
+# Ignore Jupyter notebook things
+*.ipynb
+
+# Caches
+__pycache__

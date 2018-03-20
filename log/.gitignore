@@ -1,0 +1,7 @@
+# Enforce an empty log directory so we have it on deployment
+# Thanks SO: https://stackoverflow.com/a/932982/2748311
+
+# Ignore everything in this directory
+*
+# Except this file
+!.gitignore

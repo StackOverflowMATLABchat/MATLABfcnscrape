@@ -1,0 +1,23 @@
+[
+    "applicationCompiler",
+    "componentinfo",
+    "ctfroot",
+    "deploytool",
+    "deploytool",
+    "deploytool",
+    "getmcruserdata",
+    "hadoopCompiler",
+    "isdeployed",
+    "ismcc",
+    "libraryCompiler",
+    "mapreduce",
+    "mapreducer",
+    "mapreducer",
+    "mcc",
+    "mcc",
+    "mcc",
+    "mcrinstaller",
+    "mcrversion",
+    "setmcruserdata",
+    "webAppCompiler"
+]
