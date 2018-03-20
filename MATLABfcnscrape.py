@@ -21,11 +21,18 @@ def loadURLdict(sourceJSON):
     """
     Load URL dictionary from input JSON file
 
-    Expected dict format is key: toolbox name, value: alphabetical function list URL
+    Expected input dict format a nested dict:
+        Top level dict is MATLAB's "Family" group
+        Next level is a dict of toolbox:URL KV-pair for each group
+
+    Output is a single layer dict containing the toolbox:url KV-pairs
     """
     sourceJSON = Path(sourceJSON)
     with sourceJSON.open(mode='r') as fID:
-        return json.load(fID)
+        tmp = json.load(fID)
+
+    squeezegen = (tmp[grouping] for grouping in tmp.keys())
+    return {k: v for d in squeezegen for k, v in d.items()}
 
 def scrapedocpage(URL):
     """
@@ -35,7 +42,7 @@ def scrapedocpage(URL):
 
     Returns a list of function name strings
     """
-    r = requests.get(URL, timeout=1)
+    r = requests.get(URL, timeout=2)
     soup = BeautifulSoup(r.content, 'html.parser')
 
     tags = soup.find_all(attrs={'class': 'function'})
@@ -83,7 +90,7 @@ def scrapetoolboxes(URL="https://www.mathworks.com/help/index.html", JSONpath = 
 
     Dictionary is dumped to JSON/fname.JSON
     """
-    r = requests.get(URL, timeout=1)
+    r = requests.get(URL, timeout=2)
     soup = BeautifulSoup(r.content, 'html.parser')
 
     # Get first header that matches 'MATLAB', this should be our 'MATLAB Family' column
@@ -131,7 +138,7 @@ if __name__ == "__main__":
             fcnlist = scrapedocpage(URL)
             writeToolboxJSON(fcnlist, toolbox, outpath)
         except (requests.exceptions.Timeout, requests.exceptions.ConnectionError):
-            # TODO: Add a retry pipeline
+            # TODO: Add a retry pipeline, verbosity of exception
             logging.info(f"Unable to access online docs for '{toolbox}': '{URL}'")
     else:
         concatenatefcns(outpath)
