@@ -1,1 +1,7 @@
-["fdhdltool", "generatehdl", "generatetbstimulus", "hdlfilterdainfo", "hdlfilterserialinfo"]
+[
+    "fdhdltool",
+    "generatehdl",
+    "generatetbstimulus",
+    "hdlfilterdainfo",
+    "hdlfilterserialinfo"
+]

@@ -1,1 +1,14 @@
-["compwiz", "docview", "pptview", "report", "rptconvert", "rptlist", "rptrebuildcache", "rptrebuildregistry", "rptview", "setedit", "unzipTemplate", "zipTemplate"]
+[
+    "compwiz",
+    "docview",
+    "pptview",
+    "report",
+    "rptconvert",
+    "rptlist",
+    "rptrebuildcache",
+    "rptrebuildregistry",
+    "rptview",
+    "setedit",
+    "unzipTemplate",
+    "zipTemplate"
+]

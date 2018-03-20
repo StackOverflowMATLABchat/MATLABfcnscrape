@@ -1,1 +1,26 @@
-["asiosettings", "audioPluginInterface", "audioPluginParameter", "configureMIDI", "designParamEQ", "designShelvingEQ", "designVarSlopeFilter", "disconnectMIDI", "generateAudioPlugin", "getAudioDevices", "getMIDIConnections", "integratedLoudness", "loadAudioPlugin", "mfcc", "midicallback", "midicontrols", "mididevinfo", "midiid", "midiread", "midireceive", "midisend", "midisync", "pitch", "validateAudioPlugin"]
+[
+    "asiosettings",
+    "audioPluginInterface",
+    "audioPluginParameter",
+    "configureMIDI",
+    "designParamEQ",
+    "designShelvingEQ",
+    "designVarSlopeFilter",
+    "disconnectMIDI",
+    "generateAudioPlugin",
+    "getAudioDevices",
+    "getMIDIConnections",
+    "integratedLoudness",
+    "loadAudioPlugin",
+    "mfcc",
+    "midicallback",
+    "midicontrols",
+    "mididevinfo",
+    "midiid",
+    "midiread",
+    "midireceive",
+    "midisend",
+    "midisync",
+    "pitch",
+    "validateAudioPlugin"
+]

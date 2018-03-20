@@ -1,1 +1,5 @@
-["deploytool", "mcc", "productionServerCompiler"]
+[
+    "deploytool",
+    "mcc",
+    "productionServerCompiler"
+]
