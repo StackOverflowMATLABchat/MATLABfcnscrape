@@ -23,7 +23,8 @@ def loadURLdict(sourceJSON):
 
     Expected dict format is key: toolbox name, value: alphabetical function list URL
     """
-    with open(sourceJSON, mode='r') as fID:
+    sourceJSON = Path(sourceJSON)
+    with sourceJSON.open(mode='r') as fID:
         return json.load(fID)
 
 def scrapedocpage(URL):
@@ -56,7 +57,7 @@ def writeToolboxJSON(fcnlist, toolboxname, JSONpath='./JSONout'):
     
     filepath = JSONpath / f'{toolboxname}.JSON'
     with filepath.open(mode='w') as fID:
-        json.dump(fcnlist, fID)
+        json.dump(fcnlist, fID, indent=4)
 
 def concatenatefcns(JSONpath='./JSONout', fname='combined'):
     """
@@ -74,7 +75,49 @@ def concatenatefcns(JSONpath='./JSONout', fname='combined'):
     
     logging.info(f"Concatenated {len(fcnset)} unique functions")
     with outfilepath.open(mode='w') as fID:
-        json.dump(sorted(fcnset), fID)
+        json.dump(sorted(fcnset), fID, indent=4)
+
+def scrapetoolboxes(URL="https://www.mathworks.com/help/index.html", JSONpath = '.', fname='fcnURL'):
+    """
+    Generate a dictionary of toolboxes & link to the alphabetical function list
+
+    Dictionary is dumped to JSON/fname.JSON
+    """
+    r = requests.get(URL, timeout=1)
+    soup = BeautifulSoup(r.content, 'html.parser')
+
+    # Get first header that matches 'MATLAB', this should be our 'MATLAB Family' column
+    # For some reason soup.find_all('h2', string=re.compile('MATLAB')) returns an empty list
+    # Generator approach from SO: https://stackoverflow.com/a/7006873/2748311
+    matlabheader = next((t for t in soup.find_all('h2') if t.find(text=re.compile('MATLAB'))), None)
+
+    # Get to column div from the header, this is 2 levels above
+    matlabcolumn = matlabheader.parent.parent
+
+    # Iterate through MATLAB's groupings (does not include base MATLAB) and pull toolboxes & links by group
+    # Build lambda to strip spaces out of the toolbox names
+    namelambda = lambda x: x.replace(" ", "")
+
+    groupeddict = {}
+    # Add base MATLAB manually
+    groupeddict['Base Matlab'] = {'MATLAB': "https://www.mathworks.com/help/matlab/functionlist-alpha.html"}
+    for grouping in matlabcolumn.find_all('h4'):
+        groupeddict[grouping.text] = {namelambda(listitem.text): helpURLbuilder(listitem.a.get('href'))for listitem in grouping.parent.find_all('li')}
+
+    JSONpath = Path(JSONpath)
+    outfilepath = JSONpath / f'{fname}.JSON'
+    with outfilepath.open(mode='w') as fID:
+        json.dump(groupeddict, fID, indent=4)
+
+def helpURLbuilder(shortlink, prefix="https://www.mathworks.com/help/", suffix="/functionlist-alpha.html"):
+    """
+    Helper to build URL for alphabetical function list from the toolbox's shortlink
+
+    e.g. 'https://www.mathworks.com/help/stats/functionlist-alpha.html' from 'stats/index.html'
+
+    Returns a string
+    """
+    return prefix + shortlink.split('/')[0] + suffix
 
 
 if __name__ == "__main__":
