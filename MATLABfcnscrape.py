@@ -1,3 +1,4 @@
+import re
 import json
 import time
 import logging
@@ -17,7 +18,7 @@ logging.basicConfig(filename='./log/scrape.log', filemode='a', level=logging.INF
                     format=logformat, datefmt=dateformat
                     )
 
-def loadURLdict(sourceJSON):
+def loadURLdict(sourceJSON='./fcnURL.JSON'):
     """
     Load URL dictionary from input JSON file
 
@@ -66,7 +67,7 @@ def writeToolboxJSON(fcnlist, toolboxname, JSONpath='./JSONout'):
     with filepath.open(mode='w') as fID:
         json.dump(fcnlist, fID, indent=4)
 
-def concatenatefcns(JSONpath='./JSONout', fname='combined'):
+def concatenatefcns(JSONpath='./JSONout', fname='_combined'):
     """
     Generate concatenated function set from directory of JSON files and write to 'fname.JSON'
 
@@ -128,9 +129,10 @@ def helpURLbuilder(shortlink, prefix="https://www.mathworks.com/help/", suffix="
 
 
 if __name__ == "__main__":
-    URLJSON = './fcnURL.JSON'
     outpath = './JSONout/R2018a'
-    toolboxdict = loadURLdict(URLJSON)
+
+    scrapetoolboxes()
+    toolboxdict = loadURLdict()
     logging.info(f"Scraping {len(toolboxdict)} toolboxes")
     logging.info(f"Writing results to: {outpath}")
     for toolbox, URL in toolboxdict.items():
