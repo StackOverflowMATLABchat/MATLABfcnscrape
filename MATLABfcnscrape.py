@@ -40,7 +40,7 @@ def scrapedocpage(URL):
 
     Object methods (foo.bar) and comments (leading %) are excluded
 
-    Returns a list of function name strings
+    Returns a list of function name strings, or an empty list if none are found (e.g. no permission for toolbox)
     """
     r = requests.get(URL, timeout=2)
     soup = BeautifulSoup(r.content, 'html.parser')
@@ -136,7 +136,11 @@ if __name__ == "__main__":
     for toolbox, URL in toolboxdict.items():
         try:
             fcnlist = scrapedocpage(URL)
-            writeToolboxJSON(fcnlist, toolbox, outpath)
+            if len(fcnlist) == 0:
+                # No functions found, most likely because permission for the toolbox documentation is denied
+                logging.info(f"Permission to view documentation for '{toolbox}' has been denied: {URL}")
+            else:
+                writeToolboxJSON(fcnlist, toolbox, outpath)
         except (requests.exceptions.Timeout, requests.exceptions.ConnectionError):
             # TODO: Add a retry pipeline, verbosity of exception
             logging.info(f"Unable to access online docs for '{toolbox}': '{URL}'")
