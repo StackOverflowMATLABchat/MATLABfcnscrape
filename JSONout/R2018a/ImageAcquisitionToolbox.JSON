@@ -12,6 +12,7 @@
     "getsnapshot",
     "gigecam",
     "gigecamlist",
+    "imaq.VideoDevice",
     "imaqfind",
     "imaqhelp",
     "imaqhwinfo",
