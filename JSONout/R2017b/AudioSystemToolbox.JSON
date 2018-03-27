@@ -1,1 +1,0 @@
-["asiosettings", "audioPluginInterface", "audioPluginParameter", "configureMIDI", "designParamEQ", "designShelvingEQ", "designVarSlopeFilter", "disconnectMIDI", "generateAudioPlugin", "getAudioDevices", "getMIDIConnections", "integratedLoudness", "loadAudioPlugin", "midicallback", "midicontrols", "midiid", "midiread", "midisync", "validateAudioPlugin"]

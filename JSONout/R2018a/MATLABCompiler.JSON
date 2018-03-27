@@ -1,5 +1,6 @@
 [
     "applicationCompiler",
+    "compiler.runtime.download",
     "componentinfo",
     "ctfroot",
     "deploytool",

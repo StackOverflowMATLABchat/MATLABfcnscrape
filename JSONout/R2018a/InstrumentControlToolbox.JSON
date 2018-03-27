@@ -88,6 +88,7 @@
     "udp",
     "update",
     "visa",
+    "visa.spoll",
     "write",
     "write",
     "writeAndRead",

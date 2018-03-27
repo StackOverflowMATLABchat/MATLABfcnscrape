@@ -52,6 +52,7 @@
     "report",
     "restore",
     "rfinterp1",
+    "rfmodel.rational.ispassive",
     "rfparam",
     "rfplot",
     "rfplot",

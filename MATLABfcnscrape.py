@@ -47,12 +47,37 @@ def scrapedocpage(URL):
     soup = BeautifulSoup(r.content, 'html.parser')
 
     tags = soup.find_all(attrs={'class': 'function'})
-    # Exclude object methods (foo.bar) and comments (leading %, used in MATLAB Compiler)
-    fcns = [tag.string for tag in tags if ('.' not in tag.string and '%' not in tag.string)]
+    
+    # Iterate through tags & apply filters before appending to function list
+    fcns = []
+    for tag in tags:
+        line = tag.string
+        # Blacklist filters
+        if re.findall(r'[%:]', line):
+            # Ignore lines with '%' or ':'
+            continue
+        if re.match(r'^ocv', line):
+            # Ignore OpenCV C++ commands
+            continue
+        elif 'ColorSpec' in line or 'LineSpec' in line:
+            # Ignore ColorSpec and LineSpec
+            # TODO: Add JSON function blacklist
+            continue
 
-    # TODO: Filtering on OPC (e.g. foo (opcda))
-    # TODO: Filtering on base MATLAB (e.g. ColorSpec, LineSpec), probably have to do a blacklist
-    # TODO: Filter on Computer Vision (e.g. take out C++ syntax, ocvCvRectToBoundingBox_{DataType}), probably have to do a blacklist
+        # Strip out anything encapsulated by parentheses or brackets
+        line = re.sub(r'[[({][A-Za-z0-9,.]+[])}]', '', line).strip()
+        # "Modification" filters
+        if ',' in line:
+            # Split up functions on lines with commas
+            [fcns.append(thing.strip()) for thing in line.split(',')]
+        elif '.' in line:
+            # Skip regex filter for object methods
+            fcns.append(line)
+        else:
+            # Otherwise apply a simple regex filter for the first word on a line
+            tmp = re.findall('^\w+', line)
+            if tmp:
+                fcns.append(tmp[0])
 
     return fcns
 
@@ -65,7 +90,7 @@ def writeToolboxJSON(fcnlist, toolboxname, JSONpath='./JSONout'):
     
     filepath = JSONpath / f'{toolboxname}.JSON'
     with filepath.open(mode='w') as fID:
-        json.dump(fcnlist, fID, indent=4)
+        json.dump(fcnlist, fID, indent="\t")
 
 def concatenatefcns(JSONpath='./JSONout', fname='_combined'):
     """
@@ -83,7 +108,7 @@ def concatenatefcns(JSONpath='./JSONout', fname='_combined'):
     
     logging.info(f"Concatenated {len(fcnset)} unique functions")
     with outfilepath.open(mode='w') as fID:
-        json.dump(sorted(fcnset), fID, indent=4)
+        json.dump(sorted(fcnset, key=str.lower), fID, indent="\t")
 
 def scrapetoolboxes(URL="https://www.mathworks.com/help/index.html", JSONpath = '.', fname='fcnURL'):
     """
@@ -115,7 +140,7 @@ def scrapetoolboxes(URL="https://www.mathworks.com/help/index.html", JSONpath = 
     JSONpath = Path(JSONpath)
     outfilepath = JSONpath / f'{fname}.JSON'
     with outfilepath.open(mode='w') as fID:
-        json.dump(groupeddict, fID, indent=4)
+        json.dump(groupeddict, fID, indent="\t")
 
 def helpURLbuilder(shortlink, prefix="https://www.mathworks.com/help/", suffix="/functionlist-alpha.html"):
     """

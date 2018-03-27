@@ -17,7 +17,7 @@
     "createOrder",
     "createorder",
     "createOrderAndRoute",
-    "createOrderAndRouteWithStrat ",
+    "createOrderAndRouteWithStrat",
     "createOrderProfile",
     "createOrderSet",
     "deleteOrder",
