@@ -90,7 +90,7 @@ def writeToolboxJSON(fcnlist, toolboxname, JSONpath='./JSONout'):
     
     filepath = JSONpath / f'{toolboxname}.JSON'
     with filepath.open(mode='w') as fID:
-        json.dump(fcnlist, fID, indent=4)
+        json.dump(fcnlist, fID, indent="\t")
 
 def concatenatefcns(JSONpath='./JSONout', fname='_combined'):
     """
@@ -108,7 +108,7 @@ def concatenatefcns(JSONpath='./JSONout', fname='_combined'):
     
     logging.info(f"Concatenated {len(fcnset)} unique functions")
     with outfilepath.open(mode='w') as fID:
-        json.dump(sorted(fcnset), fID, indent=4)
+        json.dump(sorted(fcnset, key=str.lower), fID, indent="\t")
 
 def scrapetoolboxes(URL="https://www.mathworks.com/help/index.html", JSONpath = '.', fname='fcnURL'):
     """
@@ -140,7 +140,7 @@ def scrapetoolboxes(URL="https://www.mathworks.com/help/index.html", JSONpath = 
     JSONpath = Path(JSONpath)
     outfilepath = JSONpath / f'{fname}.JSON'
     with outfilepath.open(mode='w') as fID:
-        json.dump(groupeddict, fID, indent=4)
+        json.dump(groupeddict, fID, indent="\t")
 
 def helpURLbuilder(shortlink, prefix="https://www.mathworks.com/help/", suffix="/functionlist-alpha.html"):
     """
