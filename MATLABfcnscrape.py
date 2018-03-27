@@ -52,15 +52,22 @@ def scrapedocpage(URL):
     fcns = []
     for tag in tags:
         line = tag.string
-        # Single character filters
+        # Blacklist filters
         if re.findall(r'[%:]', line):
             # Ignore lines with '%' or ':'
+            continue
+        if re.match(r'^ocv', line):
+            # Ignore OpenCV C++ commands
             continue
         elif 'ColorSpec' in line or 'LineSpec' in line:
             # Ignore ColorSpec and LineSpec
             # TODO: Add JSON function blacklist
             continue
-        elif ',' in line:
+
+        # Strip out anything encapsulated by parentheses or brackets
+        line = re.sub(r'[[({][A-Za-z0-9,.]+[])}]', '', line).strip()
+        # "Modification" filters
+        if ',' in line:
             # Split up functions on lines with commas
             [fcns.append(thing.strip()) for thing in line.split(',')]
         elif '.' in line:
