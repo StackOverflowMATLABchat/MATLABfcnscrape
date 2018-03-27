@@ -47,12 +47,30 @@ def scrapedocpage(URL):
     soup = BeautifulSoup(r.content, 'html.parser')
 
     tags = soup.find_all(attrs={'class': 'function'})
-    # Exclude object methods (foo.bar) and comments (leading %, used in MATLAB Compiler)
-    fcns = [tag.string for tag in tags if ('.' not in tag.string and '%' not in tag.string)]
-
-    # TODO: Filtering on OPC (e.g. foo (opcda))
-    # TODO: Filtering on base MATLAB (e.g. ColorSpec, LineSpec), probably have to do a blacklist
-    # TODO: Filter on Computer Vision (e.g. take out C++ syntax, ocvCvRectToBoundingBox_{DataType}), probably have to do a blacklist
+    
+    # Iterate through tags & apply filters before appending to function list
+    fcns = []
+    for tag in tags:
+        line = tag.string
+        # Single character filters
+        if re.findall(r'[%:]', line):
+            # Ignore lines with '%' or ':'
+            continue
+        elif 'ColorSpec' in line or 'LineSpec' in line:
+            # Ignore ColorSpec and LineSpec
+            # TODO: Add JSON function blacklist
+            continue
+        elif ',' in line:
+            # Split up functions on lines with commas
+            [fcns.append(thing.strip()) for thing in line.split(',')]
+        elif '.' in line:
+            # Skip regex filter for object methods
+            fcns.append(line)
+        else:
+            # Otherwise apply a simple regex filter for the first word on a line
+            tmp = re.findall('^\w+', line)
+            if tmp:
+                fcns.append(tmp[0])
 
     return fcns
 

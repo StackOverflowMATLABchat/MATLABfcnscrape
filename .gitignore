@@ -1,5 +1,9 @@
 # Ignore Jupyter notebook things
-*.ipynb
+*.ipynb*
 
 # Caches
-__pycache__
+__pycache__/
+.vscode/
+
+# Temporary testing files
+tmpHTML/
