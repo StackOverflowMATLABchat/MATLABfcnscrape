@@ -25,7 +25,7 @@ logging.basicConfig(
 )
 
 
-def loadURLdict(sourceJSON="./fcnURL.JSON"):
+def loadURLdict(sourceJSON: str = "./fcnURL.JSON") -> dict:
     """
     Load URL dictionary from input JSON file
 
@@ -43,7 +43,7 @@ def loadURLdict(sourceJSON="./fcnURL.JSON"):
     return {k: v for d in squeezegen for k, v in d.items()}
 
 
-def scrapedocpage(URL):
+def scrapedocpage(URL: str) -> list[str]:
     """
     Scrape functions from input MATLAB Doc Page URL
 
@@ -90,7 +90,7 @@ def scrapedocpage(URL):
     return fcns
 
 
-def writeToolboxJSON(fcnlist, toolboxname, JSONpath="./JSONout"):
+def writeToolboxJSON(fcnlist: list, toolboxname: str, JSONpath: str = "./JSONout"):
     """
     Write input toolbox function list to dest/toolboxname.JSON
     """
@@ -104,7 +104,7 @@ def writeToolboxJSON(fcnlist, toolboxname, JSONpath="./JSONout"):
         json.dump(fcnlist, fID, indent="\t")
 
 
-def concatenatefcns(JSONpath="./JSONout", fname="_combined"):
+def concatenatefcns(JSONpath: str = "./JSONout", fname: str = "_combined"):
     """
     Generate concatenated function set from directory of JSON files and write to 'fname.JSON'
 
@@ -124,8 +124,10 @@ def concatenatefcns(JSONpath="./JSONout", fname="_combined"):
 
 
 def scrapetoolboxes(
-    URL="https://www.mathworks.com/help/index.html", JSONpath=".", fname="fcnURL"
-):
+    URL: str = "https://www.mathworks.com/help/index.html",
+    JSONpath: str = ".",
+    fname: str = "fcnURL",
+) -> dict:
     """
     Generate a dictionary of toolboxes & link to the alphabetical function list
 
@@ -163,10 +165,10 @@ def scrapetoolboxes(
 
 
 def helpURLbuilder(
-    shortlink,
-    prefix="https://www.mathworks.com/help/",
-    suffix="/functionlist-alpha.html",
-):
+    shortlink: str,
+    prefix: str = "https://www.mathworks.com/help/",
+    suffix: str = "/functionlist-alpha.html",
+) -> str:
     """
     Helper to build URL for alphabetical function list from the toolbox's shortlink
 
