@@ -17,9 +17,10 @@ classifiers = [
 ]
 
 [tool.poetry.dependencies]
-python = "3.7"
+python = "^3.7"
 beautifulsoup4 = "^4.7"
 requests = "^2.21"
+selenium = "^3.141"
 
 [tool.poetry.dev-dependencies]
 flake8 = "^3.7"
