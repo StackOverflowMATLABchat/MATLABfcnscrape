@@ -25,7 +25,7 @@ logging.basicConfig(
 )
 
 
-def loadURLdict(sourceJSON: str = "./fcnURL.JSON") -> dict:
+def load_URL_dict(source_JSON: str = "./fcnURL.JSON") -> dict:
     """
     Load URL dictionary from input JSON file
 
@@ -35,15 +35,15 @@ def loadURLdict(sourceJSON: str = "./fcnURL.JSON") -> dict:
 
     Output is a single layer dict containing the toolbox:url KV-pairs
     """
-    sourceJSON = Path(sourceJSON)
-    with sourceJSON.open(mode="r") as fID:
+    source_JSON = Path(source_JSON)
+    with source_JSON.open(mode="r") as fID:
         tmp = json.load(fID)
 
-    squeezegen = (tmp[grouping] for grouping in tmp.keys())
-    return {k: v for d in squeezegen for k, v in d.items()}
+    squeeze_gen = (tmp[grouping] for grouping in tmp.keys())
+    return {k: v for d in squeeze_gen for k, v in d.items()}
 
 
-def scrapedocpage(URL: str) -> list[str]:
+def scrape_doc_page(URL: str) -> list[str]:
     """
     Scrape functions from input MATLAB Doc Page URL
 
@@ -90,42 +90,41 @@ def scrapedocpage(URL: str) -> list[str]:
     return fcns
 
 
-def writeToolboxJSON(fcnlist: list, toolboxname: str, JSONpath: str = "./JSONout"):
+def write_Toolbox_JSON(fcn_list: list, toolbox_name: str, json_path: str = "./JSONout"):
     """
     Write input toolbox function list to dest/toolboxname.JSON
     """
-    JSONpath = Path(JSONpath)
-    JSONpath.mkdir(
-        parents=True, exist_ok=True
-    )  # Create destination folder if it doesn't already exist
+    json_path = Path(json_path)
+    # Create destination folder if it doesn't already exist
+    json_path.mkdir(parents=True, exist_ok=True)
 
-    filepath = JSONpath / f"{toolboxname}.JSON"
+    filepath = json_path / f"{toolbox_name}.JSON"
     with filepath.open(mode="w") as fID:
-        json.dump(fcnlist, fID, indent="\t")
+        json.dump(fcn_list, fID, indent="\t")
 
 
-def concatenatefcns(JSONpath: str = "./JSONout", fname: str = "_combined"):
+def concatenate_fcns(json_path: str = "./JSONout", fname: str = "_combined"):
     """
     Generate concatenated function set from directory of JSON files and write to 'fname.JSON'
 
     Assumes JSON file is a list of function name strings
     """
-    JSONpath = Path(JSONpath)
-    outfilepath = JSONpath / f"{fname}.JSON"
+    json_path = Path(json_path)
+    out_filepath = json_path / f"{fname}.JSON"
 
-    fcnset = set()
-    for fcnJSON in JSONpath.glob("*.JSON"):
-        with fcnJSON.open(mode="r") as fID:
-            fcnset.update(json.load(fID))
+    fcn_set = set()
+    for fcn_JSON in json_path.glob("*.JSON"):
+        with fcn_JSON.open(mode="r") as fID:
+            fcn_set.update(json.load(fID))
 
-    logging.info(f"Concatenated {len(fcnset)} unique functions")
-    with outfilepath.open(mode="w") as fID:
-        json.dump(sorted(fcnset, key=str.lower), fID, indent="\t")
+    logging.info(f"Concatenated {len(fcn_set)} unique functions")
+    with out_filepath.open(mode="w") as fID:
+        json.dump(sorted(fcn_set, key=str.lower), fID, indent="\t")
 
 
-def scrapetoolboxes(
+def scrape_toolboxes(
     URL: str = "https://www.mathworks.com/help/index.html",
-    JSONpath: str = ".",
+    json_path: str = ".",
     fname: str = "fcnURL",
 ) -> dict:
     """
@@ -139,32 +138,32 @@ def scrapetoolboxes(
     # Get first header that matches 'MATLAB', this should be our 'MATLAB Family' column
     # For some reason soup.find_all('h2', string=re.compile('MATLAB')) returns an empty list
     # Generator approach from SO: https://stackoverflow.com/a/7006873/2748311
-    matlabheader = next(
+    matlab_header = next(
         (t for t in soup.find_all("h2") if t.find(text=re.compile("MATLAB"))), None
     )
 
     # Get to column div from the header, this is 2 levels above
-    matlabcolumn = matlabheader.parent.parent
+    matlab_column = matlab_header.parent.parent
 
     # Iterate through MATLAB's groupings (does not include base MATLAB) and pull toolboxes & links
-    groupeddict = {}
+    grouped_dict = {}
     # Add base MATLAB manually
-    groupeddict["Base Matlab"] = {
+    grouped_dict["Base Matlab"] = {
         "MATLAB": "https://www.mathworks.com/help/matlab/functionlist-alpha.html"
     }
-    for grouping in matlabcolumn.find_all("h4"):
-        groupeddict[grouping.text] = {
-            listitem.text.replace(" ", ""): helpURLbuilder(listitem.a.get("href"))
-            for listitem in grouping.parent.find_all("li")
+    for grouping in matlab_column.find_all("h4"):
+        grouped_dict[grouping.text] = {
+            list_item.text.replace(" ", ""): help_URL_builder(list_item.a.get("href"))
+            for list_item in grouping.parent.find_all("li")
         }
 
-    JSONpath = Path(JSONpath)
-    outfilepath = JSONpath / f"{fname}.JSON"
-    with outfilepath.open(mode="w") as fID:
-        json.dump(groupeddict, fID, indent="\t")
+    json_path = Path(json_path)
+    out_filepath = json_path / f"{fname}.JSON"
+    with out_filepath.open(mode="w") as fID:
+        json.dump(grouped_dict, fID, indent="\t")
 
 
-def helpURLbuilder(
+def help_URL_builder(
     shortlink: str,
     prefix: str = "https://www.mathworks.com/help/",
     suffix: str = "/functionlist-alpha.html",
@@ -180,24 +179,24 @@ def helpURLbuilder(
 
 
 if __name__ == "__main__":
-    outpath = "./JSONout/R2018a"
+    out_path = "./JSONout/R2018a"
 
-    scrapetoolboxes()
-    toolboxdict = loadURLdict()
-    logging.info(f"Scraping {len(toolboxdict)} toolboxes")
-    logging.info(f"Writing results to: {outpath}")
-    for toolbox, URL in toolboxdict.items():
+    scrape_toolboxes()
+    toolbox_dict = load_URL_dict()
+    logging.info(f"Scraping {len(toolbox_dict)} toolboxes")
+    logging.info(f"Writing results to: {out_path}")
+    for toolbox, URL in toolbox_dict.items():
         try:
-            fcnlist = scrapedocpage(URL)
-            if len(fcnlist) == 0:
+            fcn_list = scrape_doc_page(URL)
+            if len(fcn_list) == 0:
                 # No functions found, most likely because permission for the toolbox docs is denied
                 logging.info(
                     f"Permission to view documentation for '{toolbox}' has been denied: {URL}"
                 )
             else:
-                writeToolboxJSON(fcnlist, toolbox, outpath)
+                write_Toolbox_JSON(fcn_list, toolbox, out_path)
         except (requests.exceptions.Timeout, requests.exceptions.ConnectionError):
             # TODO: Add a retry pipeline, verbosity of exception
             logging.info(f"Unable to access online docs for '{toolbox}': '{URL}'")
     else:
-        concatenatefcns(outpath)
+        concatenate_fcns(out_path)
