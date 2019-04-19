@@ -7,6 +7,8 @@ from pathlib import Path
 
 import requests
 from bs4 import BeautifulSoup
+from selenium import webdriver
+from selenium.common.exceptions import NoSuchElementException
 
 logging.Formatter.converter = time.gmtime  # Force UTC timestamp
 logformat = "%(asctime)s %(levelname)s:%(module)s:%(message)s"
@@ -46,41 +48,48 @@ def scrape_doc_page(URL: str) -> typing.List[str]:
 
     Returns a list of function name strings, or an empty list if none are found (e.g. no permission)
     """
-    r = requests.get(URL, timeout=2)
-    soup = BeautifulSoup(r.content, "html.parser")
+    with webdriver.Chrome() as wd:
+        wd.implicitly_wait(7)  # Allow page to wait for elements to load
+        wd.get(URL)
 
-    tags = soup.find_all(attrs={"class": "function"})
+        try:
+            function_table = wd.find_element_by_xpath('//*[@id="reflist_content"]')
+            rows = function_table.find_elements_by_tag_name("tr")
+            logging.info(f"Found {len(rows)} functions")
+        except NoSuchElementException:
+            # Could not get element, either a timeout or lack of permissions
+            return
 
-    # Iterate through tags & apply filters before appending to function list
-    fcns = []
-    for tag in tags:
-        line = tag.string
-        # Blacklist filters
-        if re.findall(r"[%:]", line):
-            # Ignore lines with '%' or ':'
-            continue
-        if re.match(r"^ocv", line):
-            # Ignore OpenCV C++ commands
-            continue
-        elif "ColorSpec" in line or "LineSpec" in line:
-            # Ignore ColorSpec and LineSpec
-            # TODO: Add JSON function blacklist
-            continue
+        # Iterate through tags & apply filters before appending to function list
+        fcns = []
+        for row in rows:
+            function_name = row.find_element_by_tag_name("a").text
+            # Blacklist filters
+            if re.findall(r"[%:]", function_name):
+                # Ignore lines with '%' or ':'
+                continue
+            if re.match(r"^ocv", function_name):
+                # Ignore OpenCV C++ commands
+                continue
+            elif "ColorSpec" in function_name or "LineSpec" in function_name:
+                # Ignore ColorSpec and LineSpec
+                # TODO: Add JSON function blacklist
+                continue
 
-        # Strip out anything encapsulated by parentheses or brackets
-        line = re.sub(r"[[({][A-Za-z0-9,.]+[])}]", "", line).strip()
-        # "Modification" filters
-        if "," in line:
-            # Split up functions on lines with commas
-            [fcns.append(thing.strip()) for thing in line.split(",")]
-        elif "." in line:
-            # Skip regex filter for object methods
-            fcns.append(line)
-        else:
-            # Otherwise apply a simple regex filter for the first word on a line
-            tmp = re.findall(r"^\w+", line)
-            if tmp:
-                fcns.append(tmp[0])
+            # Strip out anything encapsulated by parentheses or brackets
+            function_name = re.sub(r"[[({][A-Za-z0-9,.]+[])}]", "", function_name).strip()
+            # "Modification" filters
+            if "," in function_name:
+                # Split up functions on lines with commas
+                [fcns.append(thing.strip()) for thing in function_name.split(",")]
+            elif "." in function_name:
+                # Skip regex filter for object methods
+                fcns.append(function_name)
+            else:
+                # Otherwise apply a simple regex filter for the first word on a line
+                tmp = re.findall(r"^\w+", function_name)
+                if tmp:
+                    fcns.append(tmp[0])
 
     return fcns
 
@@ -140,7 +149,7 @@ def scrape_toolbox_urls(
     product_groups = soup.findAll("div", {"class": "panel panel-default product_group off"})
     for group in product_groups:
         # Some are 1 column (all MATLAB), some are 2 (MATLAB & Simulink)
-        # We're going to ignore Simulink
+        # We're going to ignore any Simulink columns
         group_title = group.find("div", {"class": "panel-title"}).text
         toolbox_lists = group.findAll("ul", {"class": "list-unstyled add_list_spacing_3"})[0]
         grouped_dict[group_title] = {
@@ -173,14 +182,15 @@ def help_URL_builder(
 if __name__ == "__main__":
     out_path = "./JSONout/R2019a"
 
-    scrape_toolbox_urls()
+    # scrape_toolbox_urls()
     toolbox_dict = load_URL_dict()
     logging.info(f"Scraping {len(toolbox_dict)} toolboxes")
     logging.info(f"Writing results to: {out_path}")
     for toolbox, URL in toolbox_dict.items():
         try:
+            logging.info(f"Attempting to scrape {toolbox} functions")
             fcn_list = scrape_doc_page(URL)
-            if len(fcn_list) == 0:
+            if fcn_list is None:
                 # No functions found, most likely because permission for the toolbox docs is denied
                 logging.info(
                     f"Permission to view documentation for '{toolbox}' has been denied: {URL}"
