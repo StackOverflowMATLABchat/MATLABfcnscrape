@@ -1,12 +1,12 @@
 import re
 import json
 import time
+import typing
 import logging
 from pathlib import Path
 
 import requests
 from bs4 import BeautifulSoup
-
 
 logging.Formatter.converter = time.gmtime  # Force UTC timestamp
 logformat = "%(asctime)s %(levelname)s:%(module)s:%(message)s"
@@ -38,7 +38,7 @@ def load_URL_dict(source_JSON: str = "./fcnURL.JSON") -> dict:
     return {k: v for d in squeeze_gen for k, v in d.items()}
 
 
-def scrape_doc_page(URL: str) -> list[str]:
+def scrape_doc_page(URL: str) -> typing.List[str]:
     """
     Scrape functions from input MATLAB Doc Page URL
 
@@ -133,20 +133,16 @@ def scrape_toolbox_urls(
     grouped_dict = {}
     # Add base MATLAB manually
     grouped_dict["Base Matlab"] = {
-        "MATLAB": "https://www.mathworks.com/help/matlab/functionlist-alpha.html"
+        "MATLAB": "https://www.mathworks.com/help/matlab/referencelist.html?type=function&listtype=alpha"  # noqa
     }
 
     # MATLAB products are grouped into individual panels
-    product_groups = soup.findAll(
-        "div", {"class": "panel panel-default product_group off"}
-    )
+    product_groups = soup.findAll("div", {"class": "panel panel-default product_group off"})
     for group in product_groups:
         # Some are 1 column (all MATLAB), some are 2 (MATLAB & Simulink)
         # We're going to ignore Simulink
         group_title = group.find("div", {"class": "panel-title"}).text
-        toolbox_lists = group.findAll(
-            "ul", {"class": "list-unstyled add_list_spacing_3"}
-        )[0]
+        toolbox_lists = group.findAll("ul", {"class": "list-unstyled add_list_spacing_3"})[0]
         grouped_dict[group_title] = {
             toolbox.text.replace(" ", ""): help_URL_builder(toolbox.a.get("href"))
             for toolbox in toolbox_lists.findAll("li")
@@ -161,12 +157,13 @@ def scrape_toolbox_urls(
 def help_URL_builder(
     shortlink: str,
     prefix: str = "https://www.mathworks.com/help/",
-    suffix: str = "/functionlist-alpha.html",
+    suffix: str = "/referencelist.html?type=function&listtype=alpha",
 ) -> str:
     """
     Helper to build URL for alphabetical function list from the toolbox's shortlink
 
-    e.g. 'https://www.mathworks.com/help/stats/functionlist-alpha.html' from 'stats/index.html'
+    e.g. 'https://www.mathworks.com/help/stats/referencelist.html?type=function&listtype=alpha'
+    from 'stats/index.html'
 
     Returns a string
     """
