@@ -1,0 +1,12 @@
+[
+	"serdes.AGC",
+	"serdes.CDR",
+	"serdes.ChannelLoss",
+	"serdes.CTLE",
+	"serdes.DFECDR",
+	"serdes.FFE",
+	"serdes.PassThrough",
+	"serdes.SaturatingAmplifier",
+	"serdes.VGA",
+	"serdesDesigner"
+]

@@ -4,6 +4,7 @@
 # Caches
 __pycache__/
 .vscode/
+*.egg-info
 
 # Temporary testing files
 tmpHTML/

@@ -25,7 +25,6 @@
 		"AudioToolbox": "https://www.mathworks.com/help/audio/referencelist.html?type=function&listtype=alpha",
 		"CommunicationsToolbox": "https://www.mathworks.com/help/comm/referencelist.html?type=function&listtype=alpha",
 		"DSPSystemToolbox": "https://www.mathworks.com/help/dsp/referencelist.html?type=function&listtype=alpha",
-		"LTEHDLToolbox": "https://www.mathworks.com/help/ltehdl/referencelist.html?type=function&listtype=alpha",
 		"LTEToolbox": "https://www.mathworks.com/help/lte/referencelist.html?type=function&listtype=alpha",
 		"PhasedArraySystemToolbox": "https://www.mathworks.com/help/phased/referencelist.html?type=function&listtype=alpha",
 		"RFToolbox": "https://www.mathworks.com/help/rf/referencelist.html?type=function&listtype=alpha",
@@ -40,7 +39,6 @@
 		"ControlSystemToolbox": "https://www.mathworks.com/help/control/referencelist.html?type=function&listtype=alpha",
 		"FuzzyLogicToolbox": "https://www.mathworks.com/help/fuzzy/referencelist.html?type=function&listtype=alpha",
 		"ModelPredictiveControlToolbox": "https://www.mathworks.com/help/mpc/referencelist.html?type=function&listtype=alpha",
-		"Model-BasedCalibrationToolbox": "https://www.mathworks.com/help/mbc/referencelist.html?type=function&listtype=alpha",
 		"PredictiveMaintenanceToolbox": "https://www.mathworks.com/help/predmaint/referencelist.html?type=function&listtype=alpha",
 		"ReinforcementLearningToolbox": "https://www.mathworks.com/help/reinforcement-learning/referencelist.html?type=function&listtype=alpha",
 		"RobustControlToolbox": "https://www.mathworks.com/help/robust/referencelist.html?type=function&listtype=alpha",
@@ -89,14 +87,6 @@
 		"SimEvents": "https://www.mathworks.com/help/simevents/referencelist.html?type=function&listtype=alpha",
 		"Stateflow": "https://www.mathworks.com/help/stateflow/referencelist.html?type=function&listtype=alpha"
 	},
-	"Physical Modeling": {
-		"Simscape": "https://www.mathworks.com/help/physmod/referencelist.html?type=function&listtype=alpha",
-		"SimscapeDriveline": "https://www.mathworks.com/help/physmod/referencelist.html?type=function&listtype=alpha",
-		"SimscapeElectrical": "https://www.mathworks.com/help/physmod/referencelist.html?type=function&listtype=alpha",
-		"SimscapeFluids": "https://www.mathworks.com/help/physmod/referencelist.html?type=function&listtype=alpha",
-		"SimscapeMultibody": "https://www.mathworks.com/help/physmod/referencelist.html?type=function&listtype=alpha",
-		"SimscapeMultibodyLink": "https://www.mathworks.com/help/physmod/referencelist.html?type=function&listtype=alpha"
-	},
 	"Robotics and Autonomous Systems": {
 		"AutomatedDrivingToolbox": "https://www.mathworks.com/help/driving/referencelist.html?type=function&listtype=alpha",
 		"NavigationToolbox": "https://www.mathworks.com/help/nav/referencelist.html?type=function&listtype=alpha",
@@ -109,26 +99,16 @@
 		"SimulinkReal-Time": "https://www.mathworks.com/help/xpc/referencelist.html?type=function&listtype=alpha"
 	},
 	"Code Generation": {
-		"EmbeddedCoder": "https://www.mathworks.com/help/ecoder/referencelist.html?type=function&listtype=alpha",
 		"FilterDesignHDLCoder": "https://www.mathworks.com/help/hdlfilter/referencelist.html?type=function&listtype=alpha",
 		"Fixed-PointDesigner": "https://www.mathworks.com/help/fixedpoint/referencelist.html?type=function&listtype=alpha",
-		"GPUCoder": "https://www.mathworks.com/help/gpucoder/referencelist.html?type=function&listtype=alpha",
 		"HDLCoder": "https://www.mathworks.com/help/hdlcoder/referencelist.html?type=function&listtype=alpha",
 		"HDLVerifier": "https://www.mathworks.com/help/hdlverifier/referencelist.html?type=function&listtype=alpha",
-		"MATLABCoder": "https://www.mathworks.com/help/coder/referencelist.html?type=function&listtype=alpha",
 		"VisionHDLToolbox": "https://www.mathworks.com/help/visionhdl/referencelist.html?type=function&listtype=alpha"
 	},
 	"Verification, Validation, and Test": {
 		"HDLVerifier": "https://www.mathworks.com/help/hdlverifier/referencelist.html?type=function&listtype=alpha",
-		"PolyspaceBugFinder": "https://www.mathworks.com/help/bugfinder/referencelist.html?type=function&listtype=alpha",
-		"PolyspaceBugFinderAccess": "https://www.mathworks.com/help/polyspace_bug_finder_access/referencelist.html?type=function&listtype=alpha",
-		"PolyspaceBugFinderServer": "https://www.mathworks.com/help/polyspace_bug_finder_server/referencelist.html?type=function&listtype=alpha",
-		"PolyspaceCodeProver": "https://www.mathworks.com/help/codeprover/referencelist.html?type=function&listtype=alpha",
-		"PolyspaceCodeProverAccess": "https://www.mathworks.com/help/polyspace_code_prover_access/referencelist.html?type=function&listtype=alpha",
-		"PolyspaceCodeProverServer": "https://www.mathworks.com/help/polyspace_code_prover_server/referencelist.html?type=function&listtype=alpha",
 		"SimulinkCheck": "https://www.mathworks.com/help/slcheck/referencelist.html?type=function&listtype=alpha",
 		"SimulinkCoverage": "https://www.mathworks.com/help/slcoverage/referencelist.html?type=function&listtype=alpha",
-		"SimulinkDesignVerifier": "https://www.mathworks.com/help/sldv/referencelist.html?type=function&listtype=alpha",
 		"SimulinkTest": "https://www.mathworks.com/help/sltest/referencelist.html?type=function&listtype=alpha"
 	},
 	"Database Access and Reporting": {
