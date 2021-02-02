@@ -13,6 +13,7 @@ from selenium.common.exceptions import NoSuchElementException
 BASE_URL_PREFIX = "https://www.mathworks.com/help/releases"
 JSON_ROOT = Path("./JSONout")
 URL_CACHE_FILENAME = "_url_cache.JSON"
+FUNCTION_BLACKLIST = Path("./function_blacklist.JSON")
 
 CURRENT_RELEASE = "R2020b"
 CURRENT_URL_CACHE = JSON_ROOT / CURRENT_RELEASE / URL_CACHE_FILENAME
@@ -82,6 +83,20 @@ def load_URL_dict(url_cache: Path = CURRENT_URL_CACHE) -> t.Dict[str, str]:
     return {k: v for d in squeeze_gen for k, v in d.items()}
 
 
+def load_function_blacklist(blacklist_filepath: Path = FUNCTION_BLACKLIST) -> t.Set[str]:
+    """
+    Load the function blacklist from the specified JSON file.
+
+    The specified JSON file is assumed to contain a list of function names (as strings) to exclude
+    from toolbox parsing.
+    """
+    with blacklist_filepath.open("r") as f:
+        function_blacklist = json.load(f)
+
+    # Convert to set for better lookup
+    return set(function_blacklist)
+
+
 def scrape_doc_page(url: str) -> t.List[str]:
     """
     Scrape functions from input MATLAB Doc Page URL.
@@ -90,6 +105,7 @@ def scrape_doc_page(url: str) -> t.List[str]:
 
     Returns a list of function name strings, or an empty list if none are found (e.g. no permission)
     """
+    function_blacklist = load_function_blacklist()
     with webdriver.Chrome() as wd:
         wd.implicitly_wait(7)  # Allow page to wait for elements to load
         wd.get(url)
@@ -113,8 +129,8 @@ def scrape_doc_page(url: str) -> t.List[str]:
             if re.match(r"^ocv", function_name):
                 # Ignore OpenCV C++ commands
                 continue
-            elif "ColorSpec" in function_name or "LineSpec" in function_name:
-                # Ignore ColorSpec and LineSpec
+            elif function_name in function_blacklist:
+                # Ignore blacklisted function names
                 continue
 
             # Strip out anything encapsulated by parentheses or brackets
