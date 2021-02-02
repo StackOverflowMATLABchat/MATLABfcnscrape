@@ -166,30 +166,30 @@ def concatenate_fcns(release: str = CURRENT_RELEASE, fname: str = "_combined") -
         json.dump(sorted(fcn_set, key=str.lower), fID, indent="\t")
 
 
-def full_pipeline(release: str = CURRENT_RELEASE) -> None:
+def scraping_pipeline(release: str = CURRENT_RELEASE) -> None:
+    """
+    Run the full scraping pipeline for the current release.
+
+    NOTE: The URL cache for the specified release must be generated before calling this helper.
+    """
     # Create destination folder if it doesn't already exist
     json_path = JSON_ROOT / release
     json_path.mkdir(parents=True, exist_ok=True)
 
-    scrape_toolbox_urls(release)  # Only need to run this once per version
-
-    # toolbox_dict = load_URL_dict()
-    # logging.info(f"Scraping {len(toolbox_dict)} toolboxes")
-    # for toolbox, url in toolbox_dict.items():
-    #     try:
-    #         logging.info(f"Attempting to scrape {toolbox} functions")
-    #         fcn_list = scrape_doc_page(url)
-    #         if fcn_list is None:
-    #             # No functions found, most likely because permission for the toolbox docs is denied
-    #             logging.info(
-    #                 f"Permission to view documentation for '{toolbox}' has been denied: {url}"
-    #             )
-    #         else:
-    #             write_Toolbox_JSON(fcn_list, toolbox)
-    #     except (httpx.TimeoutException, httpx.ConnectError):
-    #         logging.info(f"Unable to access online docs for '{toolbox}': '{url}'")
-    # else:
-    #     concatenate_fcns()
-
-if __name__ == "__main__":
-    full_pipeline()
+    toolbox_dict = load_URL_dict()
+    logging.info(f"Scraping {len(toolbox_dict)} toolboxes")
+    for toolbox, url in toolbox_dict.items():
+        try:
+            logging.info(f"Attempting to scrape {toolbox} functions")
+            fcn_list = scrape_doc_page(url)
+            if fcn_list is None:
+                # No functions found, most likely because permission for the toolbox docs is denied
+                logging.info(
+                    f"Permission to view documentation for '{toolbox}' has been denied: {url}"
+                )
+            else:
+                write_Toolbox_JSON(fcn_list, toolbox)
+        except (httpx.TimeoutException, httpx.ConnectError):
+            logging.info(f"Unable to access online docs for '{toolbox}': '{url}'")
+    else:
+        concatenate_fcns()
