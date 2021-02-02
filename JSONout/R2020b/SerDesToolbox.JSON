@@ -1,0 +1,21 @@
+[
+	"impulse2pulse",
+	"impulse2step",
+	"optPulseMetric",
+	"prbs",
+	"pulse2impulse",
+	"pulse2pda",
+	"pulse2stateye",
+	"pulse2wave",
+	"serdes.AGC",
+	"serdes.CDR",
+	"serdes.CTLE",
+	"serdes.ChannelLoss",
+	"serdes.DFECDR",
+	"serdes.FFE",
+	"serdes.PassThrough",
+	"serdes.SaturatingAmplifier",
+	"serdes.VGA",
+	"serdesDesigner",
+	"wave2pulse"
+]

@@ -1,0 +1,19 @@
+[
+	"activations",
+	"calibrate",
+	"compile",
+	"deploy",
+	"dlhdl.ProcessorConfig",
+	"dlhdl.Target",
+	"dlhdl.Workflow",
+	"dlhdl.buildProcessor",
+	"dlquantizationOptions",
+	"dlquantizer",
+	"estimate",
+	"getModuleProperty",
+	"predict",
+	"release",
+	"setModuleProperty",
+	"validate",
+	"validateConnection"
+]
