@@ -1,0 +1,155 @@
+{
+	"Base MATLAB": {
+		"MATLAB": "https://www.mathworks.com/help/releases/R2020b/matlab/referencelist.html?type=function&listtype=alpha"
+	},
+	"Math, Statistics, and Optimization": {
+		"CurveFittingToolbox": "https://www.mathworks.com/help/releases/R2020b/curvefit/referencelist.html?type=function&listtype=alpha",
+		"DeepLearningHDLToolbox": "https://www.mathworks.com/help/releases/R2020b/deep-learning-hdl/referencelist.html?type=function&listtype=alpha",
+		"DeepLearningToolbox": "https://www.mathworks.com/help/releases/R2020b/deeplearning/referencelist.html?type=function&listtype=alpha",
+		"GlobalOptimizationToolbox": "https://www.mathworks.com/help/releases/R2020b/gads/referencelist.html?type=function&listtype=alpha",
+		"OptimizationToolbox": "https://www.mathworks.com/help/releases/R2020b/optim/referencelist.html?type=function&listtype=alpha",
+		"PartialDifferentialEquationToolbox": "https://www.mathworks.com/help/releases/R2020b/pde/referencelist.html?type=function&listtype=alpha",
+		"StatisticsandMachineLearningToolbox": "https://www.mathworks.com/help/releases/R2020b/stats/referencelist.html?type=function&listtype=alpha",
+		"SymbolicMathToolbox": "https://www.mathworks.com/help/releases/R2020b/symbolic/referencelist.html?type=function&listtype=alpha",
+		"TextAnalyticsToolbox": "https://www.mathworks.com/help/releases/R2020b/textanalytics/referencelist.html?type=function&listtype=alpha"
+	},
+	"Data Science and Deep Learning": {
+		"DeepLearningHDLToolbox": "https://www.mathworks.com/help/releases/R2020b/deep-learning-hdl/referencelist.html?type=function&listtype=alpha",
+		"DeepLearningToolbox": "https://www.mathworks.com/help/releases/R2020b/deeplearning/referencelist.html?type=function&listtype=alpha",
+		"PredictiveMaintenanceToolbox": "https://www.mathworks.com/help/releases/R2020b/predmaint/referencelist.html?type=function&listtype=alpha",
+		"ReinforcementLearningToolbox": "https://www.mathworks.com/help/releases/R2020b/reinforcement-learning/referencelist.html?type=function&listtype=alpha",
+		"StatisticsandMachineLearningToolbox": "https://www.mathworks.com/help/releases/R2020b/stats/referencelist.html?type=function&listtype=alpha",
+		"TextAnalyticsToolbox": "https://www.mathworks.com/help/releases/R2020b/textanalytics/referencelist.html?type=function&listtype=alpha"
+	},
+	"Signal Processing and Wireless Communications": {
+		"5GToolbox": "https://www.mathworks.com/help/releases/R2020b/5g/referencelist.html?type=function&listtype=alpha",
+		"AntennaToolbox": "https://www.mathworks.com/help/releases/R2020b/antenna/referencelist.html?type=function&listtype=alpha",
+		"AudioToolbox": "https://www.mathworks.com/help/releases/R2020b/audio/referencelist.html?type=function&listtype=alpha",
+		"CommunicationsToolbox": "https://www.mathworks.com/help/releases/R2020b/comm/referencelist.html?type=function&listtype=alpha",
+		"DSPSystemToolbox": "https://www.mathworks.com/help/releases/R2020b/dsp/referencelist.html?type=function&listtype=alpha",
+		"LTEToolbox": "https://www.mathworks.com/help/releases/R2020b/lte/referencelist.html?type=function&listtype=alpha",
+		"PhasedArraySystemToolbox": "https://www.mathworks.com/help/releases/R2020b/phased/referencelist.html?type=function&listtype=alpha",
+		"RFToolbox": "https://www.mathworks.com/help/releases/R2020b/rf/referencelist.html?type=function&listtype=alpha",
+		"SensorFusionandTrackingToolbox": "https://www.mathworks.com/help/releases/R2020b/fusion/referencelist.html?type=function&listtype=alpha",
+		"SerDesToolbox": "https://www.mathworks.com/help/releases/R2020b/serdes/referencelist.html?type=function&listtype=alpha",
+		"SignalProcessingToolbox": "https://www.mathworks.com/help/releases/R2020b/signal/referencelist.html?type=function&listtype=alpha",
+		"WaveletToolbox": "https://www.mathworks.com/help/releases/R2020b/wavelet/referencelist.html?type=function&listtype=alpha",
+		"WLANToolbox": "https://www.mathworks.com/help/releases/R2020b/wlan/referencelist.html?type=function&listtype=alpha"
+	},
+	"Control Systems": {
+		"AerospaceToolbox": "https://www.mathworks.com/help/releases/R2020b/aerotbx/referencelist.html?type=function&listtype=alpha",
+		"ControlSystemToolbox": "https://www.mathworks.com/help/releases/R2020b/control/referencelist.html?type=function&listtype=alpha",
+		"FuzzyLogicToolbox": "https://www.mathworks.com/help/releases/R2020b/fuzzy/referencelist.html?type=function&listtype=alpha",
+		"ModelPredictiveControlToolbox": "https://www.mathworks.com/help/releases/R2020b/mpc/referencelist.html?type=function&listtype=alpha",
+		"Model-BasedCalibrationToolbox": "https://www.mathworks.com/help/releases/R2020b/mbc/referencelist.html?type=function&listtype=alpha",
+		"PredictiveMaintenanceToolbox": "https://www.mathworks.com/help/releases/R2020b/predmaint/referencelist.html?type=function&listtype=alpha",
+		"ReinforcementLearningToolbox": "https://www.mathworks.com/help/releases/R2020b/reinforcement-learning/referencelist.html?type=function&listtype=alpha",
+		"RobustControlToolbox": "https://www.mathworks.com/help/releases/R2020b/robust/referencelist.html?type=function&listtype=alpha",
+		"SystemIdentificationToolbox": "https://www.mathworks.com/help/releases/R2020b/ident/referencelist.html?type=function&listtype=alpha"
+	},
+	"Image Processing and Computer Vision": {
+		"ComputerVisionToolbox": "https://www.mathworks.com/help/releases/R2020b/vision/referencelist.html?type=function&listtype=alpha",
+		"ImageAcquisitionToolbox": "https://www.mathworks.com/help/releases/R2020b/imaq/referencelist.html?type=function&listtype=alpha",
+		"ImageProcessingToolbox": "https://www.mathworks.com/help/releases/R2020b/images/referencelist.html?type=function&listtype=alpha",
+		"LidarToolbox": "https://www.mathworks.com/help/releases/R2020b/lidar/referencelist.html?type=function&listtype=alpha",
+		"MappingToolbox": "https://www.mathworks.com/help/releases/R2020b/map/referencelist.html?type=function&listtype=alpha",
+		"VisionHDLToolbox": "https://www.mathworks.com/help/releases/R2020b/visionhdl/referencelist.html?type=function&listtype=alpha"
+	},
+	"Parallel Computing": {
+		"MathWorksCloudCenter": "https://www.mathworks.com/help/releases/R2020b/cloudcenter/referencelist.html?type=function&listtype=alpha",
+		"MATLABParallelServer": "https://www.mathworks.com/help/releases/R2020b/matlab-parallel-server/referencelist.html?type=function&listtype=alpha",
+		"ParallelComputingToolbox": "https://www.mathworks.com/help/releases/R2020b/parallel-computing/referencelist.html?type=function&listtype=alpha"
+	},
+	"Test and Measurement": {
+		"DataAcquisitionToolbox": "https://www.mathworks.com/help/releases/R2020b/daq/referencelist.html?type=function&listtype=alpha",
+		"ImageAcquisitionToolbox": "https://www.mathworks.com/help/releases/R2020b/imaq/referencelist.html?type=function&listtype=alpha",
+		"InstrumentControlToolbox": "https://www.mathworks.com/help/releases/R2020b/instrument/referencelist.html?type=function&listtype=alpha",
+		"OPCToolbox": "https://www.mathworks.com/help/releases/R2020b/opc/referencelist.html?type=function&listtype=alpha",
+		"ThingSpeak": "https://www.mathworks.com/help/releases/R2020b/thingspeak/referencelist.html?type=function&listtype=alpha",
+		"VehicleNetworkToolbox": "https://www.mathworks.com/help/releases/R2020b/vnt/referencelist.html?type=function&listtype=alpha"
+	},
+	"Computational Finance": {
+		"DatabaseToolbox": "https://www.mathworks.com/help/releases/R2020b/database/referencelist.html?type=function&listtype=alpha",
+		"DatafeedToolbox": "https://www.mathworks.com/help/releases/R2020b/datafeed/referencelist.html?type=function&listtype=alpha",
+		"EconometricsToolbox": "https://www.mathworks.com/help/releases/R2020b/econ/referencelist.html?type=function&listtype=alpha",
+		"FinancialInstrumentsToolbox": "https://www.mathworks.com/help/releases/R2020b/fininst/referencelist.html?type=function&listtype=alpha",
+		"FinancialToolbox": "https://www.mathworks.com/help/releases/R2020b/finance/referencelist.html?type=function&listtype=alpha",
+		"RiskManagementToolbox": "https://www.mathworks.com/help/releases/R2020b/risk/referencelist.html?type=function&listtype=alpha",
+		"SpreadsheetLink": "https://www.mathworks.com/help/releases/R2020b/exlink/referencelist.html?type=function&listtype=alpha",
+		"TradingToolbox": "https://www.mathworks.com/help/releases/R2020b/trading/referencelist.html?type=function&listtype=alpha"
+	},
+	"Computational Biology": {
+		"BioinformaticsToolbox": "https://www.mathworks.com/help/releases/R2020b/bioinfo/referencelist.html?type=function&listtype=alpha",
+		"SimBiology": "https://www.mathworks.com/help/releases/R2020b/simbio/referencelist.html?type=function&listtype=alpha"
+	},
+	"Application Deployment": {
+		"MATLABCompiler": "https://www.mathworks.com/help/releases/R2020b/compiler/referencelist.html?type=function&listtype=alpha",
+		"MATLABCompilerSDK": "https://www.mathworks.com/help/releases/R2020b/compiler_sdk/referencelist.html?type=function&listtype=alpha",
+		"MATLABProductionServer": "https://www.mathworks.com/help/releases/R2020b/mps/referencelist.html?type=function&listtype=alpha",
+		"MATLABWebAppServer": "https://www.mathworks.com/help/releases/R2020b/webappserver/referencelist.html?type=function&listtype=alpha"
+	},
+	"Event-Based Modeling": {
+		"SimEvents": "https://www.mathworks.com/help/releases/R2020b/simevents/referencelist.html?type=function&listtype=alpha",
+		"Stateflow": "https://www.mathworks.com/help/releases/R2020b/stateflow/referencelist.html?type=function&listtype=alpha"
+	},
+	"Physical Modeling": {
+		"Simscape": "https://www.mathworks.com/help/releases/R2020b/physmod/referencelist.html?type=function&listtype=alpha",
+		"SimscapeDriveline": "https://www.mathworks.com/help/releases/R2020b/physmod/referencelist.html?type=function&listtype=alpha",
+		"SimscapeElectrical": "https://www.mathworks.com/help/releases/R2020b/physmod/referencelist.html?type=function&listtype=alpha",
+		"SimscapeFluids": "https://www.mathworks.com/help/releases/R2020b/physmod/referencelist.html?type=function&listtype=alpha",
+		"SimscapeMultibody": "https://www.mathworks.com/help/releases/R2020b/physmod/referencelist.html?type=function&listtype=alpha",
+		"SimscapeMultibodyLink": "https://www.mathworks.com/help/releases/R2020b/physmod/referencelist.html?type=function&listtype=alpha"
+	},
+	"Robotics and Autonomous Systems": {
+		"AutomatedDrivingToolbox": "https://www.mathworks.com/help/releases/R2020b/driving/referencelist.html?type=function&listtype=alpha",
+		"LidarToolbox": "https://www.mathworks.com/help/releases/R2020b/lidar/referencelist.html?type=function&listtype=alpha",
+		"NavigationToolbox": "https://www.mathworks.com/help/releases/R2020b/nav/referencelist.html?type=function&listtype=alpha",
+		"RoadRunner": "https://www.mathworks.com/help/releases/R2020b/roadrunner/referencelist.html?type=function&listtype=alpha",
+		"RoboticsSystemToolbox": "https://www.mathworks.com/help/releases/R2020b/robotics/referencelist.html?type=function&listtype=alpha",
+		"ROSToolbox": "https://www.mathworks.com/help/releases/R2020b/ros/referencelist.html?type=function&listtype=alpha",
+		"SensorFusionandTrackingToolbox": "https://www.mathworks.com/help/releases/R2020b/fusion/referencelist.html?type=function&listtype=alpha",
+		"UAVToolbox": "https://www.mathworks.com/help/releases/R2020b/uav/referencelist.html?type=function&listtype=alpha"
+	},
+	"Real-Time Simulation and Testing": {
+		"SimulinkDesktopReal-Time": "https://www.mathworks.com/help/releases/R2020b/sldrt/referencelist.html?type=function&listtype=alpha",
+		"SimulinkReal-Time": "https://www.mathworks.com/help/releases/R2020b/slrealtime/referencelist.html?type=function&listtype=alpha"
+	},
+	"Code Generation": {
+		"DeepLearningHDLToolbox": "https://www.mathworks.com/help/releases/R2020b/deep-learning-hdl/referencelist.html?type=function&listtype=alpha",
+		"EmbeddedCoder": "https://www.mathworks.com/help/releases/R2020b/ecoder/referencelist.html?type=function&listtype=alpha",
+		"FilterDesignHDLCoder": "https://www.mathworks.com/help/releases/R2020b/hdlfilter/referencelist.html?type=function&listtype=alpha",
+		"Fixed-PointDesigner": "https://www.mathworks.com/help/releases/R2020b/fixedpoint/referencelist.html?type=function&listtype=alpha",
+		"GPUCoder": "https://www.mathworks.com/help/releases/R2020b/gpucoder/referencelist.html?type=function&listtype=alpha",
+		"HDLCoder": "https://www.mathworks.com/help/releases/R2020b/hdlcoder/referencelist.html?type=function&listtype=alpha",
+		"HDLVerifier": "https://www.mathworks.com/help/releases/R2020b/hdlverifier/referencelist.html?type=function&listtype=alpha",
+		"MATLABCoder": "https://www.mathworks.com/help/releases/R2020b/coder/referencelist.html?type=function&listtype=alpha",
+		"VisionHDLToolbox": "https://www.mathworks.com/help/releases/R2020b/visionhdl/referencelist.html?type=function&listtype=alpha"
+	},
+	"Verification, Validation, and Test": {
+		"HDLVerifier": "https://www.mathworks.com/help/releases/R2020b/hdlverifier/referencelist.html?type=function&listtype=alpha",
+		"PolyspaceBugFinder": "https://www.mathworks.com/help/releases/R2020b/bugfinder/referencelist.html?type=function&listtype=alpha",
+		"PolyspaceBugFinderAccess": "https://www.mathworks.com/help/releases/R2020b/polyspace_bug_finder_access/referencelist.html?type=function&listtype=alpha",
+		"PolyspaceBugFinderServer": "https://www.mathworks.com/help/releases/R2020b/polyspace_bug_finder_server/referencelist.html?type=function&listtype=alpha",
+		"PolyspaceCodeProver": "https://www.mathworks.com/help/releases/R2020b/codeprover/referencelist.html?type=function&listtype=alpha",
+		"PolyspaceCodeProverAccess": "https://www.mathworks.com/help/releases/R2020b/polyspace_code_prover_access/referencelist.html?type=function&listtype=alpha",
+		"PolyspaceCodeProverServer": "https://www.mathworks.com/help/releases/R2020b/polyspace_code_prover_server/referencelist.html?type=function&listtype=alpha",
+		"PolyspaceProductsforAda": "https://www.mathworks.com/help/releases/R2020b/polyspace_ada/referencelist.html?type=function&listtype=alpha",
+		"SimulinkCheck": "https://www.mathworks.com/help/releases/R2020b/slcheck/referencelist.html?type=function&listtype=alpha",
+		"SimulinkCoverage": "https://www.mathworks.com/help/releases/R2020b/slcoverage/referencelist.html?type=function&listtype=alpha",
+		"SimulinkDesignVerifier": "https://www.mathworks.com/help/releases/R2020b/sldv/referencelist.html?type=function&listtype=alpha",
+		"SimulinkTest": "https://www.mathworks.com/help/releases/R2020b/sltest/referencelist.html?type=function&listtype=alpha"
+	},
+	"Database Access and Reporting": {
+		"DatabaseToolbox": "https://www.mathworks.com/help/releases/R2020b/database/referencelist.html?type=function&listtype=alpha",
+		"MATLABReportGenerator": "https://www.mathworks.com/help/releases/R2020b/rptgen/referencelist.html?type=function&listtype=alpha"
+	},
+	"Simulation Graphics and Reporting": {
+		"Simulink3DAnimation": "https://www.mathworks.com/help/releases/R2020b/sl3d/referencelist.html?type=function&listtype=alpha",
+		"SimulinkReportGenerator": "https://www.mathworks.com/help/releases/R2020b/rptgenext/referencelist.html?type=function&listtype=alpha"
+	},
+	"Systems Engineering": {
+		"SimulinkRequirements": "https://www.mathworks.com/help/releases/R2020b/slrequirements/referencelist.html?type=function&listtype=alpha",
+		"Stateflow": "https://www.mathworks.com/help/releases/R2020b/stateflow/referencelist.html?type=function&listtype=alpha",
+		"SystemComposer": "https://www.mathworks.com/help/releases/R2020b/systemcomposer/referencelist.html?type=function&listtype=alpha"
+	}
+}
