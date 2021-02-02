@@ -75,7 +75,6 @@ def scrape_doc_page(url: str) -> t.List[str]:
                 continue
             elif "ColorSpec" in function_name or "LineSpec" in function_name:
                 # Ignore ColorSpec and LineSpec
-                # TODO: Add JSON function blacklist  # noqa: T101 (move to issue)
                 continue
 
             # Strip out anything encapsulated by parentheses or brackets
@@ -194,7 +193,6 @@ if __name__ == "__main__":
             else:
                 write_Toolbox_JSON(fcn_list, toolbox, out_path)
         except (httpx.TimeoutException, httpx.ConnectError):
-            # TODO: Add a retry pipeline, verbosity of exception  # noqa: T101 (move to issue)
             logging.info(f"Unable to access online docs for '{toolbox}': '{url}'")
     else:
         concatenate_fcns(out_path)
