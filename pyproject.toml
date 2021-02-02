@@ -16,6 +16,9 @@ classifiers = [
     'Programming Language :: Python :: 3.7',
 ]
 
+[tool.poetry.scripts]
+MATLABfcnscrape = "MATLABfcnscrape:full_pipeline"
+
 [tool.poetry.dependencies]
 python = "^3.9"
 beautifulsoup4 = "^4.8"
