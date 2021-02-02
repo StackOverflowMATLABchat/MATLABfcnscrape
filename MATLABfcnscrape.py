@@ -1,14 +1,15 @@
-import re
 import json
-import time
-import typing
 import logging
+import re
+import time
+import typing as t
 from pathlib import Path
 
 import requests
 from bs4 import BeautifulSoup
 from selenium import webdriver
 from selenium.common.exceptions import NoSuchElementException
+
 
 logging.Formatter.converter = time.gmtime  # Force UTC timestamp
 logformat = "%(asctime)s %(levelname)s:%(module)s:%(message)s"
@@ -22,9 +23,9 @@ logging.basicConfig(
 )
 
 
-def load_URL_dict(source_JSON: str = "./fcnURL.JSON") -> dict:
+def load_URL_dict(source_json: str = "./fcnURL.JSON") -> t.Dict[str, str]:
     """
-    Load URL dictionary from input JSON file
+    Load URL dictionary from input JSON file.
 
     Expected input dict format a nested dict:
         Top level dict is MATLAB's "Family" group
@@ -32,17 +33,17 @@ def load_URL_dict(source_JSON: str = "./fcnURL.JSON") -> dict:
 
     Output is a single layer dict containing the toolbox:url KV-pairs
     """
-    source_JSON = Path(source_JSON)
-    with source_JSON.open(mode="r") as fID:
+    source_json = Path(source_json)
+    with source_json.open(mode="r") as fID:
         tmp = json.load(fID)
 
     squeeze_gen = (tmp[grouping] for grouping in tmp.keys())
     return {k: v for d in squeeze_gen for k, v in d.items()}
 
 
-def scrape_doc_page(URL: str) -> typing.List[str]:
+def scrape_doc_page(url: str) -> t.List[str]:
     """
-    Scrape functions from input MATLAB Doc Page URL
+    Scrape functions from input MATLAB Doc Page URL.
 
     Object methods (foo.bar) and comments (leading %) are excluded
 
@@ -50,7 +51,7 @@ def scrape_doc_page(URL: str) -> typing.List[str]:
     """
     with webdriver.Chrome() as wd:
         wd.implicitly_wait(7)  # Allow page to wait for elements to load
-        wd.get(URL)
+        wd.get(url)
 
         try:
             function_table = wd.find_element_by_xpath('//*[@id="reflist_content"]')
@@ -73,7 +74,7 @@ def scrape_doc_page(URL: str) -> typing.List[str]:
                 continue
             elif "ColorSpec" in function_name or "LineSpec" in function_name:
                 # Ignore ColorSpec and LineSpec
-                # TODO: Add JSON function blacklist
+                # TODO: Add JSON function blacklist  # noqa: T101 (move to issue)
                 continue
 
             # Strip out anything encapsulated by parentheses or brackets
@@ -94,10 +95,8 @@ def scrape_doc_page(URL: str) -> typing.List[str]:
     return fcns
 
 
-def write_Toolbox_JSON(fcn_list: list, toolbox_name: str, json_path: str = "./JSONout"):
-    """
-    Write input toolbox function list to dest/toolboxname.JSON
-    """
+def write_Toolbox_JSON(fcn_list: list, toolbox_name: str, json_path: str = "./JSONout") -> None:
+    """Write input toolbox function list to dest/toolboxname.JSON."""
     json_path = Path(json_path)
     # Create destination folder if it doesn't already exist
     json_path.mkdir(parents=True, exist_ok=True)
@@ -107,9 +106,9 @@ def write_Toolbox_JSON(fcn_list: list, toolbox_name: str, json_path: str = "./JS
         json.dump(fcn_list, fID, indent="\t")
 
 
-def concatenate_fcns(json_path: str = "./JSONout", fname: str = "_combined"):
+def concatenate_fcns(json_path: str = "./JSONout", fname: str = "_combined") -> None:
     """
-    Generate concatenated function set from directory of JSON files and write to 'fname.JSON'
+    Generate concatenated function set from directory of JSON files and write to 'fname.JSON'.
 
     Assumes JSON file is a list of function name strings
     """
@@ -127,22 +126,22 @@ def concatenate_fcns(json_path: str = "./JSONout", fname: str = "_combined"):
 
 
 def scrape_toolbox_urls(
-    URL: str = "https://www.mathworks.com/help/index.html",
+    url: str = "https://www.mathworks.com/help/index.html",
     json_path: str = ".",
     fname: str = "fcnURL",
-) -> dict:
+) -> None:
     """
-    Generate a dictionary of toolboxes & link to the alphabetical function list
+    Generate a dictionary of toolboxes & link to the alphabetical function list.
 
     Dictionary is dumped to JSON/fname.JSON
     """
-    r = requests.get(URL, timeout=2)
+    r = requests.get(url, timeout=2)
     soup = BeautifulSoup(r.content, "html.parser")
 
     grouped_dict = {}
     # Add base MATLAB manually
     grouped_dict["Base Matlab"] = {
-        "MATLAB": "https://www.mathworks.com/help/matlab/referencelist.html?type=function&listtype=alpha"  # noqa
+        "MATLAB": "https://www.mathworks.com/help/matlab/referencelist.html?type=function&listtype=alpha"  # noqa: E501
     }
 
     # MATLAB products are grouped into individual panels
@@ -169,7 +168,7 @@ def help_URL_builder(
     suffix: str = "/referencelist.html?type=function&listtype=alpha",
 ) -> str:
     """
-    Helper to build URL for alphabetical function list from the toolbox's shortlink
+    Helper to build URL for alphabetical function list from the toolbox's shortlink.
 
     e.g. 'https://www.mathworks.com/help/stats/referencelist.html?type=function&listtype=alpha'
     from 'stats/index.html'
@@ -198,7 +197,7 @@ if __name__ == "__main__":
             else:
                 write_Toolbox_JSON(fcn_list, toolbox, out_path)
         except (requests.exceptions.Timeout, requests.exceptions.ConnectionError):
-            # TODO: Add a retry pipeline, verbosity of exception
+            # TODO: Add a retry pipeline, verbosity of exception  # noqa: T101 (move to issue)
             logging.info(f"Unable to access online docs for '{toolbox}': '{URL}'")
     else:
         concatenate_fcns(out_path)
