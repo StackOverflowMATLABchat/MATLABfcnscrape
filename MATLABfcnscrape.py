@@ -5,11 +5,10 @@ import time
 import typing as t
 from pathlib import Path
 
-import requests
+import httpx
 from bs4 import BeautifulSoup
 from selenium import webdriver
 from selenium.common.exceptions import NoSuchElementException
-
 
 logging.Formatter.converter = time.gmtime  # Force UTC timestamp
 logformat = "%(asctime)s %(levelname)s:%(module)s:%(message)s"
@@ -22,8 +21,11 @@ logging.basicConfig(
     datefmt=dateformat,
 )
 
+BASE_URL_JSON = Path("./fcnURL.JSON")
+JSON_BASE_DIR = Path("./JSONout")
 
-def load_URL_dict(source_json: str = "./fcnURL.JSON") -> t.Dict[str, str]:
+
+def load_URL_dict(source_json: Path = BASE_URL_JSON) -> t.Dict[str, str]:
     """
     Load URL dictionary from input JSON file.
 
@@ -33,7 +35,6 @@ def load_URL_dict(source_json: str = "./fcnURL.JSON") -> t.Dict[str, str]:
 
     Output is a single layer dict containing the toolbox:url KV-pairs
     """
-    source_json = Path(source_json)
     with source_json.open(mode="r") as fID:
         tmp = json.load(fID)
 
@@ -95,9 +96,10 @@ def scrape_doc_page(url: str) -> t.List[str]:
     return fcns
 
 
-def write_Toolbox_JSON(fcn_list: list, toolbox_name: str, json_path: str = "./JSONout") -> None:
+def write_Toolbox_JSON(
+    fcn_list: t.List[str], toolbox_name: str, json_path: Path = JSON_BASE_DIR
+) -> None:
     """Write input toolbox function list to dest/toolboxname.JSON."""
-    json_path = Path(json_path)
     # Create destination folder if it doesn't already exist
     json_path.mkdir(parents=True, exist_ok=True)
 
@@ -106,13 +108,12 @@ def write_Toolbox_JSON(fcn_list: list, toolbox_name: str, json_path: str = "./JS
         json.dump(fcn_list, fID, indent="\t")
 
 
-def concatenate_fcns(json_path: str = "./JSONout", fname: str = "_combined") -> None:
+def concatenate_fcns(json_path: Path = JSON_BASE_DIR, fname: str = "_combined") -> None:
     """
     Generate concatenated function set from directory of JSON files and write to 'fname.JSON'.
 
     Assumes JSON file is a list of function name strings
     """
-    json_path = Path(json_path)
     out_filepath = json_path / f"{fname}.JSON"
 
     fcn_set = set()
@@ -126,16 +127,14 @@ def concatenate_fcns(json_path: str = "./JSONout", fname: str = "_combined") -> 
 
 
 def scrape_toolbox_urls(
-    url: str = "https://www.mathworks.com/help/index.html",
-    json_path: str = ".",
-    fname: str = "fcnURL",
+    base_url: str = "https://www.mathworks.com/help/index.html",
 ) -> None:
     """
     Generate a dictionary of toolboxes & link to the alphabetical function list.
 
     Dictionary is dumped to JSON/fname.JSON
     """
-    r = requests.get(url, timeout=2)
+    r = httpx.get(base_url, timeout=2)
     soup = BeautifulSoup(r.content, "html.parser")
 
     grouped_dict = {}
@@ -156,9 +155,7 @@ def scrape_toolbox_urls(
             for toolbox in toolbox_lists.findAll("li")
         }
 
-    json_path = Path(json_path)
-    out_filepath = json_path / f"{fname}.JSON"
-    with out_filepath.open(mode="w") as fID:
+    with BASE_URL_JSON.open(mode="w") as fID:
         json.dump(grouped_dict, fID, indent="\t")
 
 
@@ -175,29 +172,29 @@ def help_URL_builder(
 
     Returns a string
     """
-    return prefix + shortlink.split("/")[0] + suffix
+    return f"{prefix}{shortlink.split('/')[0]}{suffix}"
 
 
 if __name__ == "__main__":
-    out_path = "./JSONout/R2020b"
+    out_path = Path("./JSONout/R2020b")
 
-    # scrape_toolbox_urls()
+    # scrape_toolbox_urls()  # Only need to run this once per version
     toolbox_dict = load_URL_dict()
     logging.info(f"Scraping {len(toolbox_dict)} toolboxes")
     logging.info(f"Writing results to: {out_path}")
-    for toolbox, URL in toolbox_dict.items():
+    for toolbox, url in toolbox_dict.items():
         try:
             logging.info(f"Attempting to scrape {toolbox} functions")
-            fcn_list = scrape_doc_page(URL)
+            fcn_list = scrape_doc_page(url)
             if fcn_list is None:
                 # No functions found, most likely because permission for the toolbox docs is denied
                 logging.info(
-                    f"Permission to view documentation for '{toolbox}' has been denied: {URL}"
+                    f"Permission to view documentation for '{toolbox}' has been denied: {url}"
                 )
             else:
                 write_Toolbox_JSON(fcn_list, toolbox, out_path)
-        except (requests.exceptions.Timeout, requests.exceptions.ConnectionError):
+        except (httpx.TimeoutException, httpx.ConnectError):
             # TODO: Add a retry pipeline, verbosity of exception  # noqa: T101 (move to issue)
-            logging.info(f"Unable to access online docs for '{toolbox}': '{URL}'")
+            logging.info(f"Unable to access online docs for '{toolbox}': '{url}'")
     else:
         concatenate_fcns(out_path)

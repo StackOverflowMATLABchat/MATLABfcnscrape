@@ -4,6 +4,7 @@
 	},
 	"Math, Statistics, and Optimization": {
 		"CurveFittingToolbox": "https://www.mathworks.com/help/curvefit/referencelist.html?type=function&listtype=alpha",
+		"DeepLearningHDLToolbox": "https://www.mathworks.com/help/deep-learning-hdl/referencelist.html?type=function&listtype=alpha",
 		"DeepLearningToolbox": "https://www.mathworks.com/help/deeplearning/referencelist.html?type=function&listtype=alpha",
 		"GlobalOptimizationToolbox": "https://www.mathworks.com/help/gads/referencelist.html?type=function&listtype=alpha",
 		"OptimizationToolbox": "https://www.mathworks.com/help/optim/referencelist.html?type=function&listtype=alpha",
@@ -13,6 +14,7 @@
 		"TextAnalyticsToolbox": "https://www.mathworks.com/help/textanalytics/referencelist.html?type=function&listtype=alpha"
 	},
 	"Data Science and Deep Learning": {
+		"DeepLearningHDLToolbox": "https://www.mathworks.com/help/deep-learning-hdl/referencelist.html?type=function&listtype=alpha",
 		"DeepLearningToolbox": "https://www.mathworks.com/help/deeplearning/referencelist.html?type=function&listtype=alpha",
 		"PredictiveMaintenanceToolbox": "https://www.mathworks.com/help/predmaint/referencelist.html?type=function&listtype=alpha",
 		"ReinforcementLearningToolbox": "https://www.mathworks.com/help/reinforcement-learning/referencelist.html?type=function&listtype=alpha",
@@ -39,6 +41,7 @@
 		"ControlSystemToolbox": "https://www.mathworks.com/help/control/referencelist.html?type=function&listtype=alpha",
 		"FuzzyLogicToolbox": "https://www.mathworks.com/help/fuzzy/referencelist.html?type=function&listtype=alpha",
 		"ModelPredictiveControlToolbox": "https://www.mathworks.com/help/mpc/referencelist.html?type=function&listtype=alpha",
+		"Model-BasedCalibrationToolbox": "https://www.mathworks.com/help/mbc/referencelist.html?type=function&listtype=alpha",
 		"PredictiveMaintenanceToolbox": "https://www.mathworks.com/help/predmaint/referencelist.html?type=function&listtype=alpha",
 		"ReinforcementLearningToolbox": "https://www.mathworks.com/help/reinforcement-learning/referencelist.html?type=function&listtype=alpha",
 		"RobustControlToolbox": "https://www.mathworks.com/help/robust/referencelist.html?type=function&listtype=alpha",
@@ -48,6 +51,7 @@
 		"ComputerVisionToolbox": "https://www.mathworks.com/help/vision/referencelist.html?type=function&listtype=alpha",
 		"ImageAcquisitionToolbox": "https://www.mathworks.com/help/imaq/referencelist.html?type=function&listtype=alpha",
 		"ImageProcessingToolbox": "https://www.mathworks.com/help/images/referencelist.html?type=function&listtype=alpha",
+		"LidarToolbox": "https://www.mathworks.com/help/lidar/referencelist.html?type=function&listtype=alpha",
 		"MappingToolbox": "https://www.mathworks.com/help/map/referencelist.html?type=function&listtype=alpha",
 		"VisionHDLToolbox": "https://www.mathworks.com/help/visionhdl/referencelist.html?type=function&listtype=alpha"
 	},
@@ -81,34 +85,58 @@
 	"Application Deployment": {
 		"MATLABCompiler": "https://www.mathworks.com/help/compiler/referencelist.html?type=function&listtype=alpha",
 		"MATLABCompilerSDK": "https://www.mathworks.com/help/compiler_sdk/referencelist.html?type=function&listtype=alpha",
-		"MATLABProductionServer": "https://www.mathworks.com/help/mps/referencelist.html?type=function&listtype=alpha"
+		"MATLABProductionServer": "https://www.mathworks.com/help/mps/referencelist.html?type=function&listtype=alpha",
+		"MATLABWebAppServer": "https://www.mathworks.com/help/webappserver/referencelist.html?type=function&listtype=alpha"
 	},
 	"Event-Based Modeling": {
 		"SimEvents": "https://www.mathworks.com/help/simevents/referencelist.html?type=function&listtype=alpha",
 		"Stateflow": "https://www.mathworks.com/help/stateflow/referencelist.html?type=function&listtype=alpha"
 	},
+	"Physical Modeling": {
+		"Simscape": "https://www.mathworks.com/help/physmod/referencelist.html?type=function&listtype=alpha",
+		"SimscapeDriveline": "https://www.mathworks.com/help/physmod/referencelist.html?type=function&listtype=alpha",
+		"SimscapeElectrical": "https://www.mathworks.com/help/physmod/referencelist.html?type=function&listtype=alpha",
+		"SimscapeFluids": "https://www.mathworks.com/help/physmod/referencelist.html?type=function&listtype=alpha",
+		"SimscapeMultibody": "https://www.mathworks.com/help/physmod/referencelist.html?type=function&listtype=alpha",
+		"SimscapeMultibodyLink": "https://www.mathworks.com/help/physmod/referencelist.html?type=function&listtype=alpha"
+	},
 	"Robotics and Autonomous Systems": {
 		"AutomatedDrivingToolbox": "https://www.mathworks.com/help/driving/referencelist.html?type=function&listtype=alpha",
+		"LidarToolbox": "https://www.mathworks.com/help/lidar/referencelist.html?type=function&listtype=alpha",
 		"NavigationToolbox": "https://www.mathworks.com/help/nav/referencelist.html?type=function&listtype=alpha",
+		"RoadRunner": "https://www.mathworks.com/help/roadrunner/referencelist.html?type=function&listtype=alpha",
 		"RoboticsSystemToolbox": "https://www.mathworks.com/help/robotics/referencelist.html?type=function&listtype=alpha",
 		"ROSToolbox": "https://www.mathworks.com/help/ros/referencelist.html?type=function&listtype=alpha",
-		"SensorFusionandTrackingToolbox": "https://www.mathworks.com/help/fusion/referencelist.html?type=function&listtype=alpha"
+		"SensorFusionandTrackingToolbox": "https://www.mathworks.com/help/fusion/referencelist.html?type=function&listtype=alpha",
+		"UAVToolbox": "https://www.mathworks.com/help/uav/referencelist.html?type=function&listtype=alpha"
 	},
 	"Real-Time Simulation and Testing": {
 		"SimulinkDesktopReal-Time": "https://www.mathworks.com/help/sldrt/referencelist.html?type=function&listtype=alpha",
-		"SimulinkReal-Time": "https://www.mathworks.com/help/xpc/referencelist.html?type=function&listtype=alpha"
+		"SimulinkReal-Time": "https://www.mathworks.com/help/slrealtime/referencelist.html?type=function&listtype=alpha"
 	},
 	"Code Generation": {
+		"DeepLearningHDLToolbox": "https://www.mathworks.com/help/deep-learning-hdl/referencelist.html?type=function&listtype=alpha",
+		"EmbeddedCoder": "https://www.mathworks.com/help/ecoder/referencelist.html?type=function&listtype=alpha",
 		"FilterDesignHDLCoder": "https://www.mathworks.com/help/hdlfilter/referencelist.html?type=function&listtype=alpha",
 		"Fixed-PointDesigner": "https://www.mathworks.com/help/fixedpoint/referencelist.html?type=function&listtype=alpha",
+		"GPUCoder": "https://www.mathworks.com/help/gpucoder/referencelist.html?type=function&listtype=alpha",
 		"HDLCoder": "https://www.mathworks.com/help/hdlcoder/referencelist.html?type=function&listtype=alpha",
 		"HDLVerifier": "https://www.mathworks.com/help/hdlverifier/referencelist.html?type=function&listtype=alpha",
+		"MATLABCoder": "https://www.mathworks.com/help/coder/referencelist.html?type=function&listtype=alpha",
 		"VisionHDLToolbox": "https://www.mathworks.com/help/visionhdl/referencelist.html?type=function&listtype=alpha"
 	},
 	"Verification, Validation, and Test": {
 		"HDLVerifier": "https://www.mathworks.com/help/hdlverifier/referencelist.html?type=function&listtype=alpha",
+		"PolyspaceBugFinder": "https://www.mathworks.com/help/bugfinder/referencelist.html?type=function&listtype=alpha",
+		"PolyspaceBugFinderAccess": "https://www.mathworks.com/help/polyspace_bug_finder_access/referencelist.html?type=function&listtype=alpha",
+		"PolyspaceBugFinderServer": "https://www.mathworks.com/help/polyspace_bug_finder_server/referencelist.html?type=function&listtype=alpha",
+		"PolyspaceCodeProver": "https://www.mathworks.com/help/codeprover/referencelist.html?type=function&listtype=alpha",
+		"PolyspaceCodeProverAccess": "https://www.mathworks.com/help/polyspace_code_prover_access/referencelist.html?type=function&listtype=alpha",
+		"PolyspaceCodeProverServer": "https://www.mathworks.com/help/polyspace_code_prover_server/referencelist.html?type=function&listtype=alpha",
+		"PolyspaceProductsforAda": "https://www.mathworks.com/help/polyspace_ada/referencelist.html?type=function&listtype=alpha",
 		"SimulinkCheck": "https://www.mathworks.com/help/slcheck/referencelist.html?type=function&listtype=alpha",
 		"SimulinkCoverage": "https://www.mathworks.com/help/slcoverage/referencelist.html?type=function&listtype=alpha",
+		"SimulinkDesignVerifier": "https://www.mathworks.com/help/sldv/referencelist.html?type=function&listtype=alpha",
 		"SimulinkTest": "https://www.mathworks.com/help/sltest/referencelist.html?type=function&listtype=alpha"
 	},
 	"Database Access and Reporting": {
