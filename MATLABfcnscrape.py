@@ -79,7 +79,7 @@ def scrape_doc_page(url: str) -> t.List[str]:
                 continue
 
             # Strip out anything encapsulated by parentheses or brackets
-            function_name = re.sub(r"[[({][A-Za-z0-9,.]+[])}]", "", function_name).strip()
+            function_name = re.sub(r"[\[\(\{][A-Za-z0-9,.]+[\]\)\}]", "", function_name).strip()
             # "Modification" filters
             if "," in function_name:
                 # Split up functions on lines with commas
