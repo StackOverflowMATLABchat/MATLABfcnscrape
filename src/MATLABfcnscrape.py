@@ -85,6 +85,9 @@ def _scrape_product_url_legacy(
     toolboxes. The MATLAB family of toolboxes should be contained to a single column, all other
     families are ignored.
     """
+    # Since everything is grouped into a single panel, we don't need to add base MATLAB manually
+    grouped_dict = {}
+
     # Find the panels on the page, the MATLAB family should be the first one, and is the only one
     # we care about
     product_families = soup.findAll(
@@ -108,16 +111,28 @@ def _scrape_product_url_legacy(
     return grouped_dict
 
 
-def _scrape_product_url_vold(
-    grouped_dict: URL_CACHE_DICT, soup: BeautifulSoup, release: str
-) -> URL_CACHE_DICT:
+def _scrape_product_url_vold(soup: BeautifulSoup, release: str) -> URL_CACHE_DICT:
     """
     Scrape list of URLs for the MATLAB product family.
 
     This is the "very old" styling for the documentation homepage, with a single panel listing of
-    all toolboxes. There is no grouping of toolboxes for this styling.
+    all toolboxes. There is no grouping of toolboxes for this styling.  Toolboxes with "Simulink" in
+    the name are ignored.
     """
-    ...
+    product_panel = soup.find("div", {"class": "doc_families_container"})
+    group_title = "All Products"  # Toolbox listing has no groups
+    toolbox_list = product_panel.find("ul", {"class": "list-unstyled"})
+
+    # Use an explicit loop, simulink filtering makes the dict comp difficult to follow
+    grouped_dict = {group_title: {}}
+    for toolbox in toolbox_list.findAll("li"):
+        deblanked = toolbox.text.replace(" ", "")
+        if "Simulink" in deblanked:
+            continue
+
+        grouped_dict[group_title][deblanked] = help_URL_builder(toolbox.a.get("href"), release)
+
+    return grouped_dict
 
 
 def scrape_toolbox_urls(release: str = CURRENT_RELEASE) -> None:
@@ -138,7 +153,8 @@ def scrape_toolbox_urls(release: str = CURRENT_RELEASE) -> None:
     if release in LEGACY_HELP_LAYOUT:
         grouped_dict = _scrape_product_url_legacy(grouped_dict, soup, release)
     elif release in REALLY_OLD_HELP_LAYOUT:
-        grouped_dict = _scrape_product_url_vold(grouped_dict, soup, release)
+        # Since everything is grouped into a single panel, we don't need to add base MATLAB manually
+        grouped_dict = _scrape_product_url_vold(soup, release)
     else:
         grouped_dict = _scrape_product_url(grouped_dict, soup, release)
 
