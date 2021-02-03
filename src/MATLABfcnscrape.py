@@ -230,12 +230,17 @@ def filter_functions(function_list: t.List[str], function_blacklist: t.List[str]
     return filtered_functions
 
 
-def _scrape_doc_page_html(url: str) -> t.List[str]:
+def _scrape_doc_page_html(url: str, release: str) -> t.List[str]:
     """Scrape the toolbox function list for a MATLAB release with static documentation serving."""
     r = httpx.get(url, timeout=2)
     soup = BeautifulSoup(r.content, "html.parser")
 
-    functions = soup.findAll("code")
+    if release in NON_CODE_FCN:
+        # The very old releases do not wrap function names in code tags
+        functions = soup.findAll("td", {"class": {"term"}})
+    else:
+        functions = soup.findAll("code")
+
     return [function.text for function in functions]
 
 
@@ -266,7 +271,7 @@ def scrape_doc_page(url: str, release: str) -> t.List[str]:
     Returns a list of function name strings, or an empty list if none are found (e.g. no permission)
     """
     if release in LEGACY_FN_LIST_RELEASES:
-        raw_functions = _scrape_doc_page_html(url)
+        raw_functions = _scrape_doc_page_html(url, release)
     else:
         raw_functions = _scrape_doc_page_browser(url)
 
