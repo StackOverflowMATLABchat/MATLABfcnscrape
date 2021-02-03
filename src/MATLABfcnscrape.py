@@ -18,21 +18,106 @@ FUNCTION_BLACKLIST = Path("./function_blacklist.JSON")
 CURRENT_RELEASE = "R2020b"
 CURRENT_URL_CACHE = JSON_ROOT / CURRENT_RELEASE / URL_CACHE_FILENAME
 
+# These releases have a different URL suffix for the toolbox function list
+LEGACY_FN_LIST_RELEASES = {"R2018a", "R2017b", "R2017a", "R2016b", "R2016a", "R2015b"}
+
+# These releases have different layouts of the documentation homepage
+LEGACY_HELP_LAYOUT = {"R2018a", "R2017b", "R2017a", "R2016b"}
+REALLY_OLD_HELP_LAYOUT = {"R2016a", "R2015b"}
+
+URL_CACHE_DICT = t.Dict[str, t.Dict[str, str]]
+
 
 def help_URL_builder(
     shortlink: str,
     release: str = CURRENT_RELEASE,
-    prefix: str = "https://www.mathworks.com/help/releases",
-    suffix: str = "referencelist.html?type=function&listtype=alpha",
 ) -> str:
     """
     Helper to build URL for alphabetical function list from the toolbox's shortlink.
 
     e.g. '<...>/help/releases/R2020b/stats/referencelist.html?type=function&listtype=alpha'
     from 'stats/index.html'
+
+    Currently there are 2 (incompatible) URL suffixes, the correct suffix is chosen based on the
+    provided release & the list of "legacy" releases in `LEGACY_FN_LIST_RELEASES`.
     """
+    if release in LEGACY_FN_LIST_RELEASES:
+        suffix = "functionlist-alpha.html"
+    else:
+        suffix = "referencelist.html?type=function&listtype=alpha"
+
     base_toolbox = shortlink.split("/")[0]
-    return f"{prefix}/{release}/{base_toolbox}/{suffix}"
+    return f"{BASE_URL_PREFIX}/{release}/{base_toolbox}/{suffix}"
+
+
+def _scrape_product_url(
+    grouped_dict: URL_CACHE_DICT, soup: BeautifulSoup, release: str
+) -> URL_CACHE_DICT:
+    """
+    Scrape list of URLs for the MATLAB product family.
+
+    This is the current styling of the documentation homepage, with dropdown panels for each group
+    of toolboxes. For each panel, there may be a second column for Simulink toolboxes, which are
+    ignored.
+    """
+    # MATLAB products are grouped into individual panels
+    product_groups = soup.findAll("div", {"class": "panel panel-default product_group off"})
+    for group in product_groups:
+        # Some are 1 column (all MATLAB), some are 2 (MATLAB & Simulink)
+        # We're going to ignore any Simulink columns
+        group_title = group.find("div", {"class": "panel-title"}).text
+        toolbox_lists = group.findAll("ul", {"class": "list-unstyled add_list_spacing_3"})[0]
+        grouped_dict[group_title] = {
+            toolbox.text.replace(" ", ""): help_URL_builder(toolbox.a.get("href"), release)
+            for toolbox in toolbox_lists.findAll("li")
+        }
+
+    return grouped_dict
+
+
+def _scrape_product_url_legacy(
+    grouped_dict: URL_CACHE_DICT, soup: BeautifulSoup, release: str
+) -> URL_CACHE_DICT:
+    """
+    Scrape list of URLs for the MATLAB product family.
+
+    This is the "legacy" styling for the documentation homepage, with a long table of groups of
+    toolboxes. The MATLAB family of toolboxes should be contained to a single column, all other
+    families are ignored.
+    """
+    # Find the panels on the page, the MATLAB family should be the first one, and is the only one
+    # we care about
+    product_families = soup.findAll(
+        "div", {"class": "col-xs-12 col-sm-6 col-md-4 family_container off"}
+    )
+    for family in product_families:
+        if "MATLAB" in family.find("div", {"class": "panel-heading"}).text:
+            # Iterate through the MATLAB products
+            product_groups = family.findAll("div", {"class": "product_group off"})
+            for group in product_groups:
+                group_title = group.find("h4", {"class": "add_bottom_rule"}).text
+                toolbox_list = group.find("ul", {"class": "list-unstyled"})
+                grouped_dict[group_title] = {
+                    toolbox.text.replace(" ", ""): help_URL_builder(toolbox.a.get("href"), release)
+                    for toolbox in toolbox_list.findAll("li")
+                }
+
+            # Ignore any other product families that are present
+            break
+
+    return grouped_dict
+
+
+def _scrape_product_url_vold(
+    grouped_dict: URL_CACHE_DICT, soup: BeautifulSoup, release: str
+) -> URL_CACHE_DICT:
+    """
+    Scrape list of URLs for the MATLAB product family.
+
+    This is the "very old" styling for the documentation homepage, with a single panel listing of
+    all toolboxes. There is no grouping of toolboxes for this styling.
+    """
+    ...
 
 
 def scrape_toolbox_urls(release: str = CURRENT_RELEASE) -> None:
@@ -46,19 +131,16 @@ def scrape_toolbox_urls(release: str = CURRENT_RELEASE) -> None:
     soup = BeautifulSoup(r.content, "html.parser")
 
     # Add base MATLAB manually
-    grouped_dict = {"Base MATLAB": {"MATLAB": help_URL_builder("matlab")}}
+    grouped_dict = {"Base MATLAB": {"MATLAB": help_URL_builder("matlab", release)}}
 
-    # MATLAB products are grouped into individual panels
-    product_groups = soup.findAll("div", {"class": "panel panel-default product_group off"})
-    for group in product_groups:
-        # Some are 1 column (all MATLAB), some are 2 (MATLAB & Simulink)
-        # We're going to ignore any Simulink columns
-        group_title = group.find("div", {"class": "panel-title"}).text
-        toolbox_lists = group.findAll("ul", {"class": "list-unstyled add_list_spacing_3"})[0]
-        grouped_dict[group_title] = {
-            toolbox.text.replace(" ", ""): help_URL_builder(toolbox.a.get("href"))
-            for toolbox in toolbox_lists.findAll("li")
-        }
+    # There are currently 3 different layouts for MATLAB's listing of toolboxes on their
+    # documentation homepage.
+    if release in LEGACY_HELP_LAYOUT:
+        grouped_dict = _scrape_product_url_legacy(grouped_dict, soup, release)
+    elif release in REALLY_OLD_HELP_LAYOUT:
+        grouped_dict = _scrape_product_url_vold(grouped_dict, soup, release)
+    else:
+        grouped_dict = _scrape_product_url(grouped_dict, soup, release)
 
     # Release directory is assumed to exist
     cache_filepath = JSON_ROOT / release / URL_CACHE_FILENAME
@@ -188,10 +270,6 @@ def scraping_pipeline(release: str = CURRENT_RELEASE) -> None:
 
     NOTE: The URL cache for the specified release must be generated before calling this helper.
     """
-    # Create destination folder if it doesn't already exist
-    json_path = JSON_ROOT / release
-    json_path.mkdir(parents=True, exist_ok=True)
-
     toolbox_dict = load_URL_dict()
     logging.info(f"Scraping {len(toolbox_dict)} toolboxes")
     for toolbox, url in toolbox_dict.items():

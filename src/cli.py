@@ -35,6 +35,10 @@ def run(
     if not is_valid_release(release):
         raise ValueError(f"Invalid release specified: '{release}'")
 
+    # Create destination folder if it doesn't already exist
+    json_path = JSON_ROOT / release
+    json_path.mkdir(parents=True, exist_ok=True)
+
     cache_filepath = JSON_ROOT / release / URL_CACHE_FILENAME
     if not cache_filepath.exists() or force_new_cache:
         scrape_toolbox_urls(release)
