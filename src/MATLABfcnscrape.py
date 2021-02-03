@@ -235,7 +235,7 @@ def _scrape_doc_page_html(url: str) -> t.List[str]:
     r = httpx.get(url, timeout=2)
     soup = BeautifulSoup(r.content, "html.parser")
 
-    functions = soup.findAll("code", {"class": "function"})
+    functions = soup.findAll("code")
     return [function.text for function in functions]
 
 
