@@ -18,6 +18,7 @@ FUNCTION_BLACKLIST = Path("./function_blacklist.JSON")
 CURRENT_RELEASE = "R2020b"
 
 # These releases have a different URL suffix for the toolbox function list
+# These releases also have function lists that can be parsed directly from HTML
 LEGACY_FN_LIST_RELEASES = {"R2018a", "R2017b", "R2017a", "R2016b", "R2016a", "R2015b"}
 
 # These releases have different layouts of the documentation homepage
@@ -27,10 +28,7 @@ REALLY_OLD_HELP_LAYOUT = {"R2016a", "R2015b"}
 URL_CACHE_DICT = t.Dict[str, t.Dict[str, str]]
 
 
-def help_URL_builder(
-    shortlink: str,
-    release: str = CURRENT_RELEASE,
-) -> str:
+def help_URL_builder(shortlink: str, release: str) -> str:
     """
     Helper to build URL for alphabetical function list from the toolbox's shortlink.
 
@@ -131,7 +129,7 @@ def _scrape_product_url_vold(soup: BeautifulSoup, release: str) -> URL_CACHE_DIC
     return grouped_dict
 
 
-def scrape_toolbox_urls(release: str = CURRENT_RELEASE) -> None:
+def scrape_toolbox_urls(release: str) -> None:
     """
     Generate a dictionary of toolboxes & link to their alphabetical function list.
 
@@ -160,7 +158,7 @@ def scrape_toolbox_urls(release: str = CURRENT_RELEASE) -> None:
         json.dump(grouped_dict, fID, indent="\t")
 
 
-def load_URL_dict(release: str = CURRENT_RELEASE) -> t.Dict[str, str]:
+def load_URL_dict(release: str) -> t.Dict[str, str]:
     """
     Load the toolbox URL cache for the provided MATLAB release.
 
@@ -174,6 +172,8 @@ def load_URL_dict(release: str = CURRENT_RELEASE) -> t.Dict[str, str]:
     with url_cache.open(mode="r") as fID:
         tmp = json.load(fID)
 
+    # For easier reading are dumped as they are grouped on MATLAB's documentation homepage, we can
+    # denest this into a single layer for parsing
     squeeze_gen = (tmp[grouping] for grouping in tmp.keys())
     return {k: v for d in squeeze_gen for k, v in d.items()}
 
@@ -192,15 +192,47 @@ def load_function_blacklist(blacklist_filepath: Path = FUNCTION_BLACKLIST) -> t.
     return set(function_blacklist)
 
 
-def scrape_doc_page(url: str) -> t.List[str]:
-    """
-    Scrape functions from input MATLAB Doc Page URL.
+def filter_functions(function_list: t.List[str], function_blacklist: t.List[str]) -> t.List[str]:
+    """Run a series of filters over the raw scrape of a toolbox's list of functions."""
+    filtered_functions = []
+    for function_name in function_list:
+        # Blacklist filters
+        if re.findall(r"[%:]", function_name):
+            # Ignore lines with '%' or ':'
+            continue
 
-    Object methods (foo.bar) and comments (leading %) are excluded
+        if re.match(r"^ocv", function_name):
+            # Ignore OpenCV C++ commands
+            continue
 
-    Returns a list of function name strings, or an empty list if none are found (e.g. no permission)
-    """
-    function_blacklist = load_function_blacklist()
+        if function_name in function_blacklist:
+            # Ignore blacklisted function names
+            continue
+
+        # Strip out anything encapsulated by parentheses or brackets
+        function_name = re.sub(r"[\[\(\{][A-Za-z0-9,.]+[\]\)\}]", "", function_name).strip()
+
+        # "Modification" filters
+        if "," in function_name:
+            # Split up functions on lines with commas
+            filtered_functions.extend([thing.strip() for thing in function_name.split(",")])
+        elif "." in function_name:
+            # Skip regex filter for object methods
+            filtered_functions.append(function_name)
+        else:
+            # Otherwise apply a simple regex filter for the first word on a line
+            tmp = re.findall(r"^\w+", function_name)
+            if tmp:
+                filtered_functions.append(tmp[0])
+
+
+def _scrape_doc_page_html(url: str) -> t.List[str]:
+    """Scrape the toolbox function list for a MATLAB release with static documentation serving."""
+    raise NotImplementedError
+
+
+def _scrape_doc_page_browser(url: str) -> t.List[str]:
+    """Scrape the toolbox function list for a MATLAB release with dynamic documentation serving."""
     with webdriver.Chrome() as wd:
         wd.implicitly_wait(7)  # Allow page to wait for elements to load
         wd.get(url)
@@ -213,49 +245,34 @@ def scrape_doc_page(url: str) -> t.List[str]:
             # Could not get element, either a timeout or lack of permissions
             return []
 
-        # Iterate through tags & apply filters before appending to function list
-        fcns = []
-        for row in rows:
-            function_name = row.find_element_by_tag_name("a").text
-            # Blacklist filters
-            if re.findall(r"[%:]", function_name):
-                # Ignore lines with '%' or ':'
-                continue
-            if re.match(r"^ocv", function_name):
-                # Ignore OpenCV C++ commands
-                continue
-            elif function_name in function_blacklist:
-                # Ignore blacklisted function names
-                continue
-
-            # Strip out anything encapsulated by parentheses or brackets
-            function_name = re.sub(r"[\[\(\{][A-Za-z0-9,.]+[\]\)\}]", "", function_name).strip()
-            # "Modification" filters
-            if "," in function_name:
-                # Split up functions on lines with commas
-                fcns.extend([thing.strip() for thing in function_name.split(",")])
-            elif "." in function_name:
-                # Skip regex filter for object methods
-                fcns.append(function_name)
-            else:
-                # Otherwise apply a simple regex filter for the first word on a line
-                tmp = re.findall(r"^\w+", function_name)
-                if tmp:
-                    fcns.append(tmp[0])
-
-    return fcns
+        # Iterate through tags & dump straight to a list
+        return [row.find_element_by_tag_name("a").text for row in rows]
 
 
-def write_Toolbox_JSON(
-    fcn_list: t.List[str], toolbox_name: str, release: str = CURRENT_RELEASE
-) -> None:
+def scrape_doc_page(url: str, release: str) -> t.List[str]:
+    """
+    Scrape functions from input MATLAB Doc Page URL.
+
+    Object methods (foo.bar) and comments (leading %) are excluded
+
+    Returns a list of function name strings, or an empty list if none are found (e.g. no permission)
+    """
+    if release in LEGACY_FN_LIST_RELEASES:
+        raw_functions = _scrape_doc_page_html(url)
+    else:
+        raw_functions = _scrape_doc_page_browser(url)
+
+    return raw_functions
+
+
+def write_Toolbox_JSON(fcn_list: t.List[str], toolbox_name: str, release: str) -> None:
     """Write input toolbox function list to dest/toolboxname.JSON."""
     filepath = JSON_ROOT / release / f"{toolbox_name}.JSON"
     with filepath.open(mode="w") as fID:
         json.dump(fcn_list, fID, indent="\t")
 
 
-def concatenate_fcns(release: str = CURRENT_RELEASE) -> None:
+def concatenate_fcns(release: str) -> None:
     """
     Generate concatenated function set from directory of JSON files and write to '_combined.JSON'.
 
@@ -283,19 +300,22 @@ def scraping_pipeline(release: str = CURRENT_RELEASE) -> None:
 
     NOTE: The URL cache for the specified release must be generated before calling this helper.
     """
+    function_blacklist = load_function_blacklist()
+
     toolbox_dict = load_URL_dict(release)
     logging.info(f"Scraping {len(toolbox_dict)} toolboxes")
     for toolbox, url in toolbox_dict.items():
         try:
             logging.info(f"Attempting to scrape {toolbox} functions")
-            fcn_list = scrape_doc_page(url)
-            if not fcn_list:
+            raw_functions = scrape_doc_page(url, release)
+            if not raw_functions:
                 # No functions found, most likely because permission for the toolbox docs is denied
                 # Toolboxes may also be public-facing and have no functions on the page
                 logging.info(f"No functions found for '{toolbox}': {url}")
             else:
-                write_Toolbox_JSON(fcn_list, toolbox, release)
+                out_functions = filter_functions(raw_functions, function_blacklist)
+                write_Toolbox_JSON(out_functions, toolbox, release)
         except (httpx.TimeoutException, httpx.ConnectError):
             logging.info(f"Unable to access online docs for '{toolbox}': '{url}'")
     else:
-        concatenate_fcns()
+        concatenate_fcns(release)
