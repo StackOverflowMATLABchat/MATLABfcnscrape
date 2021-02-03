@@ -25,6 +25,8 @@ LEGACY_FN_LIST_RELEASES = {"R2018a", "R2017b", "R2017a", "R2016b", "R2016a", "R2
 LEGACY_HELP_LAYOUT = {"R2018a", "R2017b", "R2017a", "R2016b"}
 REALLY_OLD_HELP_LAYOUT = {"R2016a", "R2015b"}
 
+NON_CODE_FCN = {"R2016a", "R2015b"}  # Functions are not wrapped in code blocks
+
 URL_CACHE_DICT = t.Dict[str, t.Dict[str, str]]
 
 
@@ -158,7 +160,7 @@ def scrape_toolbox_urls(release: str) -> None:
         json.dump(grouped_dict, fID, indent="\t")
 
 
-def load_URL_dict(release: str) -> t.Dict[str, str]:
+def load_url_dict(release: str) -> t.Dict[str, str]:
     """
     Load the toolbox URL cache for the provided MATLAB release.
 
@@ -224,6 +226,8 @@ def filter_functions(function_list: t.List[str], function_blacklist: t.List[str]
             tmp = re.findall(r"^\w+", function_name)
             if tmp:
                 filtered_functions.append(tmp[0])
+
+    return filtered_functions
 
 
 def _scrape_doc_page_html(url: str) -> t.List[str]:
@@ -306,7 +310,7 @@ def scraping_pipeline(release: str = CURRENT_RELEASE) -> None:
     """
     function_blacklist = load_function_blacklist()
 
-    toolbox_dict = load_URL_dict(release)
+    toolbox_dict = load_url_dict(release)
     logging.info(f"Scraping {len(toolbox_dict)} toolboxes")
     for toolbox, url in toolbox_dict.items():
         try:
