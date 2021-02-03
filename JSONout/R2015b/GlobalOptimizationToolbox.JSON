@@ -1,0 +1,20 @@
+[
+	"createOptimProblem",
+	"CustomStartPointSet",
+	"ga",
+	"gamultiobj",
+	"gaoptimget",
+	"gaoptimset",
+	"GlobalOptimSolution",
+	"GlobalSearch",
+	"MultiStart",
+	"optimoptions",
+	"particleswarm",
+	"patternsearch",
+	"psoptimget",
+	"psoptimset",
+	"RandomStartPointSet",
+	"saoptimget",
+	"saoptimset",
+	"simulannealbnd"
+]
