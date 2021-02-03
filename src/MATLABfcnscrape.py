@@ -16,7 +16,6 @@ URL_CACHE_FILENAME = "_url_cache.JSON"
 FUNCTION_BLACKLIST = Path("./function_blacklist.JSON")
 
 CURRENT_RELEASE = "R2020b"
-CURRENT_URL_CACHE = JSON_ROOT / CURRENT_RELEASE / URL_CACHE_FILENAME
 
 # These releases have a different URL suffix for the toolbox function list
 LEGACY_FN_LIST_RELEASES = {"R2018a", "R2017b", "R2017a", "R2016b", "R2016a", "R2015b"}
@@ -85,9 +84,6 @@ def _scrape_product_url_legacy(
     toolboxes. The MATLAB family of toolboxes should be contained to a single column, all other
     families are ignored.
     """
-    # Since everything is grouped into a single panel, we don't need to add base MATLAB manually
-    grouped_dict = {}
-
     # Find the panels on the page, the MATLAB family should be the first one, and is the only one
     # we care about
     product_families = soup.findAll(
@@ -124,7 +120,7 @@ def _scrape_product_url_vold(soup: BeautifulSoup, release: str) -> URL_CACHE_DIC
     toolbox_list = product_panel.find("ul", {"class": "list-unstyled"})
 
     # Use an explicit loop, simulink filtering makes the dict comp difficult to follow
-    grouped_dict = {group_title: {}}
+    grouped_dict: URL_CACHE_DICT = {group_title: {}}
     for toolbox in toolbox_list.findAll("li"):
         deblanked = toolbox.text.replace(" ", "")
         if "Simulink" in deblanked:
@@ -164,9 +160,9 @@ def scrape_toolbox_urls(release: str = CURRENT_RELEASE) -> None:
         json.dump(grouped_dict, fID, indent="\t")
 
 
-def load_URL_dict(url_cache: Path = CURRENT_URL_CACHE) -> t.Dict[str, str]:
+def load_URL_dict(release: str = CURRENT_RELEASE) -> t.Dict[str, str]:
     """
-    Load URL dictionary from input JSON file.
+    Load the toolbox URL cache for the provided MATLAB release.
 
     Expected input dict format a nested dict:
         Top level dict is MATLAB's "Family" group
@@ -174,6 +170,7 @@ def load_URL_dict(url_cache: Path = CURRENT_URL_CACHE) -> t.Dict[str, str]:
 
     Output is a single layer dict containing the toolbox:url KV-pairs
     """
+    url_cache = JSON_ROOT / release / URL_CACHE_FILENAME
     with url_cache.open(mode="r") as fID:
         tmp = json.load(fID)
 
@@ -214,7 +211,7 @@ def scrape_doc_page(url: str) -> t.List[str]:
             logging.info(f"Found {len(rows)} functions")
         except NoSuchElementException:
             # Could not get element, either a timeout or lack of permissions
-            return
+            return []
 
         # Iterate through tags & apply filters before appending to function list
         fcns = []
@@ -236,7 +233,7 @@ def scrape_doc_page(url: str) -> t.List[str]:
             # "Modification" filters
             if "," in function_name:
                 # Split up functions on lines with commas
-                [fcns.append(thing.strip()) for thing in function_name.split(",")]
+                fcns.extend([thing.strip() for thing in function_name.split(",")])
             elif "." in function_name:
                 # Skip regex filter for object methods
                 fcns.append(function_name)
@@ -258,9 +255,9 @@ def write_Toolbox_JSON(
         json.dump(fcn_list, fID, indent="\t")
 
 
-def concatenate_fcns(release: str = CURRENT_RELEASE, fname: str = "_combined") -> None:
+def concatenate_fcns(release: str = CURRENT_RELEASE) -> None:
     """
-    Generate concatenated function set from directory of JSON files and write to 'fname.JSON'.
+    Generate concatenated function set from directory of JSON files and write to '_combined.JSON'.
 
     Assumes JSON file is a list of function name strings
     """
@@ -275,7 +272,7 @@ def concatenate_fcns(release: str = CURRENT_RELEASE, fname: str = "_combined") -
             fcn_set.update(json.load(fID))
 
     logging.info(f"Concatenated {len(fcn_set)} unique functions")
-    out_filepath = JSON_ROOT / release / f"{fname}.JSON"
+    out_filepath = JSON_ROOT / release / "_combined.JSON"
     with out_filepath.open(mode="w") as fID:
         json.dump(sorted(fcn_set, key=str.lower), fID, indent="\t")
 
@@ -286,19 +283,18 @@ def scraping_pipeline(release: str = CURRENT_RELEASE) -> None:
 
     NOTE: The URL cache for the specified release must be generated before calling this helper.
     """
-    toolbox_dict = load_URL_dict()
+    toolbox_dict = load_URL_dict(release)
     logging.info(f"Scraping {len(toolbox_dict)} toolboxes")
     for toolbox, url in toolbox_dict.items():
         try:
             logging.info(f"Attempting to scrape {toolbox} functions")
             fcn_list = scrape_doc_page(url)
-            if fcn_list is None:
+            if not fcn_list:
                 # No functions found, most likely because permission for the toolbox docs is denied
-                logging.info(
-                    f"Permission to view documentation for '{toolbox}' has been denied: {url}"
-                )
+                # Toolboxes may also be public-facing and have no functions on the page
+                logging.info(f"No functions found for '{toolbox}': {url}")
             else:
-                write_Toolbox_JSON(fcn_list, toolbox)
+                write_Toolbox_JSON(fcn_list, toolbox, release)
         except (httpx.TimeoutException, httpx.ConnectError):
             logging.info(f"Unable to access online docs for '{toolbox}': '{url}'")
     else:
