@@ -1,0 +1,6 @@
+[
+	"deploytool",
+	"matlab.production_server.client.MWHttpClient",
+	"mcc",
+	"productionServerCompiler"
+]
