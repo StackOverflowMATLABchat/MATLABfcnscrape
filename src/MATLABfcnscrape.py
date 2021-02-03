@@ -228,7 +228,11 @@ def filter_functions(function_list: t.List[str], function_blacklist: t.List[str]
 
 def _scrape_doc_page_html(url: str) -> t.List[str]:
     """Scrape the toolbox function list for a MATLAB release with static documentation serving."""
-    raise NotImplementedError
+    r = httpx.get(url, timeout=2)
+    soup = BeautifulSoup(r.content, "html.parser")
+
+    functions = soup.findAll("code", {"class": "function"})
+    return [function.text for function in functions]
 
 
 def _scrape_doc_page_browser(url: str) -> t.List[str]:
