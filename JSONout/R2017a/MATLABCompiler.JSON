@@ -1,0 +1,20 @@
+[
+	"applicationCompiler",
+	"componentinfo",
+	"deploytool",
+	"hadoopCompiler",
+	"isdeployed",
+	"ismcc",
+	"libraryCompiler",
+	"mapreduce",
+	"mapreducer",
+	"mapreducer",
+	"matlab.compiler.mlspark.RDD",
+	"matlab.compiler.mlspark.SparkConf",
+	"matlab.compiler.mlspark.SparkContext",
+	"matlab.mapreduce.DeployHadoopMapReducer",
+	"matlab.mapreduce.DeploySparkMapReducer",
+	"mcc",
+	"mcrinstaller",
+	"mcrversion"
+]
