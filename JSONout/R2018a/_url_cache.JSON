@@ -1,0 +1,92 @@
+{
+	"Base MATLAB": {
+		"MATLAB": "https://www.mathworks.com/help/releases/R2018a/matlab/functionlist-alpha.html"
+	},
+	"Parallel Computing": {
+		"MATLABDistributedComputingServer": "https://www.mathworks.com/help/releases/R2018a/mdce/functionlist-alpha.html",
+		"ParallelComputingToolbox": "https://www.mathworks.com/help/releases/R2018a/distcomp/functionlist-alpha.html"
+	},
+	"Math, Statistics, and Optimization": {
+		"CurveFittingToolbox": "https://www.mathworks.com/help/releases/R2018a/curvefit/functionlist-alpha.html",
+		"GlobalOptimizationToolbox": "https://www.mathworks.com/help/releases/R2018a/gads/functionlist-alpha.html",
+		"Model-BasedCalibrationToolbox": "https://www.mathworks.com/help/releases/R2018a/mbc/functionlist-alpha.html",
+		"NeuralNetworkToolbox": "https://www.mathworks.com/help/releases/R2018a/nnet/functionlist-alpha.html",
+		"OptimizationToolbox": "https://www.mathworks.com/help/releases/R2018a/optim/functionlist-alpha.html",
+		"PartialDifferentialEquationToolbox": "https://www.mathworks.com/help/releases/R2018a/pde/functionlist-alpha.html",
+		"StatisticsandMachineLearningToolbox": "https://www.mathworks.com/help/releases/R2018a/stats/functionlist-alpha.html",
+		"SymbolicMathToolbox": "https://www.mathworks.com/help/releases/R2018a/symbolic/functionlist-alpha.html",
+		"TextAnalyticsToolbox": "https://www.mathworks.com/help/releases/R2018a/textanalytics/functionlist-alpha.html"
+	},
+	"Control Systems": {
+		"AerospaceToolbox": "https://www.mathworks.com/help/releases/R2018a/aerotbx/functionlist-alpha.html",
+		"AutomatedDrivingSystemToolbox": "https://www.mathworks.com/help/releases/R2018a/driving/functionlist-alpha.html",
+		"ControlSystemToolbox": "https://www.mathworks.com/help/releases/R2018a/control/functionlist-alpha.html",
+		"FuzzyLogicToolbox": "https://www.mathworks.com/help/releases/R2018a/fuzzy/functionlist-alpha.html",
+		"ModelPredictiveControlToolbox": "https://www.mathworks.com/help/releases/R2018a/mpc/functionlist-alpha.html",
+		"PredictiveMaintenanceToolbox": "https://www.mathworks.com/help/releases/R2018a/predmaint/functionlist-alpha.html",
+		"RoboticsSystemToolbox": "https://www.mathworks.com/help/releases/R2018a/robotics/functionlist-alpha.html",
+		"RobustControlToolbox": "https://www.mathworks.com/help/releases/R2018a/robust/functionlist-alpha.html",
+		"SystemIdentificationToolbox": "https://www.mathworks.com/help/releases/R2018a/ident/functionlist-alpha.html"
+	},
+	"Signal Processing and Wireless Communications": {
+		"AntennaToolbox": "https://www.mathworks.com/help/releases/R2018a/antenna/functionlist-alpha.html",
+		"AudioSystemToolbox": "https://www.mathworks.com/help/releases/R2018a/audio/functionlist-alpha.html",
+		"CommunicationsSystemToolbox": "https://www.mathworks.com/help/releases/R2018a/comm/functionlist-alpha.html",
+		"DSPSystemToolbox": "https://www.mathworks.com/help/releases/R2018a/dsp/functionlist-alpha.html",
+		"LTEHDLToolbox": "https://www.mathworks.com/help/releases/R2018a/ltehdl/functionlist-alpha.html",
+		"LTESystemToolbox": "https://www.mathworks.com/help/releases/R2018a/lte/functionlist-alpha.html",
+		"PhasedArraySystemToolbox": "https://www.mathworks.com/help/releases/R2018a/phased/functionlist-alpha.html",
+		"RFToolbox": "https://www.mathworks.com/help/releases/R2018a/rf/functionlist-alpha.html",
+		"SignalProcessingToolbox": "https://www.mathworks.com/help/releases/R2018a/signal/functionlist-alpha.html",
+		"WaveletToolbox": "https://www.mathworks.com/help/releases/R2018a/wavelet/functionlist-alpha.html",
+		"WLANSystemToolbox": "https://www.mathworks.com/help/releases/R2018a/wlan/functionlist-alpha.html"
+	},
+	"Image  Processing and Computer Vision": {
+		"AutomatedDrivingSystemToolbox": "https://www.mathworks.com/help/releases/R2018a/driving/functionlist-alpha.html",
+		"ComputerVisionSystemToolbox": "https://www.mathworks.com/help/releases/R2018a/vision/functionlist-alpha.html",
+		"ImageAcquisitionToolbox": "https://www.mathworks.com/help/releases/R2018a/imaq/functionlist-alpha.html",
+		"ImageProcessingToolbox": "https://www.mathworks.com/help/releases/R2018a/images/functionlist-alpha.html",
+		"MappingToolbox": "https://www.mathworks.com/help/releases/R2018a/map/functionlist-alpha.html",
+		"VisionHDLToolbox": "https://www.mathworks.com/help/releases/R2018a/visionhdl/functionlist-alpha.html"
+	},
+	"Test and Measurement": {
+		"DataAcquisitionToolbox": "https://www.mathworks.com/help/releases/R2018a/daq/functionlist-alpha.html",
+		"ImageAcquisitionToolbox": "https://www.mathworks.com/help/releases/R2018a/imaq/functionlist-alpha.html",
+		"InstrumentControlToolbox": "https://www.mathworks.com/help/releases/R2018a/instrument/functionlist-alpha.html",
+		"OPCToolbox": "https://www.mathworks.com/help/releases/R2018a/opc/functionlist-alpha.html",
+		"VehicleNetworkToolbox": "https://www.mathworks.com/help/releases/R2018a/vnt/functionlist-alpha.html"
+	},
+	"Computational Finance": {
+		"DatabaseToolbox": "https://www.mathworks.com/help/releases/R2018a/database/functionlist-alpha.html",
+		"DatafeedToolbox": "https://www.mathworks.com/help/releases/R2018a/datafeed/functionlist-alpha.html",
+		"EconometricsToolbox": "https://www.mathworks.com/help/releases/R2018a/econ/functionlist-alpha.html",
+		"FinancialInstrumentsToolbox": "https://www.mathworks.com/help/releases/R2018a/fininst/functionlist-alpha.html",
+		"FinancialToolbox": "https://www.mathworks.com/help/releases/R2018a/finance/functionlist-alpha.html",
+		"RiskManagementToolbox": "https://www.mathworks.com/help/releases/R2018a/risk/functionlist-alpha.html",
+		"SpreadsheetLink": "https://www.mathworks.com/help/releases/R2018a/exlink/functionlist-alpha.html",
+		"TradingToolbox": "https://www.mathworks.com/help/releases/R2018a/trading/functionlist-alpha.html"
+	},
+	"Computational Biology": {
+		"BioinformaticsToolbox": "https://www.mathworks.com/help/releases/R2018a/bioinfo/functionlist-alpha.html",
+		"SimBiology": "https://www.mathworks.com/help/releases/R2018a/simbio/functionlist-alpha.html"
+	},
+	"Code Generation": {
+		"FilterDesignHDLCoder": "https://www.mathworks.com/help/releases/R2018a/hdlfilter/functionlist-alpha.html",
+		"Fixed-PointDesigner": "https://www.mathworks.com/help/releases/R2018a/fixedpoint/functionlist-alpha.html",
+		"GPUCoder": "https://www.mathworks.com/help/releases/R2018a/gpucoder/functionlist-alpha.html",
+		"HDLCoder": "https://www.mathworks.com/help/releases/R2018a/hdlcoder/functionlist-alpha.html",
+		"HDLVerifier": "https://www.mathworks.com/help/releases/R2018a/hdlverifier/functionlist-alpha.html",
+		"MATLABCoder": "https://www.mathworks.com/help/releases/R2018a/coder/functionlist-alpha.html",
+		"VisionHDLToolbox": "https://www.mathworks.com/help/releases/R2018a/visionhdl/functionlist-alpha.html"
+	},
+	"Application Deployment": {
+		"MATLABCompiler": "https://www.mathworks.com/help/releases/R2018a/compiler/functionlist-alpha.html",
+		"MATLABCompilerSDK": "https://www.mathworks.com/help/releases/R2018a/compiler_sdk/functionlist-alpha.html",
+		"MATLABProductionServer": "https://www.mathworks.com/help/releases/R2018a/mps/functionlist-alpha.html",
+		"SpreadsheetLink": "https://www.mathworks.com/help/releases/R2018a/exlink/functionlist-alpha.html"
+	},
+	"Database Access and Reporting": {
+		"DatabaseToolbox": "https://www.mathworks.com/help/releases/R2018a/database/functionlist-alpha.html",
+		"MATLABReportGenerator": "https://www.mathworks.com/help/releases/R2018a/rptgen/functionlist-alpha.html"
+	}
+}

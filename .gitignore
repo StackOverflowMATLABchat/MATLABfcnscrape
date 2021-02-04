@@ -1,9 +1,13 @@
 # Ignore Jupyter notebook things
 *.ipynb*
 
+# pyenv
+.python-version
+
 # Caches
 __pycache__/
 .vscode/
+*.egg-info
 
 # Temporary testing files
 tmpHTML/

@@ -1,0 +1,15 @@
+[
+	"applicationCompiler",
+	"componentinfo",
+	"deploytool",
+	"hadoopCompiler",
+	"isdeployed",
+	"ismcc",
+	"libraryCompiler",
+	"mapreduce",
+	"mapreducer",
+	"matlab.mapreduce.DeployHadoopMapReducer",
+	"mcc",
+	"mcrinstaller",
+	"mcrversion"
+]

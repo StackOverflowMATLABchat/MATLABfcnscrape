@@ -1,0 +1,20 @@
+[
+	"cnncodegen",
+	"coder.checkGpuInstall",
+	"coder.CuDNNConfig",
+	"coder.DeepLearningConfig",
+	"coder.getDeepLearningLayers",
+	"coder.gpu.constantMemory",
+	"coder.gpu.kernel",
+	"coder.gpu.kernelfun",
+	"coder.gpuConfig",
+	"coder.loadDeepLearningNetwork",
+	"coder.MklDNNConfig",
+	"coder.TensorRTConfig",
+	"gpucoder",
+	"gpucoder",
+	"gpucoder.matrixMatrixKernel",
+	"gpucoder.sort",
+	"gpucoder.stencilKernel",
+	"gpucoderexamples"
+]
