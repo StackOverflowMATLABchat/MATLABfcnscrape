@@ -1,9 +1,45 @@
 # MATLABfcnscrape
-Scrape MATLAB's documentation for all function names and output to JSON files for external use
+[![pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white)](https://github.com/pre-commit/pre-commit)
+[![Code style: black](https://img.shields.io/badge/code%20style-black-black)](https://github.com/psf/black)
 
-A JSON file is output per toolbox. All unique functions are also consolidated into a single JSON.
+Scrape MATLAB's documentation for (hopefully) all function names and output to JSON files for your reading pleasure.
 
-## Notes
-* Only those toolboxes under the 'MATLAB Family' are considered at this time: https://www.mathworks.com/help/index.html
-* Several toolboxes are inaccessible by some users due to licensing restrictions
-  * See [this issue](https://github.com/StackOverflowMATLABchat/MATLABfcnscrape/issues/2) for more information
+For each MATLAB release, a JSON file is output per toolbox and all unique functions are consolidated into a single JSON.
+
+## Caveats
+* For TOS compliance, only public facing documentation is accessed
+  * See [this issue](https://github.com/StackOverflowMATLABchat/MATLABfcnscrape/issues/2) for additional information
+* These listings are not guaranteed to be comprehensive
+  * The filtering mechanism is continually being improved in order to provide the best possible listing of "actual" functions without requiring significant manual intervention
+  * Only those toolboxes under the 'MATLAB Family' are considered at this time; toolboxes under the 'Simulink Family' and any other hardware-specific toolboxes are (mostly) filtered out as their functions are generally linked to the "block" coding rather than the editor
+
+## MATLABfcnscrape CLI
+Assuming MATLABfcnscrape is installed in the current environment, it can be invoked directly from the command line:
+
+```bash
+$ fcnscrape
+Usage: fcnscrape [OPTIONS] COMMAND [ARGS]...
+
+  Scrape MATLABs online documentation for all function names.
+
+Options:
+  --install-completion  Install completion for the current shell.
+  --show-completion     Show completion for the current shell, to copy it or
+                        customize the installation.
+
+  --help                Show this message and exit.
+
+Commands:
+  run  Run the documentation scraping pipeline for the specified release.
+```
+
+### `fcnscrape run`
+Invokes the main scraping pipeline
+#### Input Parameters
+| Parameter                                  | Description            | Default                |
+|--------------------------------------------|------------------------|------------------------|
+| `--force-new-cache / --no-force-new-cache` | Force URL cache update | `--no-force-new-cache` |
+
+
+## Repository Tags
+In addition to tags for releases of the tool, tags are also added to commits adding (or updating) listings for specific releases. Initial releases are tagged as the major version, e.g. `R2020b`, with any updates tagged with a dash suffix, e.g. (`R2020b-1`)
