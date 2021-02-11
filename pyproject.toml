@@ -23,7 +23,6 @@ fcnscrape = "cli:scrape_cli"
 python = "^3.9"
 beautifulsoup4 = "^4.8"
 httpx = "^0.16"
-selenium = "^3.141"
 typer = "^0.3"
 
 [tool.poetry.dev-dependencies]

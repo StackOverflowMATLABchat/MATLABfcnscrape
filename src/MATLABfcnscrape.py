@@ -8,8 +8,6 @@ from urllib.parse import urlencode
 
 import httpx
 from bs4 import BeautifulSoup
-from selenium import webdriver
-from selenium.common.exceptions import NoSuchElementException
 
 
 BASE_URL_PREFIX = "https://www.mathworks.com/help/releases"
@@ -190,27 +188,23 @@ def _scrape_doc_page_html(url: str, release: str) -> t.List[str]:
     return [function.text for function in functions]
 
 
-def _scrape_doc_page_browser(url: str, driver: webdriver.Chrome) -> t.List[str]:
-    """Scrape the toolbox function list for a MATLAB release with dynamic documentation serving."""
-    driver.get(url)
+def _scrape_doc_page_json(url: str) -> t.List[str]:
+    """"""
+    r = httpx.get(url, timeout=2)
+    raw_function_list = r.json
 
-    try:
-        function_table = driver.find_element_by_xpath('//*[@id="reflist_content"]')
-        rows = function_table.find_elements_by_tag_name("tr")
-        logging.info(f"Found {len(rows)} functions")
-    except NoSuchElementException:
-        # Could not get element, either a timeout or lack of permissions
-        return []
+    all_functions = []
+    for category in raw_function_list["category"]["grouped-leaf-items"]:
+        all_functions.extend([function["name"] for function in category["leaf-items"]])
 
-    # Iterate through tags & dump straight to a list
-    return [row.find_element_by_tag_name("a").text for row in rows]
+    return all_functions
 
 
-def scrape_doc_page(url: str, release: str, driver: t.Optional[webdriver.Chrome]) -> t.List[str]:
+def scrape_doc_page(url: str, release: str) -> t.List[str]:
     """
     Scrape functions from input MATLAB Doc Page URL.
 
-    Object methods (foo.bar) and comments (leading %) are excluded
+    Comments (leading %) are excluded
 
     Returns a list of function name strings, or an empty list if none are found (e.g. no permission)
     """
@@ -218,7 +212,7 @@ def scrape_doc_page(url: str, release: str, driver: t.Optional[webdriver.Chrome]
         # Pass the release since there are multiple legacy HTML formats
         raw_functions = _scrape_doc_page_html(url, release)
     else:
-        raw_functions = _scrape_doc_page_browser(url, driver)
+        raw_functions = _scrape_doc_page_json(url)
 
     return raw_functions
 
@@ -262,17 +256,11 @@ def scraping_pipeline(release: str = CURRENT_RELEASE) -> None:
     function_blacklist = load_function_blacklist()
     toolbox_dict = load_url_dict(release)
 
-    # Init a single webdriver if we need it for the given release
-    driver = None
-    if release not in LEGACY_FN_LIST_RELEASES:
-        driver = webdriver.Chrome()
-        driver.implicitly_wait(5)
-
     logging.info(f"Scraping {len(toolbox_dict)} toolboxes")
     for toolbox, url in toolbox_dict.items():
         try:
             logging.info(f"Attempting to scrape {toolbox} functions")
-            raw_functions = scrape_doc_page(url, release, driver)
+            raw_functions = scrape_doc_page(url, release)
             if not raw_functions:
                 # No functions found, most likely because permission for the toolbox docs is denied
                 # Toolboxes may also be public-facing and have no functions on the page
@@ -282,8 +270,5 @@ def scraping_pipeline(release: str = CURRENT_RELEASE) -> None:
                 write_Toolbox_JSON(out_functions, toolbox, release)
         except (httpx.TimeoutException, httpx.ConnectError):
             logging.info(f"Unable to access online docs for '{toolbox}': '{url}'")
-
-    if driver:
-        driver.quit()
 
     concatenate_fcns(release)
