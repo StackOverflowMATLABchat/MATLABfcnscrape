@@ -1,0 +1,8 @@
+[
+	"asbFlightControlAnalysis",
+	"computeLateralDirectionalFlyingQualities",
+	"computeLongitudinalFlyingQualities",
+	"linearizeAirframe",
+	"linearizeLongitudinalAirframe",
+	"trimAirframe"
+]

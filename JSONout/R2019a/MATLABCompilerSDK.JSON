@@ -1,6 +1,4 @@
 [
-	"Initialize",
-	"Terminate",
 	"acquire",
 	"attach",
 	"bytes",
