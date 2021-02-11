@@ -1,0 +1,23 @@
+[
+	"copyTo",
+	"generateProject",
+	"getResults",
+	"getSummary",
+	"polyspace",
+	"polyspace",
+	"polyspace",
+	"polyspace",
+	"polyspace",
+	"polyspace.BugFinderResults",
+	"polyspace.CodingRulesOptions",
+	"polyspace.DefectsOptions",
+	"polyspace.GenericTargetOptions",
+	"polyspace.Options",
+	"polyspace.Project",
+	"polyspace_report",
+	"polyspaceBugFinderServer",
+	"polyspaceConfigure",
+	"polyspaceroot",
+	"run",
+	"toScript"
+]
