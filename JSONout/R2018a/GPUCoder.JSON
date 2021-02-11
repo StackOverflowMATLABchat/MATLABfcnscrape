@@ -1,0 +1,14 @@
+[
+	"cnncodegen",
+	"codegen",
+	"coder.checkGpuInstall",
+	"coder.gpu.constantMemory",
+	"coder.gpu.kernel",
+	"coder.gpu.kernelfun",
+	"coder.gpuConfig",
+	"coder.loadDeepLearningNetwork",
+	"gpucoder",
+	"gpucoder.matrixMatrixKernel",
+	"gpucoder.stencilKernel",
+	"gpucoderexamples"
+]

@@ -1,4 +1,7 @@
 [
+	"matlabfcn",
+	"matlabinit",
+	"matlabsub",
 	"MLAppendMatrix",
 	"MLAutoStart",
 	"MLClose",
@@ -16,8 +19,5 @@
 	"MLShowMatlabErrors",
 	"MLStartDir",
 	"MLUseCellArray",
-	"MLUseFullDesktop",
-	"matlabfcn",
-	"matlabinit",
-	"matlabsub"
+	"MLUseFullDesktop"
 ]

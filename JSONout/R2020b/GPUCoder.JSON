@@ -1,9 +1,8 @@
 [
 	"cnncodegen",
+	"coder.checkGpuInstall",
 	"coder.CuDNNConfig",
 	"coder.DeepLearningConfig",
-	"coder.TensorRTConfig",
-	"coder.checkGpuInstall",
 	"coder.getDeepLearningLayers",
 	"coder.gpu.constantMemory",
 	"coder.gpu.iterations",
@@ -14,6 +13,7 @@
 	"coder.gpuConfig",
 	"coder.gpuEnvConfig",
 	"coder.loadDeepLearningNetwork",
+	"coder.TensorRTConfig",
 	"gpucoder",
 	"gpucoder",
 	"gpucoder.batchedMatrixMultiply",

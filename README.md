@@ -11,7 +11,6 @@ For each MATLAB release, a JSON file is output per toolbox and all unique functi
   * See [this issue](https://github.com/StackOverflowMATLABchat/MATLABfcnscrape/issues/2) for additional information
 * These listings are not guaranteed to be comprehensive
   * The filtering mechanism is continually being improved in order to provide the best possible listing of "actual" functions without requiring significant manual intervention
-  * Only those toolboxes under the 'MATLAB Family' are considered at this time; toolboxes under the 'Simulink Family' and any other hardware-specific toolboxes are (mostly) filtered out as their functions are generally linked to the "block" coding rather than the editor
 
 ## MATLABfcnscrape CLI
 Assuming MATLABfcnscrape is installed in the current environment, it can be invoked directly from the command line:

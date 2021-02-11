@@ -1,0 +1,17 @@
+[
+	"report",
+	"slreportgen.webview.EmbeddedWebViewDocument",
+	"slreportgen.webview.EmbeddedWebViewDocument.createDiagramLink",
+	"slreportgen.webview.EmbeddedWebViewDocument.createDiagramTwoWayLink",
+	"slreportgen.webview.EmbeddedWebViewDocument.createElementLink",
+	"slreportgen.webview.EmbeddedWebViewDocument.createElementTwoWayLink",
+	"slreportgen.webview.ExportOptions",
+	"slreportgen.webview.WebViewDocument",
+	"slreportgen.webview.WebViewDocument.fillslwebview",
+	"slreportgen.webview.WebViewDocument.getExportDiagrams",
+	"slreportgen.webview.WebViewDocument.getExportModels",
+	"slreportgen.webview.WebViewDocument.getExportSimulinkSubSystems",
+	"slreportgen.webview.WebViewDocument.getExportStateflowCharts",
+	"slreportgen.webview.WebViewDocument.getExportStateflowDiagrams",
+	"slwebview"
+]

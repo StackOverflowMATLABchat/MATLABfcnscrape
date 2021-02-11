@@ -1,0 +1,23 @@
+[
+	"checkCompatibility",
+	"getCodeFolder",
+	"getCodePlacement",
+	"getFollowModelLinks",
+	"getGenerateCode",
+	"getIncludeTopModelChecksumForRefModels",
+	"getReportFolder",
+	"getTerminateOnIncompatibility",
+	"getTopModel",
+	"inspect",
+	"setCodeFolder",
+	"setCodePlacement",
+	"setFollowModelLinks",
+	"setGenerateCode",
+	"setIncludeTopModelChecksumForRefModels",
+	"setReportFolder",
+	"setTerminateOnIncompatibility",
+	"setTopModel",
+	"slci.Configuration",
+	"slci.ExportTraceReport",
+	"slciadvisor"
+]

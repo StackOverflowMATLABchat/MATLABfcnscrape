@@ -1,0 +1,22 @@
+[
+	"getparamfromfrm2pix",
+	"pixelcontrolbus",
+	"pixelcontrolsignals",
+	"pixelcontrolstruct",
+	"visionhdl.ChromaResampler",
+	"visionhdl.Closing",
+	"visionhdl.ColorSpaceConverter",
+	"visionhdl.DemosaicInterpolator",
+	"visionhdl.Dilation",
+	"visionhdl.EdgeDetector",
+	"visionhdl.Erosion",
+	"visionhdl.FrameToPixels",
+	"visionhdl.GammaCorrector",
+	"visionhdl.Histogram",
+	"visionhdl.ImageFilter",
+	"visionhdl.ImageStatistics",
+	"visionhdl.LookupTable",
+	"visionhdl.MedianFilter",
+	"visionhdl.Opening",
+	"visionhdl.PixelsToFrame"
+]

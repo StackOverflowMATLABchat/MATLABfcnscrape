@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "MATLABfcnscrape"
-version = "2.1.0"
+version = "2.2.0"
 description = "Scrape MATLAB's documentation for all function names and output to JSON files for external use"
 authors = ["sco1 <sco1.git@gmail.com>"]
 
@@ -23,7 +23,6 @@ fcnscrape = "cli:scrape_cli"
 python = "^3.9"
 beautifulsoup4 = "^4.8"
 httpx = "^0.16"
-selenium = "^3.141"
 typer = "^0.3"
 
 [tool.poetry.dev-dependencies]
