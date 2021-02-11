@@ -2,6 +2,7 @@ import json
 import logging
 import re
 import typing as t
+from collections import defaultdict
 from pathlib import Path
 
 import httpx
@@ -30,7 +31,7 @@ NON_CODE_FCN = {"R2016a", "R2015b"}  # Functions are not wrapped in code blocks
 URL_CACHE_DICT = t.Dict[str, t.Dict[str, str]]
 
 
-def help_URL_builder(shortlink: str, release: str) -> str:
+def help_url_builder(shortlink: str, release: str) -> str:
     """
     Helper to build URL for alphabetical function list from the toolbox's shortlink.
 
@@ -49,110 +50,47 @@ def help_URL_builder(shortlink: str, release: str) -> str:
     return f"{BASE_URL_PREFIX}/{release}/{base_toolbox}/{suffix}"
 
 
-def _scrape_product_url(
-    grouped_dict: URL_CACHE_DICT, soup: BeautifulSoup, release: str
-) -> URL_CACHE_DICT:
-    """
-    Scrape list of URLs for the MATLAB product family.
-
-    This is the current styling of the documentation homepage, with dropdown panels for each group
-    of toolboxes. For each panel, there may be a second column for Simulink toolboxes, which are
-    ignored.
-    """
-    # MATLAB products are grouped into individual panels
-    product_groups = soup.findAll("div", {"class": "panel panel-default product_group off"})
-    for group in product_groups:
-        # Some are 1 column (all MATLAB), some are 2 (MATLAB & Simulink)
-        # We're going to ignore any Simulink columns
-        group_title = group.find("div", {"class": "panel-title"}).text
-        toolbox_lists = group.findAll("ul", {"class": "list-unstyled add_list_spacing_3"})[0]
-        grouped_dict[group_title] = {
-            toolbox.text.replace(" ", ""): help_URL_builder(toolbox.a.get("href"), release)
-            for toolbox in toolbox_lists.findAll("li")
-        }
-
-    return grouped_dict
-
-
-def _scrape_product_url_legacy(
-    grouped_dict: URL_CACHE_DICT, soup: BeautifulSoup, release: str
-) -> URL_CACHE_DICT:
-    """
-    Scrape list of URLs for the MATLAB product family.
-
-    This is the "legacy" styling for the documentation homepage, with a long table of groups of
-    toolboxes. The MATLAB family of toolboxes should be contained to a single column, all other
-    families are ignored.
-    """
-    # Find the panels on the page, the MATLAB family should be the first one, and is the only one
-    # we care about
-    product_families = soup.findAll(
-        "div", {"class": "col-xs-12 col-sm-6 col-md-4 family_container off"}
-    )
-    for family in product_families:
-        if "MATLAB" in family.find("div", {"class": "panel-heading"}).text:
-            # Iterate through the MATLAB products
-            product_groups = family.findAll("div", {"class": "product_group off"})
-            for group in product_groups:
-                group_title = group.find("h4", {"class": "add_bottom_rule"}).text
-                toolbox_list = group.find("ul", {"class": "list-unstyled"})
-                grouped_dict[group_title] = {
-                    toolbox.text.replace(" ", ""): help_URL_builder(toolbox.a.get("href"), release)
-                    for toolbox in toolbox_list.findAll("li")
-                }
-
-            # Ignore any other product families that are present
-            break
-
-    return grouped_dict
-
-
-def _scrape_product_url_vold(soup: BeautifulSoup, release: str) -> URL_CACHE_DICT:
-    """
-    Scrape list of URLs for the MATLAB product family.
-
-    This is the "very old" styling for the documentation homepage, with a single panel listing of
-    all toolboxes. There is no grouping of toolboxes for this styling.  Toolboxes with "Simulink" in
-    the name are ignored.
-    """
-    product_panel = soup.find("div", {"class": "doc_families_container"})
-    group_title = "All Products"  # Toolbox listing has no groups
-    toolbox_list = product_panel.find("ul", {"class": "list-unstyled"})
-
-    # Use an explicit loop, simulink filtering makes the dict comp difficult to follow
-    grouped_dict: URL_CACHE_DICT = {group_title: {}}
-    for toolbox in toolbox_list.findAll("li"):
-        deblanked = toolbox.text.replace(" ", "")
-        if "Simulink" in deblanked:
-            continue
-
-        grouped_dict[group_title][deblanked] = help_URL_builder(toolbox.a.get("href"), release)
-
-    return grouped_dict
-
-
 def scrape_toolbox_urls(release: str) -> None:
     """
     Generate a dictionary of toolboxes & link to their alphabetical function list.
 
     This URL cache is dumped to a `url_cache.JSON` file in the folder for the specified release.
     """
-    base_url = f"{BASE_URL_PREFIX}/{release}/index.html"
+    # MATLAB publishes an XML for each release containing a mapping of their products
+    base_url = f"{BASE_URL_PREFIX}/{release}/docset.xml"
     r = httpx.get(base_url, timeout=2)
-    soup = BeautifulSoup(r.content, "html.parser")
+    soup = BeautifulSoup(r.content, "lxml")
 
-    # Add base MATLAB manually
-    grouped_dict = {"Base MATLAB": {"MATLAB": help_URL_builder("matlab", release)}}
+    # Use a lambda concoction to allow for branching sub-dictionaries
+    grouped_dict = defaultdict(lambda: defaultdict(dict))
+    products = soup.findAll("product")
+    for product in products:
+        display_name = product.find("display-name").text
+        help_location = product.find("help-location").text
+        short_name = product.find("short-name").text
 
-    # There are currently 3 different layouts for MATLAB's listing of toolboxes on their
-    # documentation homepage.
-    if release in LEGACY_HELP_LAYOUT:
-        grouped_dict = _scrape_product_url_legacy(grouped_dict, soup, release)
-    elif release in REALLY_OLD_HELP_LAYOUT:
-        # Since everything is grouped into a single panel, we don't need to add base MATLAB manually
-        grouped_dict = _scrape_product_url_vold(soup, release)
-    else:
-        grouped_dict = _scrape_product_url(grouped_dict, soup, release)
+        # Don't attempt to access the text, these may be None for older releases
+        product_family = product.find("family")
+        product_group = product.find("group")
+
+        # Short blacklist for non-toolboxes
+        if short_name == "install":
+            continue
+
+        if product_family and product_family.text == "webonlyproducts":
+            continue
+
+        help_url = help_url_builder(help_location, release)
+
+        # R2016a and R2015b don't have product family information so toolboxes will be in one dict
+        # All other versions are grouped by family (e.g. MATLAB, Simulink) and then by product group
+        if not product_family and not product_group:
+            grouped_dict["all products"][display_name] = help_url
+        elif not product_group:
+            grouped_dict[product_family.text][display_name] = help_url
+        else:
+            pretty_group = product_group.text.replace("-", " ").title()
+            grouped_dict[product_family.text][pretty_group][display_name] = help_url
 
     # Release directory is assumed to exist
     cache_filepath = JSON_ROOT / release / URL_CACHE_FILENAME
