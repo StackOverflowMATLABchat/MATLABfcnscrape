@@ -42,7 +42,7 @@ def help_url_builder(help_location: str, release: str) -> str:
         # Newer MATLAB releases have an API endpoint that provides JSON
         params = {"type": "function", "listtype": "alpha", "product": help_location}
         suffix = urlencode(params)
-        return f"{REFLIST_URL_PREFIX}/{suffix}"
+        return f"{REFLIST_URL_PREFIX}/{release}?{suffix}"
 
 
 def scrape_toolbox_urls(release: str) -> None:
@@ -190,8 +190,8 @@ def _scrape_doc_page_html(url: str, release: str) -> t.List[str]:
 
 def _scrape_doc_page_json(url: str) -> t.List[str]:
     """"""
-    r = httpx.get(url, timeout=2)
-    raw_function_list = r.json
+    r = httpx.get(url, timeout=10)
+    raw_function_list = r.json()
 
     all_functions = []
     for category in raw_function_list["category"]["grouped-leaf-items"]:
