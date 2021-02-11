@@ -189,13 +189,26 @@ def _scrape_doc_page_html(url: str, release: str) -> t.List[str]:
 
 
 def _scrape_doc_page_json(url: str) -> t.List[str]:
-    """"""
+    """Scrape the toolbox function list for a MATLAB release with a valid reflist API endpoint."""
     r = httpx.get(url, timeout=10)
-    raw_function_list = r.json()
 
+    # Catch reflists that aren't being served (likely licensed blocked)
+    if r.status_code == httpx.codes.OK:
+        raw_function_list = r.json()
+    else:
+        return []
+
+    # Toolboxes may or may not group the functions.
+    # If they're grouped, there will be an additional "grouped-leaf-items" list layer of the
+    # function leaves
     all_functions = []
-    for category in raw_function_list["category"]["grouped-leaf-items"]:
-        all_functions.extend([function["name"] for function in category["leaf-items"]])
+    if not raw_function_list["category"].get("grouped-leaf-items", None):
+        all_functions.extend(
+            [function["name"] for function in raw_function_list["category"]["leaf-items"]]
+        )
+    else:
+        for category in raw_function_list["category"]["grouped-leaf-items"]:
+            all_functions.extend([function["name"] for function in category["leaf-items"]])
 
     return all_functions
 
