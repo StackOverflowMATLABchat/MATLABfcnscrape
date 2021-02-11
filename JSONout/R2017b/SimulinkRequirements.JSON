@@ -1,0 +1,14 @@
+[
+	"rmi",
+	"rmidata.export",
+	"rmidata.save",
+	"rmidocrename",
+	"rmimap.map",
+	"rmiobjnavigate",
+	"rmipref",
+	"rmiref.insertRefs",
+	"rmiref.removeRefs",
+	"rmitag",
+	"RptgenRMI.doorsAttribs",
+	"slwebview_req"
+]
