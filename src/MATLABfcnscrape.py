@@ -4,6 +4,7 @@ import re
 import typing as t
 from collections import defaultdict, deque
 from pathlib import Path
+from urllib.parse import urlencode
 
 import httpx
 from bs4 import BeautifulSoup
@@ -12,6 +13,8 @@ from selenium.common.exceptions import NoSuchElementException
 
 
 BASE_URL_PREFIX = "https://www.mathworks.com/help/releases"
+REFLIST_URL_PREFIX = "https://www.mathworks.com/help/search/reflist/doccenter/en"
+
 JSON_ROOT = Path("./JSONout")
 URL_CACHE_FILENAME = "_url_cache.JSON"
 FUNCTION_BLACKLIST = Path("./function_blacklist.JSON")
@@ -27,23 +30,21 @@ NON_CODE_FCN = {"R2016a", "R2015b"}  # Functions are not wrapped in code blocks
 URL_CACHE_DICT = t.Dict[str, t.Dict[str, str]]
 
 
-def help_url_builder(shortlink: str, release: str) -> str:
+def help_url_builder(help_location: str, release: str) -> str:
     """
-    Helper to build URL for alphabetical function list from the toolbox's shortlink.
-
-    e.g. '<...>/help/releases/R2020b/stats/referencelist.html?type=function&listtype=alpha'
-    from 'stats/index.html'
+    Helper to build URL for alphabetical function list from the toolbox's help location.
 
     Currently there are 2 (incompatible) URL suffixes, the correct suffix is chosen based on the
     provided release & the list of "legacy" releases in `LEGACY_FN_LIST_RELEASES`.
     """
     if release in LEGACY_FN_LIST_RELEASES:
         suffix = "functionlist-alpha.html"
+        return f"{BASE_URL_PREFIX}/{release}/{help_location}/{suffix}"
     else:
-        suffix = "referencelist.html?type=function&listtype=alpha"
-
-    base_toolbox = shortlink.split("/")[0]
-    return f"{BASE_URL_PREFIX}/{release}/{base_toolbox}/{suffix}"
+        # Newer MATLAB releases have an API endpoint that provides JSON
+        params = {"type": "function", "listtype": "alpha", "product": help_location}
+        suffix = urlencode(params)
+        return f"{REFLIST_URL_PREFIX}/{suffix}"
 
 
 def scrape_toolbox_urls(release: str) -> None:
