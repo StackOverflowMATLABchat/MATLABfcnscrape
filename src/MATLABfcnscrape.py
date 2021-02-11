@@ -2,7 +2,7 @@ import json
 import logging
 import re
 import typing as t
-from collections import defaultdict
+from collections import defaultdict, deque
 from pathlib import Path
 
 import httpx
@@ -21,10 +21,6 @@ CURRENT_RELEASE = "R2020b"
 # These releases have a different URL suffix for the toolbox function list
 # These releases also have function lists that can be parsed directly from HTML
 LEGACY_FN_LIST_RELEASES = {"R2018a", "R2017b", "R2017a", "R2016b", "R2016a", "R2015b"}
-
-# These releases have different layouts of the documentation homepage
-LEGACY_HELP_LAYOUT = {"R2018a", "R2017b", "R2017a", "R2016b"}
-REALLY_OLD_HELP_LAYOUT = {"R2016a", "R2015b"}
 
 NON_CODE_FCN = {"R2016a", "R2015b"}  # Functions are not wrapped in code blocks
 
@@ -76,7 +72,6 @@ def scrape_toolbox_urls(release: str) -> None:
         # Short blacklist for non-toolboxes
         if short_name == "install":
             continue
-
         if product_family and product_family.text == "webonlyproducts":
             continue
 
@@ -98,13 +93,28 @@ def scrape_toolbox_urls(release: str) -> None:
         json.dump(grouped_dict, fID, indent="\t")
 
 
+def _url_denester(url_cache_dict: dict) -> t.Iterator[t.Tuple[str, str]]:
+    """Denest the structured URL cache format into its toolbox name, URL pairs."""
+    dict_queue = deque((url_cache_dict,))
+
+    # Use a stack queue to iterate through an arbitrary number of nested dictionary layers
+    # Once we reach a non-dict value we can assume that we have a toolbox name, URL k,v pair and
+    # yield it
+    while dict_queue:
+        for k, v in dict_queue[-1].items():
+            if isinstance(v, dict):
+                dict_queue.append(dict_queue[-1].pop(k))
+                break
+            else:
+                yield k, v
+        else:
+            # Dump the dictionary once it's been exhausted
+            dict_queue.pop()
+
+
 def load_url_dict(release: str) -> t.Dict[str, str]:
     """
     Load the toolbox URL cache for the provided MATLAB release.
-
-    Expected input dict format a nested dict:
-        Top level dict is MATLAB's "Family" group
-        Next level is a dict of toolbox:URL KV-pair for each group
 
     Output is a single layer dict containing the toolbox:url KV-pairs
     """
@@ -112,10 +122,7 @@ def load_url_dict(release: str) -> t.Dict[str, str]:
     with url_cache.open(mode="r") as fID:
         tmp = json.load(fID)
 
-    # For easier reading are dumped as they are grouped on MATLAB's documentation homepage, we can
-    # denest this into a single layer for parsing
-    squeeze_gen = (tmp[grouping] for grouping in tmp.keys())
-    return {k: v for d in squeeze_gen for k, v in d.items()}
+    return {k: v for k, v in _url_denester(tmp)}
 
 
 def load_function_blacklist(blacklist_filepath: Path = FUNCTION_BLACKLIST) -> t.Set[str]:
