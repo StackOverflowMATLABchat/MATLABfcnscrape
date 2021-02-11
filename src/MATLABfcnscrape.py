@@ -224,6 +224,7 @@ def scrape_doc_page(url: str, release: str, driver: t.Optional[webdriver.Chrome]
 
 def write_Toolbox_JSON(fcn_list: t.List[str], toolbox_name: str, release: str) -> None:
     """Write input toolbox function list to dest/toolboxname.JSON."""
+    toolbox_name = toolbox_name.replace(" ", "")  # I don't like spaces in filenames
     filepath = JSON_ROOT / release / f"{toolbox_name}.JSON"
     with filepath.open(mode="w") as fID:
         json.dump(fcn_list, fID, indent="\t")

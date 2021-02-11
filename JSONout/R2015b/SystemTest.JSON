@@ -1,0 +1,21 @@
+[
+	"addArtifact",
+	"getCurrent",
+	"getInfo",
+	"getSignal",
+	"horzcat",
+	"isSignal",
+	"removeSignal",
+	"renameSignal",
+	"setDataType",
+	"setSignal",
+	"stLoadTestCases",
+	"strun",
+	"stSaveTestCases",
+	"systest.createHarness",
+	"systest.requirements.createlink",
+	"systest.requirements.getInfo",
+	"systest.signals.segments",
+	"systest.signals.Signal",
+	"systest.TestCase"
+]
