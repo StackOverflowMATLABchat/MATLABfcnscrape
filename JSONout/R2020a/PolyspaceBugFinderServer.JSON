@@ -14,9 +14,9 @@
 	"polyspace.GenericTargetOptions",
 	"polyspace.Options",
 	"polyspace.Project",
+	"polyspace_report",
 	"polyspaceBugFinderServer",
 	"polyspaceConfigure",
-	"polyspace_report",
 	"polyspaceroot",
 	"run",
 	"toScript"
