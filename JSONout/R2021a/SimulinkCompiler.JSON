@@ -1,0 +1,11 @@
+[
+	"exportToFMU2CS",
+	"simulink.compiler.configureForDeployment",
+	"simulink.compiler.genapp",
+	"simulink.compiler.getTunableVariables",
+	"simulink.compiler.loadEnumTypes",
+	"simulink.compiler.setExternalInputsFcn",
+	"simulink.compiler.setExternalOutputsFcn",
+	"simulink.compiler.setPostStepFcn",
+	"simulink.compiler.stopSimulation"
+]
