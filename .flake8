@@ -1,6 +1,8 @@
 [flake8]
 max-line-length=100
 docstring-convention=all
+import-order-style=pycharm
+application-import-names=MATLABfcnscrape
 ignore=
     P102,B311,W503,E226,S311,
     # Missing Docstrings
@@ -20,4 +22,3 @@ ignore=
 exclude=
     __pycache__,.cache,
     venv,.venv,
-import-order-style=pycharm

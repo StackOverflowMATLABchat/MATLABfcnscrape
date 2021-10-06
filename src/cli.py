@@ -1,6 +1,7 @@
 import re
 
 import typer
+
 from MATLABfcnscrape import (
     CURRENT_RELEASE,
     JSON_ROOT,
@@ -8,7 +9,6 @@ from MATLABfcnscrape import (
     scrape_toolbox_urls,
     scraping_pipeline,
 )
-
 
 scrape_cli = typer.Typer()
 

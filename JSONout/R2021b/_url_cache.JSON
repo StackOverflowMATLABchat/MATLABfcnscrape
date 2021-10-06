@@ -1,0 +1,171 @@
+{
+	"matlab": {
+		"MATLAB": "https://www.mathworks.com/help/search/reflist/doccenter/en/R2021b?type=function&listtype=alpha&product=matlab",
+		"Signal Processing": {
+			"5G Toolbox": "https://www.mathworks.com/help/search/reflist/doccenter/en/R2021b?type=function&listtype=alpha&product=5g",
+			"Antenna Toolbox": "https://www.mathworks.com/help/search/reflist/doccenter/en/R2021b?type=function&listtype=alpha&product=antenna",
+			"Audio Toolbox": "https://www.mathworks.com/help/search/reflist/doccenter/en/R2021b?type=function&listtype=alpha&product=audio",
+			"Communications Toolbox": "https://www.mathworks.com/help/search/reflist/doccenter/en/R2021b?type=function&listtype=alpha&product=comm",
+			"DSP System Toolbox": "https://www.mathworks.com/help/search/reflist/doccenter/en/R2021b?type=function&listtype=alpha&product=dsp",
+			"LTE Toolbox": "https://www.mathworks.com/help/search/reflist/doccenter/en/R2021b?type=function&listtype=alpha&product=lte",
+			"Phased Array System Toolbox": "https://www.mathworks.com/help/search/reflist/doccenter/en/R2021b?type=function&listtype=alpha&product=phased",
+			"Radar Toolbox": "https://www.mathworks.com/help/search/reflist/doccenter/en/R2021b?type=function&listtype=alpha&product=radar",
+			"RF PCB Toolbox": "https://www.mathworks.com/help/search/reflist/doccenter/en/R2021b?type=function&listtype=alpha&product=rfpcb",
+			"RF Toolbox": "https://www.mathworks.com/help/search/reflist/doccenter/en/R2021b?type=function&listtype=alpha&product=rf",
+			"Satellite Communications Toolbox": "https://www.mathworks.com/help/search/reflist/doccenter/en/R2021b?type=function&listtype=alpha&product=satcom",
+			"Sensor Fusion and Tracking Toolbox": "https://www.mathworks.com/help/search/reflist/doccenter/en/R2021b?type=function&listtype=alpha&product=fusion",
+			"SerDes Toolbox": "https://www.mathworks.com/help/search/reflist/doccenter/en/R2021b?type=function&listtype=alpha&product=serdes",
+			"Signal Integrity Toolbox": "https://www.mathworks.com/help/search/reflist/doccenter/en/R2021b?type=function&listtype=alpha&product=signal-integrity",
+			"Signal Processing Toolbox": "https://www.mathworks.com/help/search/reflist/doccenter/en/R2021b?type=function&listtype=alpha&product=signal",
+			"Wavelet Toolbox": "https://www.mathworks.com/help/search/reflist/doccenter/en/R2021b?type=function&listtype=alpha&product=wavelet",
+			"WLAN Toolbox": "https://www.mathworks.com/help/search/reflist/doccenter/en/R2021b?type=function&listtype=alpha&product=wlan"
+		},
+		"Control Systems": {
+			"Aerospace Toolbox": "https://www.mathworks.com/help/search/reflist/doccenter/en/R2021b?type=function&listtype=alpha&product=aerotbx",
+			"Control System Toolbox": "https://www.mathworks.com/help/search/reflist/doccenter/en/R2021b?type=function&listtype=alpha&product=control",
+			"Fuzzy Logic Toolbox": "https://www.mathworks.com/help/search/reflist/doccenter/en/R2021b?type=function&listtype=alpha&product=fuzzy",
+			"Model Predictive Control Toolbox": "https://www.mathworks.com/help/search/reflist/doccenter/en/R2021b?type=function&listtype=alpha&product=mpc",
+			"Model-Based Calibration Toolbox": "https://www.mathworks.com/help/search/reflist/doccenter/en/R2021b?type=function&listtype=alpha&product=mbc",
+			"Robust Control Toolbox": "https://www.mathworks.com/help/search/reflist/doccenter/en/R2021b?type=function&listtype=alpha&product=robust",
+			"System Identification Toolbox": "https://www.mathworks.com/help/search/reflist/doccenter/en/R2021b?type=function&listtype=alpha&product=ident"
+		},
+		"Robotics Autonomous": {
+			"Automated Driving Toolbox": "https://www.mathworks.com/help/search/reflist/doccenter/en/R2021b?type=function&listtype=alpha&product=driving",
+			"Navigation Toolbox": "https://www.mathworks.com/help/search/reflist/doccenter/en/R2021b?type=function&listtype=alpha&product=nav",
+			"RoadRunner": "https://www.mathworks.com/help/search/reflist/doccenter/en/R2021b?type=function&listtype=alpha&product=roadrunner",
+			"Robotics System Toolbox": "https://www.mathworks.com/help/search/reflist/doccenter/en/R2021b?type=function&listtype=alpha&product=robotics",
+			"ROS Toolbox": "https://www.mathworks.com/help/search/reflist/doccenter/en/R2021b?type=function&listtype=alpha&product=ros",
+			"UAV Toolbox": "https://www.mathworks.com/help/search/reflist/doccenter/en/R2021b?type=function&listtype=alpha&product=uav"
+		},
+		"Computational Biology": {
+			"Bioinformatics Toolbox": "https://www.mathworks.com/help/search/reflist/doccenter/en/R2021b?type=function&listtype=alpha&product=bioinfo",
+			"SimBiology": "https://www.mathworks.com/help/search/reflist/doccenter/en/R2021b?type=function&listtype=alpha&product=simbio"
+		},
+		"Image Video Processing": {
+			"Computer Vision Toolbox": "https://www.mathworks.com/help/search/reflist/doccenter/en/R2021b?type=function&listtype=alpha&product=vision",
+			"Image Acquisition Toolbox": "https://www.mathworks.com/help/search/reflist/doccenter/en/R2021b?type=function&listtype=alpha&product=imaq",
+			"Image Processing Toolbox": "https://www.mathworks.com/help/search/reflist/doccenter/en/R2021b?type=function&listtype=alpha&product=images",
+			"Lidar Toolbox": "https://www.mathworks.com/help/search/reflist/doccenter/en/R2021b?type=function&listtype=alpha&product=lidar",
+			"Mapping Toolbox": "https://www.mathworks.com/help/search/reflist/doccenter/en/R2021b?type=function&listtype=alpha&product=map",
+			"Vision HDL Toolbox": "https://www.mathworks.com/help/search/reflist/doccenter/en/R2021b?type=function&listtype=alpha&product=visionhdl"
+		},
+		"Math Statistics And Optimization": {
+			"Curve Fitting Toolbox": "https://www.mathworks.com/help/search/reflist/doccenter/en/R2021b?type=function&listtype=alpha&product=curvefit",
+			"Global Optimization Toolbox": "https://www.mathworks.com/help/search/reflist/doccenter/en/R2021b?type=function&listtype=alpha&product=gads",
+			"Optimization Toolbox": "https://www.mathworks.com/help/search/reflist/doccenter/en/R2021b?type=function&listtype=alpha&product=optim",
+			"Partial Differential Equation Toolbox": "https://www.mathworks.com/help/search/reflist/doccenter/en/R2021b?type=function&listtype=alpha&product=pde",
+			"Symbolic Math Toolbox": "https://www.mathworks.com/help/search/reflist/doccenter/en/R2021b?type=function&listtype=alpha&product=symbolic"
+		},
+		"Test Measurement": {
+			"Data Acquisition Toolbox": "https://www.mathworks.com/help/search/reflist/doccenter/en/R2021b?type=function&listtype=alpha&product=daq",
+			"Instrument Control Toolbox": "https://www.mathworks.com/help/search/reflist/doccenter/en/R2021b?type=function&listtype=alpha&product=instrument",
+			"OPC Toolbox": "https://www.mathworks.com/help/search/reflist/doccenter/en/R2021b?type=function&listtype=alpha&product=opc",
+			"ThingSpeak": "https://www.mathworks.com/help/search/reflist/doccenter/en/R2021b?type=function&listtype=alpha&product=thingspeak",
+			"Vehicle Network Toolbox": "https://www.mathworks.com/help/search/reflist/doccenter/en/R2021b?type=function&listtype=alpha&product=vnt"
+		},
+		"Computational Finance": {
+			"Database Toolbox": "https://www.mathworks.com/help/search/reflist/doccenter/en/R2021b?type=function&listtype=alpha&product=database",
+			"Datafeed Toolbox": "https://www.mathworks.com/help/search/reflist/doccenter/en/R2021b?type=function&listtype=alpha&product=datafeed",
+			"Econometrics Toolbox": "https://www.mathworks.com/help/search/reflist/doccenter/en/R2021b?type=function&listtype=alpha&product=econ",
+			"Financial Instruments Toolbox": "https://www.mathworks.com/help/search/reflist/doccenter/en/R2021b?type=function&listtype=alpha&product=fininst",
+			"Financial Toolbox": "https://www.mathworks.com/help/search/reflist/doccenter/en/R2021b?type=function&listtype=alpha&product=finance",
+			"Risk Management Toolbox": "https://www.mathworks.com/help/search/reflist/doccenter/en/R2021b?type=function&listtype=alpha&product=risk",
+			"Spreadsheet Link": "https://www.mathworks.com/help/search/reflist/doccenter/en/R2021b?type=function&listtype=alpha&product=exlink"
+		},
+		"Code Generation": {
+			"Deep Learning HDL Toolbox": "https://www.mathworks.com/help/search/reflist/doccenter/en/R2021b?type=function&listtype=alpha&product=deep-learning-hdl",
+			"Embedded Coder": "https://www.mathworks.com/help/search/reflist/doccenter/en/R2021b?type=function&listtype=alpha&product=ecoder",
+			"Filter Design HDL Coder": "https://www.mathworks.com/help/search/reflist/doccenter/en/R2021b?type=function&listtype=alpha&product=hdlfilter",
+			"Fixed-Point Designer": "https://www.mathworks.com/help/search/reflist/doccenter/en/R2021b?type=function&listtype=alpha&product=fixedpoint",
+			"GPU Coder": "https://www.mathworks.com/help/search/reflist/doccenter/en/R2021b?type=function&listtype=alpha&product=gpucoder",
+			"HDL Coder": "https://www.mathworks.com/help/search/reflist/doccenter/en/R2021b?type=function&listtype=alpha&product=hdlcoder",
+			"HDL Verifier": "https://www.mathworks.com/help/search/reflist/doccenter/en/R2021b?type=function&listtype=alpha&product=hdlverifier",
+			"MATLAB Coder": "https://www.mathworks.com/help/search/reflist/doccenter/en/R2021b?type=function&listtype=alpha&product=coder"
+		},
+		"Data Analytics And Machine Learning": {
+			"Deep Learning Toolbox": "https://www.mathworks.com/help/search/reflist/doccenter/en/R2021b?type=function&listtype=alpha&product=deeplearning",
+			"Predictive Maintenance Toolbox": "https://www.mathworks.com/help/search/reflist/doccenter/en/R2021b?type=function&listtype=alpha&product=predmaint",
+			"Reinforcement Learning Toolbox": "https://www.mathworks.com/help/search/reflist/doccenter/en/R2021b?type=function&listtype=alpha&product=reinforcement-learning",
+			"Statistics and Machine Learning Toolbox": "https://www.mathworks.com/help/search/reflist/doccenter/en/R2021b?type=function&listtype=alpha&product=stats",
+			"Text Analytics Toolbox": "https://www.mathworks.com/help/search/reflist/doccenter/en/R2021b?type=function&listtype=alpha&product=textanalytics"
+		},
+		"Desktop Web Deployment": {
+			"MATLAB Compiler": "https://www.mathworks.com/help/search/reflist/doccenter/en/R2021b?type=function&listtype=alpha&product=compiler",
+			"MATLAB Compiler SDK": "https://www.mathworks.com/help/search/reflist/doccenter/en/R2021b?type=function&listtype=alpha&product=compiler_sdk",
+			"MATLAB Production Server": "https://www.mathworks.com/help/search/reflist/doccenter/en/R2021b?type=function&listtype=alpha&product=mps",
+			"MATLAB Web App Server": "https://www.mathworks.com/help/search/reflist/doccenter/en/R2021b?type=function&listtype=alpha&product=webappserver"
+		},
+		"Parallel Computing": {
+			"MATLAB in the Cloud": "https://www.mathworks.com/help/search/reflist/doccenter/en/R2021b?type=function&listtype=alpha&product=cloudcenter",
+			"MATLAB Parallel Server": "https://www.mathworks.com/help/search/reflist/doccenter/en/R2021b?type=function&listtype=alpha&product=matlab-parallel-server",
+			"Parallel Computing Toolbox": "https://www.mathworks.com/help/search/reflist/doccenter/en/R2021b?type=function&listtype=alpha&product=parallel-computing"
+		},
+		"Database Access And Reporting": {
+			"MATLAB Report Generator": "https://www.mathworks.com/help/search/reflist/doccenter/en/R2021b?type=function&listtype=alpha&product=rptgen"
+		},
+		"Fpga Asic Soc": {
+			"SoC Blockset": "https://www.mathworks.com/help/search/reflist/doccenter/en/R2021b?type=function&listtype=alpha&product=soc"
+		}
+	},
+	"simulink": {
+		"Simulink": "https://www.mathworks.com/help/search/reflist/doccenter/en/R2021b?type=function&listtype=alpha&product=simulink",
+		"Control Systems": {
+			"Aerospace Blockset": "https://www.mathworks.com/help/search/reflist/doccenter/en/R2021b?type=function&listtype=alpha&product=aeroblks",
+			"Motor Control Blockset": "https://www.mathworks.com/help/search/reflist/doccenter/en/R2021b?type=function&listtype=alpha&product=mcb",
+			"Powertrain Blockset": "https://www.mathworks.com/help/search/reflist/doccenter/en/R2021b?type=function&listtype=alpha&product=autoblks",
+			"Simulink Control Design": "https://www.mathworks.com/help/search/reflist/doccenter/en/R2021b?type=function&listtype=alpha&product=slcontrol",
+			"Simulink Design Optimization": "https://www.mathworks.com/help/search/reflist/doccenter/en/R2021b?type=function&listtype=alpha&product=sldo",
+			"Vehicle Dynamics Blockset": "https://www.mathworks.com/help/search/reflist/doccenter/en/R2021b?type=function&listtype=alpha&product=vdynblks"
+		},
+		"Code Generation": {
+			"AUTOSAR Blockset": "https://www.mathworks.com/help/search/reflist/doccenter/en/R2021b?type=function&listtype=alpha&product=autosar",
+			"DDS Blockset": "https://www.mathworks.com/help/search/reflist/doccenter/en/R2021b?type=function&listtype=alpha&product=dds",
+			"DO Qualification Kit (for DO-178)": "https://www.mathworks.com/help/search/reflist/doccenter/en/R2021b?type=function&listtype=alpha&product=qualkitdo",
+			"IEC Certification Kit (for ISO 26262 and IEC 61508)": "https://www.mathworks.com/help/search/reflist/doccenter/en/R2021b?type=function&listtype=alpha&product=certkitiec",
+			"Simulink Code Inspector": "https://www.mathworks.com/help/search/reflist/doccenter/en/R2021b?type=function&listtype=alpha&product=slci",
+			"Simulink Coder": "https://www.mathworks.com/help/search/reflist/doccenter/en/R2021b?type=function&listtype=alpha&product=rtw",
+			"Simulink PLC Coder": "https://www.mathworks.com/help/search/reflist/doccenter/en/R2021b?type=function&listtype=alpha&product=plccoder"
+		},
+		"Signal Processing": {
+			"Mixed-Signal Blockset": "https://www.mathworks.com/help/search/reflist/doccenter/en/R2021b?type=function&listtype=alpha&product=msblks",
+			"RF Blockset": "https://www.mathworks.com/help/search/reflist/doccenter/en/R2021b?type=function&listtype=alpha&product=simrf",
+			"Wireless HDL Toolbox": "https://www.mathworks.com/help/search/reflist/doccenter/en/R2021b?type=function&listtype=alpha&product=wireless-hdl"
+		},
+		"Verification Validation": {
+			"Polyspace Bug Finder": "https://www.mathworks.com/help/search/reflist/doccenter/en/R2021b?type=function&listtype=alpha&product=bugfinder",
+			"Polyspace Code Prover": "https://www.mathworks.com/help/search/reflist/doccenter/en/R2021b?type=function&listtype=alpha&product=codeprover",
+			"Polyspace Products for Ada": "https://www.mathworks.com/help/search/reflist/doccenter/en/R2021b?type=function&listtype=alpha&product=polyspace_ada",
+			"Simulink Check": "https://www.mathworks.com/help/search/reflist/doccenter/en/R2021b?type=function&listtype=alpha&product=slcheck",
+			"Simulink Coverage": "https://www.mathworks.com/help/search/reflist/doccenter/en/R2021b?type=function&listtype=alpha&product=slcoverage",
+			"Simulink Design Verifier": "https://www.mathworks.com/help/search/reflist/doccenter/en/R2021b?type=function&listtype=alpha&product=sldv",
+			"Simulink Test": "https://www.mathworks.com/help/search/reflist/doccenter/en/R2021b?type=function&listtype=alpha&product=sltest"
+		},
+		"Event Based Modeling": {
+			"SimEvents": "https://www.mathworks.com/help/search/reflist/doccenter/en/R2021b?type=function&listtype=alpha&product=simevents",
+			"Stateflow": "https://www.mathworks.com/help/search/reflist/doccenter/en/R2021b?type=function&listtype=alpha&product=stateflow"
+		},
+		"Physical Modeling": {
+			"Simscape": "https://www.mathworks.com/help/search/reflist/doccenter/en/R2021b?type=function&listtype=alpha&product=physmod%2Fsimscape",
+			"Simscape Driveline": "https://www.mathworks.com/help/search/reflist/doccenter/en/R2021b?type=function&listtype=alpha&product=physmod%2Fsdl",
+			"Simscape Electrical": "https://www.mathworks.com/help/search/reflist/doccenter/en/R2021b?type=function&listtype=alpha&product=physmod%2Fsps",
+			"Simscape Fluids": "https://www.mathworks.com/help/search/reflist/doccenter/en/R2021b?type=function&listtype=alpha&product=physmod%2Fhydro",
+			"Simscape Multibody": "https://www.mathworks.com/help/search/reflist/doccenter/en/R2021b?type=function&listtype=alpha&product=physmod%2Fsm",
+			"Simscape Multibody Link": "https://www.mathworks.com/help/search/reflist/doccenter/en/R2021b?type=function&listtype=alpha&product=physmod%2Fsmlink"
+		},
+		"Simulation Graphics And Reporting": {
+			"Simulink 3D Animation": "https://www.mathworks.com/help/search/reflist/doccenter/en/R2021b?type=function&listtype=alpha&product=sl3d",
+			"Simulink Report Generator": "https://www.mathworks.com/help/search/reflist/doccenter/en/R2021b?type=function&listtype=alpha&product=rptgenext"
+		},
+		"Desktop Web Deployment": {
+			"Simulink Compiler": "https://www.mathworks.com/help/search/reflist/doccenter/en/R2021b?type=function&listtype=alpha&product=slcompiler"
+		},
+		"Rapid Prototyping": {
+			"Simulink Desktop Real-Time": "https://www.mathworks.com/help/search/reflist/doccenter/en/R2021b?type=function&listtype=alpha&product=sldrt",
+			"Simulink Real-Time": "https://www.mathworks.com/help/search/reflist/doccenter/en/R2021b?type=function&listtype=alpha&product=slrealtime"
+		},
+		"Systems Engineering": {
+			"Simulink Requirements": "https://www.mathworks.com/help/search/reflist/doccenter/en/R2021b?type=function&listtype=alpha&product=slrequirements",
+			"System Composer": "https://www.mathworks.com/help/search/reflist/doccenter/en/R2021b?type=function&listtype=alpha&product=systemcomposer"
+		}
+	}
+}

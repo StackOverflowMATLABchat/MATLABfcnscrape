@@ -9,7 +9,6 @@ from urllib.parse import urlencode
 import httpx
 from bs4 import BeautifulSoup
 
-
 BASE_URL_PREFIX = "https://www.mathworks.com/help/releases"
 REFLIST_URL_PREFIX = "https://www.mathworks.com/help/search/reflist/doccenter/en"
 
@@ -17,7 +16,7 @@ JSON_ROOT = Path("./JSONout")
 URL_CACHE_FILENAME = "_url_cache.JSON"
 FUNCTION_BLACKLIST = Path("./function_blacklist.JSON")
 
-CURRENT_RELEASE = "R2020b"
+CURRENT_RELEASE = "R2021b"
 
 # These releases have a different URL suffix for the toolbox function list
 # These releases also have function lists that can be parsed directly from HTML
