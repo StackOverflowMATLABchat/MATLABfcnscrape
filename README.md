@@ -13,24 +13,36 @@ For each MATLAB release, a JSON file is output per toolbox and all unique functi
   * The filtering mechanism is continually being improved in order to provide the best possible listing of "actual" functions without requiring significant manual intervention
 
 ## MATLABfcnscrape CLI
-Assuming MATLABfcnscrape is installed in the current environment, it can be invoked directly from the command line:
+Assuming `MATLABfcnscrape` is installed in the current environment, it can be invoked directly from the command line:
 
-```bash
+
+<!-- [[[cog
+# Generate code fence using `cog -r README.md`
+import cog
+from subprocess import PIPE, run
+out = run(["fcnscrape"], stdout=PIPE, encoding="ascii")
+cli_help = out.stdout
+cog.out(
+    f"```\n$ fcnscrape\n{cli_help}\n```"
+)
+]]] -->
+```
 $ fcnscrape
 Usage: fcnscrape [OPTIONS] COMMAND [ARGS]...
 
-  Scrape MATLABs online documentation for all function names.
+  Scrape MATLAB's online documentation for all function names.
 
 Options:
   --install-completion  Install completion for the current shell.
   --show-completion     Show completion for the current shell, to copy it or
                         customize the installation.
-
   --help                Show this message and exit.
 
 Commands:
   run  Run the documentation scraping pipeline for the specified release.
+
 ```
+<!-- [[[end]]] -->
 
 ### `fcnscrape run`
 Invokes the main scraping pipeline

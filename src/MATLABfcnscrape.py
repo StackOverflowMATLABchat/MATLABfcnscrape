@@ -16,7 +16,7 @@ JSON_ROOT = Path("./JSONout")
 URL_CACHE_FILENAME = "_url_cache.JSON"
 FUNCTION_BLACKLIST = Path("./function_blacklist.JSON")
 
-CURRENT_RELEASE = "R2021b"
+CURRENT_RELEASE = "R2022a"
 
 # These releases have a different URL suffix for the toolbox function list
 # These releases also have function lists that can be parsed directly from HTML

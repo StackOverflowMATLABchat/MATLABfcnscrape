@@ -1,0 +1,23 @@
+[
+	"dsphdl.BiquadFilter",
+	"dsphdl.Channelizer",
+	"dsphdl.ChannelSynthesizer",
+	"dsphdl.CICDecimator",
+	"dsphdl.CICInterpolator",
+	"dsphdl.ComplexToMagnitudeAngle",
+	"dsphdl.FarrowRateConverter",
+	"dsphdl.FFT",
+	"dsphdl.FIRDecimator",
+	"dsphdl.FIRFilter",
+	"dsphdl.FIRInterpolator",
+	"dsphdl.FIRRateConverter",
+	"dsphdl.IFFT",
+	"dsphdl.NCO",
+	"getLatency",
+	"getLatency",
+	"getLatency",
+	"getLatency",
+	"getLatency",
+	"getLatency",
+	"getLatency"
+]

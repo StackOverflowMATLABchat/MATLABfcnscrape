@@ -1,0 +1,13 @@
+[
+	"matlab.production_server.client.MWHttpClient",
+	"prodserver.addon.accessTokenPolicy",
+	"prodserver.addon.availableAddOns",
+	"prodserver.addon.Explorer",
+	"prodserver.addon.get",
+	"prodserver.addon.install",
+	"prodserver.addon.installFolder",
+	"prodserver.addon.isAddOnFcn",
+	"prodserver.addon.isInstalled",
+	"prodserver.addon.set",
+	"prodserver.addon.uninstall"
+]
