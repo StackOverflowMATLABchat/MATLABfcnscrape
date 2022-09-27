@@ -2,7 +2,7 @@ import json
 import logging
 import re
 import typing as t
-from collections import defaultdict, deque
+from collections import abc, defaultdict, deque
 from pathlib import Path
 from urllib.parse import urlencode
 
@@ -56,7 +56,7 @@ def scrape_toolbox_urls(release: str) -> None:
     soup = BeautifulSoup(r.content, "lxml")
 
     # Use a lambda concoction to allow for branching sub-dictionaries
-    grouped_dict = defaultdict(lambda: defaultdict(dict))
+    grouped_dict: dict[str, dict] = defaultdict(lambda: defaultdict(dict))
     products = soup.findAll("product")
     for product in products:
         display_name = product.find("display-name").text
@@ -91,7 +91,7 @@ def scrape_toolbox_urls(release: str) -> None:
         json.dump(grouped_dict, fID, indent="\t")
 
 
-def _url_denester(url_cache_dict: dict) -> t.Iterator[t.Tuple[str, str]]:
+def _url_denester(url_cache_dict: dict) -> t.Iterator[tuple[str, str]]:
     """Denest the structured URL cache format into its toolbox name, URL pairs."""
     dict_queue = deque((url_cache_dict,))
 
@@ -110,7 +110,7 @@ def _url_denester(url_cache_dict: dict) -> t.Iterator[t.Tuple[str, str]]:
             dict_queue.pop()
 
 
-def load_url_dict(release: str) -> t.Dict[str, str]:
+def load_url_dict(release: str) -> dict[str, str]:
     """
     Load the toolbox URL cache for the provided MATLAB release.
 
@@ -123,7 +123,7 @@ def load_url_dict(release: str) -> t.Dict[str, str]:
     return {k: v for k, v in _url_denester(tmp)}
 
 
-def load_function_blacklist(blacklist_filepath: Path = FUNCTION_BLACKLIST) -> t.Set[str]:
+def load_function_blacklist(blacklist_filepath: Path = FUNCTION_BLACKLIST) -> set[str]:
     """
     Load the function blacklist from the specified JSON file.
 
@@ -137,7 +137,9 @@ def load_function_blacklist(blacklist_filepath: Path = FUNCTION_BLACKLIST) -> t.
     return set(function_blacklist)
 
 
-def filter_functions(function_list: t.List[str], function_blacklist: t.List[str]) -> t.List[str]:
+def filter_functions(
+    function_list: abc.Collection[str], function_blacklist: abc.Collection[str]
+) -> list[str]:
     """Run a series of filters over the raw scrape of a toolbox's list of functions."""
     filtered_functions = []
     for function_name in function_list:
@@ -173,7 +175,7 @@ def filter_functions(function_list: t.List[str], function_blacklist: t.List[str]
     return filtered_functions
 
 
-def _scrape_doc_page_html(url: str, release: str) -> t.List[str]:
+def _scrape_doc_page_html(url: str, release: str) -> list[str]:
     """Scrape the toolbox function list for a MATLAB release with static documentation serving."""
     r = httpx.get(url, timeout=2)
     soup = BeautifulSoup(r.content, "html.parser")
@@ -187,7 +189,7 @@ def _scrape_doc_page_html(url: str, release: str) -> t.List[str]:
     return [function.text for function in functions]
 
 
-def _scrape_doc_page_json(url: str) -> t.List[str]:
+def _scrape_doc_page_json(url: str) -> list[str]:
     """Scrape the toolbox function list for a MATLAB release with a valid reflist API endpoint."""
     r = httpx.get(url, timeout=10)
 
@@ -212,7 +214,7 @@ def _scrape_doc_page_json(url: str) -> t.List[str]:
     return all_functions
 
 
-def scrape_doc_page(url: str, release: str) -> t.List[str]:
+def scrape_doc_page(url: str, release: str) -> list[str]:
     """
     Scrape functions from input MATLAB Doc Page URL.
 
@@ -229,7 +231,7 @@ def scrape_doc_page(url: str, release: str) -> t.List[str]:
     return raw_functions
 
 
-def write_Toolbox_JSON(fcn_list: t.List[str], toolbox_name: str, release: str) -> None:
+def write_Toolbox_JSON(fcn_list: list[str], toolbox_name: str, release: str) -> None:
     """Write input toolbox function list to dest/toolboxname.JSON."""
     toolbox_name = toolbox_name.replace(" ", "")  # I don't like spaces in filenames
     filepath = JSON_ROOT / release / f"{toolbox_name}.JSON"
