@@ -16,7 +16,7 @@ JSON_ROOT = Path("./JSONout")
 URL_CACHE_FILENAME = "_url_cache.JSON"
 FUNCTION_BLACKLIST = Path("./function_blacklist.JSON")
 
-CURRENT_RELEASE = "R2022a"
+CURRENT_RELEASE = "R2022b"
 
 # These releases have a different URL suffix for the toolbox function list
 # These releases also have function lists that can be parsed directly from HTML
@@ -53,7 +53,7 @@ def scrape_toolbox_urls(release: str) -> None:
     # MATLAB publishes an XML for each release containing a mapping of their products
     base_url = f"{BASE_URL_PREFIX}/{release}/docset.xml"
     r = httpx.get(base_url, timeout=2)
-    soup = BeautifulSoup(r.content, "lxml")
+    soup = BeautifulSoup(r.content, features="xml")
 
     # Use a lambda concoction to allow for branching sub-dictionaries
     grouped_dict: dict[str, dict] = defaultdict(lambda: defaultdict(dict))

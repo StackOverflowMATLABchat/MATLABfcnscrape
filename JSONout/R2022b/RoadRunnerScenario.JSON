@@ -1,0 +1,11 @@
+[
+	"createSimulation",
+	"exportScenario",
+	"getScenarioVariable",
+	"importScenario",
+	"newScenario",
+	"openScenario",
+	"remapAnchor",
+	"saveScenario",
+	"setScenarioVariable"
+]

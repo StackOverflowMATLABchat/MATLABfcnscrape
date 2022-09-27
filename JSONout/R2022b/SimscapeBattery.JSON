@@ -1,0 +1,13 @@
+[
+	"BatteryChart",
+	"buildBattery",
+	"Cell",
+	"CellModelBlock",
+	"CylindricalGeometry",
+	"Module",
+	"ModuleAssembly",
+	"Pack",
+	"ParallelAssembly",
+	"PouchGeometry",
+	"PrismaticGeometry"
+]
