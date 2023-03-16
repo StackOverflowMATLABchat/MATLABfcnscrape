@@ -1,0 +1,21 @@
+[
+	"ASim3dActor",
+	"copyExampleSim3dProject",
+	"open",
+	"ReadSimulation3DMessage",
+	"sim3d.Editor",
+	"sim3d.maps",
+	"sim3d.maps.Map.delete",
+	"sim3d.maps.Map.download",
+	"sim3d.maps.Map.local",
+	"sim3d.maps.Map.server",
+	"Sim3dRelease",
+	"Sim3dSetup",
+	"Sim3dStep",
+	"StartSimulation3DMessageReader",
+	"StartSimulation3DMessageWriter",
+	"StopSimulation3DMessageReader",
+	"StopSimulation3DMessageWriter",
+	"virtualVehicleComposer",
+	"WriteSimulation3DMessage"
+]

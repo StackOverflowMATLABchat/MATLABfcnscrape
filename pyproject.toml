@@ -15,6 +15,8 @@ classifiers = [
     'Programming Language :: Python :: 3 :: Only',
     'Programming Language :: Python :: 3.9',
     'Programming Language :: Python :: 3.10',
+    'Programming Language :: Python :: 3.11',
+    'Programming Language :: Python :: 3.12',
 ]
 
 [tool.poetry.scripts]
@@ -28,17 +30,17 @@ lxml = "^4.9"
 typer = "^0.6"
 
 [tool.poetry.dev-dependencies]
-black = "^22.8"
+black = "^23.1"
 cogapp = "^3.3"
-flake8 = "^5.0"
-flake8-annotations = "^2.9"
-flake8-bugbear = "^22.9"
-flake8-docstrings = "^1.6"
+flake8 = "^6.0"
+flake8-annotations = "^3.0"
+flake8-bugbear = "^23.1"
+flake8-docstrings = "^1.7"
 flake8-fixme = "^1.1"
-isort = "^5.10"
-mypy = "^0.981"
+isort = "^5.12"
+mypy = "^1.0"
 pep8-naming = "^0.13"
-pre-commit = "^2.20"
+pre-commit = "^3.0"
 
 [tool.black]
 line-length = 100
@@ -64,5 +66,5 @@ warn_unused_configs = true
 warn_unused_ignores = true
 
 [build-system]
-requires = ["poetry-core>=1.0.8"]
+requires = ["poetry-core>=1.2"]
 build-backend = "poetry.core.masonry.api"
