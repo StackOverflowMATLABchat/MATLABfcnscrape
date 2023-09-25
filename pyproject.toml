@@ -25,9 +25,9 @@ fcnscrape = "cli:scrape_cli"
 [tool.poetry.dependencies]
 python = "^3.9"
 beautifulsoup4 = "^4.11"
-httpx = "^0.23"
+httpx = "^0.25"
 lxml = "^4.9"
-typer = "^0.6"
+typer = "^0.9"
 
 [tool.poetry.dev-dependencies]
 black = "^23.1"

@@ -1,0 +1,10 @@
+[
+	"openSignalIntegrityKit",
+	"SignalIntegrityInterface",
+	"SignalIntegrityProject",
+	"SignalIntegritySheet",
+	"SignalIntegritySimulation",
+	"SignalIntegritySolutionSpace",
+	"SignalIntegrityState",
+	"SignalIntegrityWaveform"
+]
